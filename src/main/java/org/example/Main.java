@@ -27,7 +27,6 @@ public class Main {
             switch ((int)answer.longData) {
                 case 1:
                     // to do
-                    // to do
                     break;
                 case 2:
                     // to do
@@ -36,7 +35,6 @@ public class Main {
                     // to do
                     break;
                 case 4:
-                    // to do
                     // to do
                     break;
                 default:
