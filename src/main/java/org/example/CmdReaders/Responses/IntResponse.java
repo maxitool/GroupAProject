@@ -1,9 +1,9 @@
 package org.example.CmdReaders.Responses;
 
-public class BooleanResponse extends StringResponse{
-    public boolean booleanData = false;
+public class IntResponse extends StringResponse {
+    public int intData = 0;
 
-    public BooleanResponse(StringResponse stringResponse) {
+    public IntResponse(StringResponse stringResponse) {
         this.state = stringResponse.state;
         this.stringData = stringResponse.stringData;
         this.errorMessage = stringResponse.errorMessage;

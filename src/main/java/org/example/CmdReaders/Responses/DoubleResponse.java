@@ -5,7 +5,7 @@ public class DoubleResponse extends StringResponse {
 
     public DoubleResponse(StringResponse stringResponse) {
         this.state = stringResponse.state;
-        this.stringData = new String(stringResponse.stringData);
-        this.errorMessage = new String(stringResponse.errorMessage);
+        this.stringData = stringResponse.stringData;
+        this.errorMessage = stringResponse.errorMessage;
     }
 }

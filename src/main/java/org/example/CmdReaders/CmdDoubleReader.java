@@ -10,9 +10,9 @@ public class CmdDoubleReader extends CmdStringReader {
         if (doubleResponse.state != StringResponse.States.OK)
             return doubleResponse;
         try {
-            doubleResponse.doubleData = Double.parseDouble(doubleResponse.stringData);
+            doubleResponse.doubleData = Double.parseDouble(doubleResponse.stringData.replace(" ","").replace(",","."));
         } catch (NumberFormatException e) {
-            System.out.println("Can't convert the wrote data to double, reason: " + e.getMessage());
+            System.out.println("Can't convert the wrote data to double. " + e.getMessage());
             doubleResponse.errorMessage = e.getMessage();
             doubleResponse.state = StringResponse.States.CANT_CONVERT;
         }

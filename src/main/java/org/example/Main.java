@@ -1,7 +1,7 @@
 package org.example;
 
-import org.example.CmdReaders.CmdLongReader;
-import org.example.CmdReaders.Responses.LongResponse;
+import org.example.CmdReaders.CmdIntReader;
+import org.example.CmdReaders.Responses.IntResponse;
 import org.example.CmdReaders.Responses.StringResponse;
 
 public class Main {
@@ -13,18 +13,23 @@ public class Main {
                                         "back. Stop program.";
 
     public static void main(String[] args) {
+        // examples
+        Example.exampleConsolePrintOneCar();
+        Car car = Example.exampleStringToCar();
+        Example.readDataFromCmd();
+        // program
         System.out.println("\nGroup A program is running.");
-        LongResponse answer;
+        IntResponse answer;
         while (true)
         {
             System.out.println(MAIN_GUI);
             do {
-                answer = CmdLongReader.getLongData();
+                answer = CmdIntReader.getIntData();
             } while (answer.state != StringResponse.States.BACK_COMMAND && answer.state != StringResponse.States.OK);
             if (answer.state == StringResponse.States.BACK_COMMAND) {
                 return;
             }
-            switch ((int)answer.longData) {
+            switch (answer.intData) {
                 case 1:
                     // to do
                     break;
