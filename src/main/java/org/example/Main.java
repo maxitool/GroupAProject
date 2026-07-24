@@ -36,6 +36,7 @@ public class Main {
                     break;
                 case 4:
                     // to do
+                    // to do
                     break;
                 default:
                     System.out.println("Can't recognize wrote command");
