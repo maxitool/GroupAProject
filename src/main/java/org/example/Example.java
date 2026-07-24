@@ -38,23 +38,27 @@ public class Example {
     public static void readDataFromCmd() {
         String stringResult = "";
         StringResponse stringResponse = CmdStringReader.getStringData();
-        if (stringResponse.state == StringResponse.States.OK)
+        if (stringResponse.state == StringResponse.States.OK) {
             stringResult = stringResponse.stringData;
+        }
 
         int intResult = 0;
         IntResponse intResponse = CmdIntReader.getIntData();
-        if (intResponse.state == StringResponse.States.OK)
+        if (intResponse.state == StringResponse.States.OK) {
             intResult = intResponse.intData;
+        }
 
         double doubleResult = 0;
         DoubleResponse doubleResponse = CmdDoubleReader.getDoubleData();
-        if (doubleResponse.state == StringResponse.States.OK)
+        if (doubleResponse.state == StringResponse.States.OK) {
             doubleResult = doubleResponse.doubleData;
+        }
 
         boolean booleanResult = false;
         BooleanResponse booleanResponse = CmdBooleanReader.getBooleanData();
-        if (booleanResponse.state == StringResponse.States.OK)
+        if (booleanResponse.state == StringResponse.States.OK) {
             booleanResult = booleanResponse.booleanData;
+        }
 
         // BACK_COMMAND нужна для возвращения к предыдущему шагу программы
         // BACK_COMMAND state есть во всех классах Response, перечисленных выше
