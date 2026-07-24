@@ -1,4 +1,4 @@
-src\main\java\org\example\Main.java
+\src\main\java\org\example\Main.java
 
 target/
 !.mvn/wrapper/maven-wrapper.jar
