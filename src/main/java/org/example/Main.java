@@ -48,6 +48,7 @@ public class Main {
         System.out.println(car.getIsValidationGood());
         car.setYear(1);
         System.out.println(car.getIsValidationGood());
+        //d
 
         // program
         System.out.println("\nGroup A program is running.");
