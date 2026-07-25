@@ -35,7 +35,7 @@ public class Example {
         return car;
     }
 
-    public static void readDataFromCmd() {
+    public static void readDataFromConsole() {
         String stringResult = "";
         StringResponse stringResponse = StringConsoleReader.getStringData();
         if (stringResponse.state == StringResponse.States.OK) {

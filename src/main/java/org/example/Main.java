@@ -38,7 +38,7 @@ public class Main {
         // examples
         Example.exampleConsolePrintOneCar();
         //Car car = Example.exampleStringToCar();
-        //Example.readDataFromCmd();
+        //Example.readDataFromConsole();
 
         // program
         System.out.println("\nGroup A program is running.");
