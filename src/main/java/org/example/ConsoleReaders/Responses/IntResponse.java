@@ -1,4 +1,4 @@
-package org.example.CmdReaders.Responses;
+package org.example.ConsoleReaders.Responses;
 
 public class IntResponse extends StringResponse {
     public int intData = 0;

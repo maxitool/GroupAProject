@@ -1,9 +1,9 @@
-package org.example.CmdReaders;
+package org.example.ConsoleReaders;
 
-import org.example.CmdReaders.Responses.DoubleResponse;
-import org.example.CmdReaders.Responses.StringResponse;
+import org.example.ConsoleReaders.Responses.DoubleResponse;
+import org.example.ConsoleReaders.Responses.StringResponse;
 
-public class CmdDoubleReader extends CmdStringReader {
+public class DoubleConsoleReader extends StringConsoleReader {
     public static synchronized DoubleResponse getDoubleData() {
         StringResponse stringResponse = getStringData();
         DoubleResponse doubleResponse = new DoubleResponse(stringResponse);

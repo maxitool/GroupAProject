@@ -1,8 +1,8 @@
 package org.example;
 
-import org.example.CmdReaders.CmdIntReader;
-import org.example.CmdReaders.Responses.IntResponse;
-import org.example.CmdReaders.Responses.StringResponse;
+import org.example.ConsoleReaders.IntConsoleReader;
+import org.example.ConsoleReaders.Responses.IntResponse;
+import org.example.ConsoleReaders.Responses.StringResponse;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -46,7 +46,7 @@ public class Main {
         while (true) {
             System.out.println(MAIN_GUI);
             do {
-                answer = CmdIntReader.getIntData();
+                answer = IntConsoleReader.getIntData();
             } while (answer.state != StringResponse.States.BACK_COMMAND && answer.state != StringResponse.States.OK);
             if (answer.state == StringResponse.States.BACK_COMMAND) {
                 return;
@@ -63,7 +63,7 @@ public class Main {
         System.out.println(FILL_DATA_GUI);
         IntResponse answer;
         do {
-            answer = CmdIntReader.getIntData();
+            answer = IntConsoleReader.getIntData();
         } while (answer.state != StringResponse.States.BACK_COMMAND && answer.state != StringResponse.States.OK);
         if (answer.state == StringResponse.States.BACK_COMMAND) {
             return;
@@ -75,7 +75,7 @@ public class Main {
         System.out.println(GET_DATA_GUI);
         IntResponse answer;
         do {
-            answer = CmdIntReader.getIntData();
+            answer = IntConsoleReader.getIntData();
         } while (answer.state != StringResponse.States.BACK_COMMAND && answer.state != StringResponse.States.OK);
         if (answer.state == StringResponse.States.BACK_COMMAND) {
             return;

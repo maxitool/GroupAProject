@@ -1,10 +1,10 @@
-package org.example.CmdReaders;
+package org.example.ConsoleReaders;
 
-import org.example.CmdReaders.Responses.StringResponse;
+import org.example.ConsoleReaders.Responses.StringResponse;
 
 import java.util.Scanner;
 
-public class CmdStringReader {
+public class StringConsoleReader {
     public static final String GO_BACK_COMMAND = "back";
     private volatile static Scanner scanner;
 

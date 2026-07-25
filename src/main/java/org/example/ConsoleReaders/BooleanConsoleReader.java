@@ -1,9 +1,9 @@
-package org.example.CmdReaders;
+package org.example.ConsoleReaders;
 
-import org.example.CmdReaders.Responses.BooleanResponse;
-import org.example.CmdReaders.Responses.StringResponse;
+import org.example.ConsoleReaders.Responses.BooleanResponse;
+import org.example.ConsoleReaders.Responses.StringResponse;
 
-public class CmdBooleanReader extends CmdStringReader {
+public class BooleanConsoleReader extends StringConsoleReader {
     public static synchronized BooleanResponse getBooleanData() {
         StringResponse stringResponse = getStringData();
         BooleanResponse booleanResponse = new BooleanResponse(stringResponse);

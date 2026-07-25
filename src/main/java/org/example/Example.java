@@ -1,13 +1,13 @@
 package org.example;
 
-import org.example.CmdReaders.CmdBooleanReader;
-import org.example.CmdReaders.CmdDoubleReader;
-import org.example.CmdReaders.CmdIntReader;
-import org.example.CmdReaders.CmdStringReader;
-import org.example.CmdReaders.Responses.BooleanResponse;
-import org.example.CmdReaders.Responses.DoubleResponse;
-import org.example.CmdReaders.Responses.IntResponse;
-import org.example.CmdReaders.Responses.StringResponse;
+import org.example.ConsoleReaders.BooleanConsoleReader;
+import org.example.ConsoleReaders.DoubleConsoleReader;
+import org.example.ConsoleReaders.IntConsoleReader;
+import org.example.ConsoleReaders.StringConsoleReader;
+import org.example.ConsoleReaders.Responses.BooleanResponse;
+import org.example.ConsoleReaders.Responses.DoubleResponse;
+import org.example.ConsoleReaders.Responses.IntResponse;
+import org.example.ConsoleReaders.Responses.StringResponse;
 
 import java.util.*;
 
@@ -37,25 +37,25 @@ public class Example {
 
     public static void readDataFromCmd() {
         String stringResult = "";
-        StringResponse stringResponse = CmdStringReader.getStringData();
+        StringResponse stringResponse = StringConsoleReader.getStringData();
         if (stringResponse.state == StringResponse.States.OK) {
             stringResult = stringResponse.stringData;
         }
 
         int intResult = 0;
-        IntResponse intResponse = CmdIntReader.getIntData();
+        IntResponse intResponse = IntConsoleReader.getIntData();
         if (intResponse.state == StringResponse.States.OK) {
             intResult = intResponse.intData;
         }
 
         double doubleResult = 0;
-        DoubleResponse doubleResponse = CmdDoubleReader.getDoubleData();
+        DoubleResponse doubleResponse = DoubleConsoleReader.getDoubleData();
         if (doubleResponse.state == StringResponse.States.OK) {
             doubleResult = doubleResponse.doubleData;
         }
 
         boolean booleanResult = false;
-        BooleanResponse booleanResponse = CmdBooleanReader.getBooleanData();
+        BooleanResponse booleanResponse = BooleanConsoleReader.getBooleanData();
         if (booleanResponse.state == StringResponse.States.OK) {
             booleanResult = booleanResponse.booleanData;
         }

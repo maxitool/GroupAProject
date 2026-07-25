@@ -1,9 +1,9 @@
-package org.example.CmdReaders;
+package org.example.ConsoleReaders;
 
-import org.example.CmdReaders.Responses.IntResponse;
-import org.example.CmdReaders.Responses.StringResponse;
+import org.example.ConsoleReaders.Responses.IntResponse;
+import org.example.ConsoleReaders.Responses.StringResponse;
 
-public class CmdIntReader extends CmdStringReader{
+public class IntConsoleReader extends StringConsoleReader {
     public static synchronized IntResponse getIntData() {
         StringResponse stringResponse = getStringData();
         IntResponse longResponse = new IntResponse(stringResponse);

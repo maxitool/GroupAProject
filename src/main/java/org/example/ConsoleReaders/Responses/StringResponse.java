@@ -1,4 +1,4 @@
-package org.example.CmdReaders.Responses;
+package org.example.ConsoleReaders.Responses;
 
 public class StringResponse {
     public enum States {
