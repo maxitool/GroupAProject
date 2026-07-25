@@ -4,6 +4,10 @@ import java.time.Year;
 import java.util.Objects;
 
 public class Car {
+    public interface CarInterface {
+
+    }
+
     private static final int COUNT_FIELDS = 3;
     private boolean isValidationGood;
     private int horsepower;
