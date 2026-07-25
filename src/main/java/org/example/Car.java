@@ -90,6 +90,7 @@ public class Car {
         }
         return null;
     }
+    
     private boolean doValidationHorsepower(boolean isPrintInfoToConsole, int horsepower) {
         if (horsepower < 0) {
             if (isPrintInfoToConsole) System.out.println("The horsepower of car must be greater than or equal to 0. The horsepower: " + horsepower);
