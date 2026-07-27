@@ -7,7 +7,7 @@ public class Car {
 
     }
 
-    private static final int COUNT_FIELDS = 3;
+    public static final int COUNT_FIELDS = 3;
     private int horsepower;
     private String model;
     private int year;
@@ -39,28 +39,6 @@ public class Car {
     private Car setYear(int year) {
         this.year = year;
         return this;
-    }
-
-    public static Car stringToCar(String data) {
-        if (data == null) {
-            System.out.println("String data is null");
-            return null;
-        }
-        String dataWithoutCar = data.replace("Car", "").replace("{","").replace("}","").trim();
-        String[] dataArray = dataWithoutCar.split(",");
-        if (dataArray.length != COUNT_FIELDS) {
-            System.out.println("Count fields in Car class must be " + COUNT_FIELDS + ", the received data have " + dataArray.length + " fields");
-            return null;
-        }
-        try {
-            return new Car(
-                    Integer.parseInt(dataArray[0].replace("horsepower","").replace("=","").replace("hp","").trim()),
-                    dataArray[1].replace("model","").replace("=","").replace("'","").trim(),
-                    Integer.parseInt(dataArray[2].replace("year","").replace("=","").trim()));
-        } catch (NumberFormatException e) {
-            System.out.println("Can't convert String data ( " + data + " ) to Car class, reason: " + e.getMessage());
-        }
-        return null;
     }
 
     @Override
