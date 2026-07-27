@@ -1,0 +1,7 @@
+Car{horsepower=375 hp, model='BMW 7 Series 740i', year=2026}
+Car{horsepower=240 hp, model='BMW X1 xDrive28i', year=2014}
+Car{horsepower=225 hp, model='BMW X3 3.0i', year=2006}
+Car{horsepower=255 hp, model='BMW 4 Series Gran Coupe', year=2026}
+Car{horsepower=228 hp, model='BMW X1 xDrive28i', year=2016}
+Car{horsepower=555 hp, model='BMW X5 M Base', year=2013}
+Car{horsepower=335 hp, model='BMW 8 Series Gran Coupe', year=2025}
