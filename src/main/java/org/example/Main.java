@@ -3,6 +3,8 @@ package org.example;
 import org.example.ConsoleReaders.IntConsoleReader;
 import org.example.ConsoleReaders.Responses.IntResponse;
 import org.example.ConsoleReaders.Responses.StringResponse;
+import org.example.ConsoleReaders.StringConsoleReader;
+import org.example.collections.CustomArrayList;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -33,6 +35,8 @@ public class Main {
             3, Main::sortData,
             4, Main::writeDataToFile
     ));
+
+    private static CustomArrayList<Car> currentCars = new CustomArrayList<>();
 
     public static void main(String[] args) {
         // examples
@@ -77,6 +81,28 @@ public class Main {
         if (answer.state == StringResponse.States.BACK_COMMAND) {
             return;
         }
+        switch (answer.intData){
+            case 1 -> {
+                System.out.println("Filling from console...");
+                currentCars = CarFiller.fillFromConsole();
+            }
+            case 2 -> {
+                System.out.print("Enter file path: ");
+                String filePath = StringConsoleReader.getStringData().stringData;
+                currentCars = CarFiller.fillFromFile(filePath);
+            }
+            case 3 -> {
+                System.out.print("Enter number of random cars: ");
+                IntResponse countResp = IntConsoleReader.getIntData();
+                if (countResp.state == StringResponse.States.OK) {
+                    currentCars = CarFiller.fillRandom(countResp.intData);
+                } else {
+                    System.out.println("Invalid count.");
+                }
+            }
+            default -> System.out.println("Unknown option.");
+        }
+        System.out.println("Current cars count: " + currentCars.size());
         // answer.intData is option of FILL_DATA_GUI
         // To do with answer.intData like HashMap MAIN_GUI_ACTIONS
     }
