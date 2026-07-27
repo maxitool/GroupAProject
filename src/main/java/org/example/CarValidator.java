@@ -3,14 +3,21 @@ package org.example;
 import java.time.Year;
 
 public class CarValidator {
+    public static boolean validateAll(int horsepower, String model, int year,  boolean isPrintInfoToConsole) {
+        return validateHorsepower(horsepower, isPrintInfoToConsole) &&
+                validateModel(model, isPrintInfoToConsole) &&
+                validateYear(year, isPrintInfoToConsole);
+    }
+    public static boolean validateAll(int horsepower, String model, int year) {
+        return validateAll(horsepower, model, year,  true);
+    }
+
     public static boolean validateCar(Car car, boolean isPrintInfoToConsole) {
         if (car == null) {
             if (isPrintInfoToConsole) System.out.println("Car class is null.");
             return false;
         }
-        return validateHorsepower(car.getHorsepower(), isPrintInfoToConsole) &&
-                validateModel(car.getModel(), isPrintInfoToConsole) &&
-                validateYear(car.getYear(), isPrintInfoToConsole);
+        return validateAll(car.getHorsepower(), car.getModel(), car.getYear(), isPrintInfoToConsole);
     }
     public static boolean validateCar(Car car) { return validateCar(car, true); }
 

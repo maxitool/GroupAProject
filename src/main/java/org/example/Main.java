@@ -40,16 +40,6 @@ public class Main {
         //Car car = Example.exampleStringToCar();
         //Example.readDataFromConsole();
 
-        Car car = new Car();
-        System.out.println(car.getIsValidationGood());
-        car.setHorsepower(1);
-        System.out.println(car.getIsValidationGood());
-        car.setModel("d");
-        System.out.println(car.getIsValidationGood());
-        car.setYear(1);
-        System.out.println(car.getIsValidationGood());
-        //d
-
         // program
         System.out.println("\nGroup A program is running.");
         IntResponse answer;

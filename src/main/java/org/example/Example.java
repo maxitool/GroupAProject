@@ -31,7 +31,7 @@ public class Example {
     public static Car exampleStringToCar() {
         List<Car> cars = getBMWCarsList();
         String carString = cars.get(0).toString();
-        Car car = Car.stringToCar(carString);
+        Car car = CarDeserializer.stringToCar(carString);
         return car;
     }
 

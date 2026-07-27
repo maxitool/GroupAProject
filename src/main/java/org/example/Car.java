@@ -3,10 +3,6 @@ package org.example;
 import java.util.Objects;
 
 public class Car {
-    public interface CarInterface {
-
-    }
-
     public static final int COUNT_FIELDS = 3;
     private int horsepower;
     private String model;
@@ -20,6 +16,11 @@ public class Car {
     public Car(int horsepower, String model, int year) {
         this();
         setHorsepower(horsepower).setModel(model).setYear(year);
+    }
+    public Car(CarBuilder carBuilder) {
+        this.horsepower = carBuilder.getHorsepower();
+        this.model = carBuilder.getModel();
+        this.year = carBuilder.getYear();
     }
 
     public int getHorsepower() { return horsepower; }
