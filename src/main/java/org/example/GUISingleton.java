@@ -6,6 +6,7 @@ import org.example.ConsoleReaders.Responses.BooleanResponse;
 import org.example.ConsoleReaders.Responses.IntResponse;
 import org.example.ConsoleReaders.Responses.StringResponse;
 import org.example.ConsoleReaders.StringConsoleReader;
+import org.example.collections.CustomArrayList;
 
 import java.util.HashMap;
 import java.util.List;
@@ -29,9 +30,8 @@ public class GUISingleton {
             "3. Fill with generated data;\n" +
             "back. Go to Main GUI.";
 
-    /*private static final String FILL_DATA_FROM_CONSOLE_GUI = "\nFill data from console GUI\n" +
-            "What is the name of the file you want to read data from?\n" +
-            "back. Go to Fill data GUI.";*/
+    private static final String FILL_DATA_FROM_CONSOLE_GUI = "\nFill data from console GUI\n" +
+            "back. Go to Fill data GUI.";
 
     private static final String FILL_DATA_FROM_FILE_GUI = "\nFill data from file GUI\n" +
             "What is the name of the file you want to read data from?\n" +
@@ -73,7 +73,7 @@ public class GUISingleton {
             2, GUISingleton::fillFromFileData,
             3, GUISingleton::fillGeneratedData
     ));
-    private static List<Car> cars = List.of();
+    private static CustomArrayList<Car> currentCars = new CustomArrayList<>();
 
 
     private GUISingleton() {}
@@ -116,6 +116,8 @@ public class GUISingleton {
     }
 
     private static boolean fillFromConsoleData() {
+        System.out.println(FILL_DATA_FROM_CONSOLE_GUI);
+        currentCars = CarFiller.fillFromConsole();
         return true;
     }
 
@@ -127,7 +129,7 @@ public class GUISingleton {
                 answer = StringConsoleReader.getStringData();
             } while (answer.state != StringResponse.States.BACK_COMMAND && answer.state != StringResponse.States.OK);
             if (answer.state == StringResponse.States.BACK_COMMAND) return false;
-            // to do    cars =
+            currentCars = CarFiller.fillFromFile(answer.stringData);
             return true;
         }
     }
@@ -139,7 +141,7 @@ public class GUISingleton {
             answer = IntConsoleReader.getIntData();
         } while (answer.state != StringResponse.States.BACK_COMMAND && answer.state != StringResponse.States.OK);
         if (answer.state == StringResponse.States.BACK_COMMAND) return false;
-        cars = CarsGenerator.getCars(answer.intData);
+        currentCars = CarFiller.fillRandom(answer.intData);
         return true;
     }
 
@@ -151,15 +153,15 @@ public class GUISingleton {
         } while (answer.state != StringResponse.States.BACK_COMMAND && answer.state != StringResponse.States.OK);
         if (answer.state == StringResponse.States.BACK_COMMAND) return;
         int count = answer.intData;
-        if (count > cars.size()) {
+        if (count > currentCars.size()) {
             System.out.println("Number of cars is less than the wrote value, " + cars.size() + " cars will be printed\n");
-            count = cars.size();
+            count = currentCars.size();
         }
         if (count > CONSOLE_LINES_CAPACITY) {
             System.out.println("The wrote value must be less than console lines capacity, " + CONSOLE_LINES_CAPACITY + " cars will be printed\n");
             count = CONSOLE_LINES_CAPACITY;
         }
-        cars.stream().limit(count).forEach(item -> System.out.println(item.toString()));
+        currentCars.stream().limit(count).forEach(item -> System.out.println(item.toString()));
     }
 
     private static void sortData() {
