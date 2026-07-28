@@ -5,7 +5,10 @@ import org.example.ConsoleReaders.Responses.IntResponse;
 import org.example.ConsoleReaders.Responses.StringResponse;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.io.File;
+
 
 public class Main {
     private static final String MAIN_GUI = "\nMain GUI\n" +
@@ -33,6 +36,8 @@ public class Main {
             3, Main::sortData,
             4, Main::writeDataToFile
     ));
+
+
 
     public static void main(String[] args) {
         // examples
@@ -95,5 +100,33 @@ public class Main {
     private static void sortData() {
     }
     private static void writeDataToFile() {
+        List<Car> sortedCars = Example.getBMWCarsList(); // как обратиться
+        if (sortedCars == null || sortedCars.isEmpty()) {
+            System.out.println("Отсортированный список пуст! Сначала выполните сортировку.");
+            return;
+        }
+        System.out.print("Введите имя файла (или Enter для sorted_cars.txt): ");
+        String filename = IntConsoleReader.getStringData().stringData;
+        if (filename.trim().isEmpty()) {
+            filename = "sorted_cars.txt";
+        }
+        File file = new File(filename);
+        boolean append = true;
+        if (file.exists()) {
+            System.out.print("Файл уже существует. Дописать (1) или перезаписать (2)? ");
+            IntResponse answer = IntConsoleReader.getIntData();
+
+            if (answer.state == StringResponse.States.OK && answer.intData == 2) {
+                append = false;
+                System.out.println("Файл будет перезаписан.");
+            } else {
+                append = true;
+                System.out.println("Данные будут добавлены.");
+            }
+        } else {
+            System.out.println("Файл будет создан.");
+            append = false;
+        }
+        FileService.saveCarsToFile(sortedCars, filename, append);
     }
 }
