@@ -31,8 +31,13 @@ public class CarValidator {
     public static boolean validateHorsepower(int horsepower) { return validateHorsepower(horsepower, true); }
 
     public static boolean validateModel(String model, boolean isPrintInfoToConsole) {
-        if (model == null || model.isEmpty()) {
-            if (isPrintInfoToConsole) System.out.println("The model of car is null or empty");
+        if (model == null) {
+            if (isPrintInfoToConsole) System.out.println("The model of car is null");
+            return false;
+        }
+        model = model.trim();
+        if (model.isEmpty()) {
+            if (isPrintInfoToConsole) System.out.println("The model of car is empty");
             return false;
         }
         return true;
