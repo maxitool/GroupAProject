@@ -15,23 +15,14 @@ public class CarDeserializer {
         for (int i = 0; i < dataArray.length; i++) {
             keyValue = dataArray[i].split("=");
             if (keyValue.length != 2) {
-                System.out.println(i + " argument of " + data +  " car class incorrectly set, correct format: key = value");
+                System.out.println(++i + " argument of " + data +  " car class incorrectly set, correct format: key = value");
                 return null;
             }
             dataHashMap.put(keyValue[0], keyValue[1]);
         }
-        if (!dataHashMap.containsKey("horsepower")) {
-            System.out.println("Didn't receive horsepower field for " + data + " Car class");
-            return null;
-        }
-        if (!dataHashMap.containsKey("model")) {
-            System.out.println("Didn't receive model field for " + data + " Car class");
-            return null;
-        }
-        if (!dataHashMap.containsKey("year")) {
-            System.out.println("Didn't receive year field for " + data + " Car class");
-            return null;
-        }
+        if (isNotKeyContainsInMap(dataHashMap, "horsepower", data) ||
+                isNotKeyContainsInMap(dataHashMap, "model", data) ||
+                isNotKeyContainsInMap(dataHashMap, "year", data)) return null;
         try {
             return new Car(
                     Integer.parseInt(dataHashMap.get("horsepower").replace("hp","").trim()),
@@ -41,5 +32,11 @@ public class CarDeserializer {
             System.out.println("Can't convert String data ( " + data + " ) to Car class, reason: " + e.getMessage());
         }
         return null;
+    }
+
+    private static boolean isNotKeyContainsInMap(HashMap<String, String> hashMap, String key, String data) {
+        boolean answer = hashMap.containsKey(key);
+        if (!answer) System.out.println("Didn't receive " + key + " field for " + data + " Car class");
+        return answer;
     }
 }
