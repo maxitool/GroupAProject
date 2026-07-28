@@ -9,7 +9,6 @@ import org.example.ConsoleReaders.StringConsoleReader;
 import org.example.collections.CustomArrayList;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 
