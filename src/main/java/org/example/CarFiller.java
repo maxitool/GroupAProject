@@ -10,12 +10,26 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.Year;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class CarFiller {
+    private static final List<String> CARS_BRANDS = List.of(
+            "Audi", "BMW", "Mercedes-Benz", "Porsche", "Volkswagen", "Opel",
+            "Alfa Romeo", "Ferrari", "Lamborghini", "Maserati",
+            "Citroen", "Peugeot", "Renault", "Bugatti",
+            "Aston Martin", "Bentley", "Jaguar", "Lotus", "MG", "Rolls-Royce",
+            "Toyota", "Honda", "Nissan", "Mazda", "Suzuki", "Mitsubishi", "Subaru", "Daihatsu", "Lexus", "Infiniti",
+            "Ford", "Chevrolet", "Cadillac", "Buick", "Chrysler", "Jeep", "Dodge", "Tesla"
+    );
+    private static final int MAX_MODEL_LENGTH = 8;
+    private static final int MAX_HORSEPOWER_VALUE = 500;
+    private static final int MIN_HORSEPOWER_VALUE = 50;
+    private static final int MIN_YEAR_VALUE = 1894;
+
     public static CustomArrayList<Car> fillFromConsole(){
         System.out.println("Enter number of cars: ");
         IntResponse countResponse = IntConsoleReader.getIntData();
@@ -57,24 +71,22 @@ public class CarFiller {
 
     public static CustomArrayList<Car> fillRandom(int count){
         Random random = new Random();
-        String[] models = {
-                "BMW 7 Series 740i",
-                "BMW X1 xDrive28i",
-                "BMW X3 3.0i",
-                "BMW 4 Series Gran Coupe",
-                "BMW X1 xDrive28i",
-                "BMW X5 M Base",
-                "BMW 8 Series Gran Coupe"};
-
         CustomArrayList<Car> cars = new CustomArrayList<>();
         Stream.generate(() -> {
-            int hp = random.nextInt(500) + 50;
-            String model = models[random.nextInt(models.length)];
-            int year = 2000 + random.nextInt(26);
-            return new Car(hp, model, year);
+            AnyCarBuilder carBuilder = new AnyCarBuilder();
+            StringBuilder BrandAndModel = new StringBuilder();
+            carBuilder.setHorsepower(random.nextInt(MAX_HORSEPOWER_VALUE - MIN_HORSEPOWER_VALUE + 1) + MIN_HORSEPOWER_VALUE);
+            BrandAndModel.delete(0, BrandAndModel.length());
+            BrandAndModel.append(CARS_BRANDS.get(random.nextInt(CARS_BRANDS.size()))).append(' ');
+            int modelLength = random.nextInt(MAX_MODEL_LENGTH) + 1;
+            for (int j = 0; j < modelLength; j++) {
+                BrandAndModel.append((char)(random.nextInt(26) + 65));
+            }
+            carBuilder.setModel(BrandAndModel.toString());
+            carBuilder.setYear(random.nextInt(Year.now().getValue() - MIN_YEAR_VALUE) + MIN_YEAR_VALUE);
+            return carBuilder.build();
         })
                 .limit(count)
-                .filter(Car::getIsValidationGood)
                 .forEach(cars::add);
         return cars;
     }
