@@ -1,6 +1,6 @@
 package org.example;
 
-public class AllCarBuilder implements CarBuilder{
+public class AnyCarBuilder implements CarBuilder{
     private int horsepower;
     private String model;
     private int year;
@@ -42,7 +42,7 @@ public class AllCarBuilder implements CarBuilder{
     public Car build() {
         Car car = new Car(horsepower, model, year);
         if (CarValidator.validateCar(car)) return car;
-        System.out.println("The car didn't pass validation.");
+        System.out.println("The car class didn't pass validation.");
         return null;
     }
 }
