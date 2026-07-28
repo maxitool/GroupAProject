@@ -8,7 +8,6 @@ import org.example.collections.CustomArrayList;
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Year;
 import java.util.List;
@@ -46,8 +45,10 @@ public class CarFiller {
                     System.out.println("Enter car #" + (i + 1) + " in format: horsepower, model, year");
                     System.out.print("> ");
                     String input = StringConsoleReader.getStringData().stringData;
-                    Car car = CarDeserializer.stringToCar(input);
-                    if (car != null && car.getIsValidationGood()){
+                    AnyCarBuilder carBuilder = new AnyCarBuilder();
+                    carBuilder.setAll(input);
+                    Car car = carBuilder.build();
+                    if (car != null){
                         cars.add(car);
                     }else{
                         System.out.println("Invalid car data, skipping.");
@@ -60,8 +61,8 @@ public class CarFiller {
     public static CustomArrayList<Car> fillFromFile(String filePath){
         CustomArrayList<Car> cars = new CustomArrayList<>();
         try(Stream<String> lines = Files.lines(Paths.get(filePath))) {
-            lines.map(Car::stringToCar)
-                    .filter(car -> car != null && car.getIsValidationGood())
+            lines.map(CarDeserializer::stringToCar)
+                    .filter(car -> car != null && CarValidator.validateCar(car))
                     .forEach(cars::add);
         } catch (IOException e) {
             System.out.println("Error reading file: " + e.getMessage());
