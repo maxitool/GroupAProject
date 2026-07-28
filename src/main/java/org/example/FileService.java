@@ -1,5 +1,7 @@
 package org.example;
 
+import org.example.collections.CustomArrayList;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -10,20 +12,20 @@ import java.util.stream.Collectors;
 
 public class FileService {
 
-    public static List<Car> readCarsFromFile(String filename) {
+    public static CustomArrayList<Car> readCarsFromFile(String filename) {
         try {
             return Files.lines(Paths.get(filename))
                     .filter(line -> !line.trim().isEmpty())
                     .map(FileService::parseCar)
-                    .filter(car -> car != null && car.getIsValidationGood())
-                    .collect(Collectors.toList());
+                    .filter(car -> car != null && CarValidator.validateCar(car))
+                    .collect(Collectors.toCollection(CustomArrayList<Car>::new));
         } catch (IOException e) {
             System.out.println("Ошибка при чтении файла: " + e.getMessage());
-            return new ArrayList<>();
+            return new CustomArrayList<>();
         }
     }
 
-    public static void saveCarsToFile(List<Car> cars, String filename, boolean append) {
+    public static void saveCarsToFile(CustomArrayList<Car> cars, String filename, boolean append) {
         if (cars == null || cars.isEmpty()) {
             System.out.println("Нет данных для записи!");
             return;
@@ -42,19 +44,14 @@ public class FileService {
         if (line == null || line.trim().isEmpty()) {
             return null;
         }
-
-        Car car = Car.stringToCar(line);
+        AnyCarBuilder carBuilder = new AnyCarBuilder();
+        carBuilder.setAll(line);
+        Car car = carBuilder.build();
 
         if (car == null) {
             System.out.println("Не удалось распарсить: " + line);
             return null;
         }
-
-        if (!car.getIsValidationGood()) {
-            System.out.println("Невалидные данные: " + line);
-            return null;
-        }
-
         return car;
     }
 }

@@ -8,7 +8,9 @@ import org.example.ConsoleReaders.Responses.StringResponse;
 import org.example.ConsoleReaders.StringConsoleReader;
 import org.example.collections.CustomArrayList;
 
+import java.io.File;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 
@@ -177,6 +179,10 @@ public class GUISingleton {
 
     private static void writeDataToFile() {
         StringResponse stringAnswer; BooleanResponse booleanResponse;
+        if (currentCars == null || currentCars.isEmpty()) {
+            System.out.println("Отсортированный список пуст! Сначала выполните сортировку.");
+            return;
+        }
         while(true) {
             System.out.println(WRITE_DATA_TO_FILE_FILENAME_GUI);
             do {
@@ -189,8 +195,13 @@ public class GUISingleton {
                 booleanResponse = BooleanConsoleReader.getBooleanData();
             } while (booleanResponse.state != StringResponse.States.BACK_COMMAND && booleanResponse.state != StringResponse.States.OK);
             if (booleanResponse.state == StringResponse.States.BACK_COMMAND) return;
+
             // to do
-            break;
+            File file = new File(stringAnswer.stringData);
+            if (!file.exists()) {
+                System.out.println("Файл будет создан.");
+            }
+            FileService.saveCarsToFile(currentCars, stringAnswer.stringData , booleanResponse.booleanData);
         }
     }
 
