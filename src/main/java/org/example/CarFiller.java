@@ -1,9 +1,9 @@
 package org.example;
 
-import org.example.ConsoleReaders.IntConsoleReader;
-import org.example.ConsoleReaders.Responses.IntResponse;
-import org.example.ConsoleReaders.Responses.StringResponse;
-import org.example.ConsoleReaders.StringConsoleReader;
+import org.example.console.readers.IntConsoleReader;
+import org.example.console.readers.responses.IntResponse;
+import org.example.console.readers.responses.StringResponse;
+import org.example.console.readers.StringConsoleReader;
 import org.example.collections.CustomArrayList;
 
 import java.io.IOException;

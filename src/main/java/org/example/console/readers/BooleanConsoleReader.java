@@ -1,7 +1,7 @@
-package org.example.ConsoleReaders;
+package org.example.console.readers;
 
-import org.example.ConsoleReaders.Responses.BooleanResponse;
-import org.example.ConsoleReaders.Responses.StringResponse;
+import org.example.console.readers.responses.BooleanResponse;
+import org.example.console.readers.responses.StringResponse;
 
 public class BooleanConsoleReader extends StringConsoleReader {
     public static synchronized BooleanResponse getBooleanData() {

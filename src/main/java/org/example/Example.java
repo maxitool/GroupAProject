@@ -1,13 +1,13 @@
 package org.example;
 
-import org.example.ConsoleReaders.BooleanConsoleReader;
-import org.example.ConsoleReaders.DoubleConsoleReader;
-import org.example.ConsoleReaders.IntConsoleReader;
-import org.example.ConsoleReaders.StringConsoleReader;
-import org.example.ConsoleReaders.Responses.BooleanResponse;
-import org.example.ConsoleReaders.Responses.DoubleResponse;
-import org.example.ConsoleReaders.Responses.IntResponse;
-import org.example.ConsoleReaders.Responses.StringResponse;
+import org.example.console.readers.BooleanConsoleReader;
+import org.example.console.readers.DoubleConsoleReader;
+import org.example.console.readers.IntConsoleReader;
+import org.example.console.readers.StringConsoleReader;
+import org.example.console.readers.responses.BooleanResponse;
+import org.example.console.readers.responses.DoubleResponse;
+import org.example.console.readers.responses.IntResponse;
+import org.example.console.readers.responses.StringResponse;
 
 import java.util.*;
 

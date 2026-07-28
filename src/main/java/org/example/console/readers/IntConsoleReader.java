@@ -1,7 +1,7 @@
-package org.example.ConsoleReaders;
+package org.example.console.readers;
 
-import org.example.ConsoleReaders.Responses.IntResponse;
-import org.example.ConsoleReaders.Responses.StringResponse;
+import org.example.console.readers.responses.IntResponse;
+import org.example.console.readers.responses.StringResponse;
 
 public class IntConsoleReader extends StringConsoleReader {
     public static synchronized IntResponse getIntData() {

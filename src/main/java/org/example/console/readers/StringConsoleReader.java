@@ -1,6 +1,6 @@
-package org.example.ConsoleReaders;
+package org.example.console.readers;
 
-import org.example.ConsoleReaders.Responses.StringResponse;
+import org.example.console.readers.responses.StringResponse;
 
 import java.util.Scanner;
 

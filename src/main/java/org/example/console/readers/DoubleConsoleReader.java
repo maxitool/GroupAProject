@@ -1,7 +1,7 @@
-package org.example.ConsoleReaders;
+package org.example.console.readers;
 
-import org.example.ConsoleReaders.Responses.DoubleResponse;
-import org.example.ConsoleReaders.Responses.StringResponse;
+import org.example.console.readers.responses.DoubleResponse;
+import org.example.console.readers.responses.StringResponse;
 
 public class DoubleConsoleReader extends StringConsoleReader {
     public static synchronized DoubleResponse getDoubleData() {
