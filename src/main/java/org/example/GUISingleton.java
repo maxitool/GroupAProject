@@ -1,6 +1,8 @@
 package org.example;
 
+import org.example.ConsoleReaders.BooleanConsoleReader;
 import org.example.ConsoleReaders.IntConsoleReader;
+import org.example.ConsoleReaders.Responses.BooleanResponse;
 import org.example.ConsoleReaders.Responses.IntResponse;
 import org.example.ConsoleReaders.Responses.StringResponse;
 import org.example.ConsoleReaders.StringConsoleReader;
@@ -27,9 +29,9 @@ public class GUISingleton {
             "3. Fill with generated data;\n" +
             "back. Go to Main GUI.";
 
-    private static final String FILL_DATA_FROM_CONSOLE_GUI = "\nFill data from console GUI\n" +
+    /*private static final String FILL_DATA_FROM_CONSOLE_GUI = "\nFill data from console GUI\n" +
             "What is the name of the file you want to read data from?\n" +
-            "back. Go to Fill data GUI.";
+            "back. Go to Fill data GUI.";*/
 
     private static final String FILL_DATA_FROM_FILE_GUI = "\nFill data from file GUI\n" +
             "What is the name of the file you want to read data from?\n" +
@@ -41,6 +43,14 @@ public class GUISingleton {
 
     private static final String GET_DATA_GUI = "\nPrint data GUI\n" +
             "How much data do you need to output?\n" +
+            "back. Go to Main GUI.";
+
+    private static final String WRITE_DATA_TO_FILE_FILENAME_GUI = "\nWrite data to file GUI\n" +
+            "Enter the file name.\n" +
+            "back. Go to Main GUI.";
+
+    private static final String WRITE_DATA_TO_FILE_IS_REWRITE_GUI = "\nWrite data to file GUI\n" +
+            "Clear the file before inserting data?.\n" +
             "back. Go to Main GUI.";
 
     private static final HashMap<Integer, Runnable> MAIN_GUI_ACTIONS = new HashMap<>(Map.of(
@@ -96,6 +106,7 @@ public class GUISingleton {
     }
 
     private static boolean fillFromConsoleData() {
+        return true;
     }
 
     private static boolean fillFromFileData() {
@@ -145,8 +156,23 @@ public class GUISingleton {
     }
 
     private static void writeDataToFile() {
+        StringResponse stringAnswer; BooleanResponse booleanResponse;
+        while(true) {
+            System.out.println(WRITE_DATA_TO_FILE_FILENAME_GUI);
+            do {
+                stringAnswer = StringConsoleReader.getStringData();
+            } while (stringAnswer.state != StringResponse.States.BACK_COMMAND && stringAnswer.state != StringResponse.States.OK);
+            if (stringAnswer.state == StringResponse.States.BACK_COMMAND) return;
+            // check format
+            System.out.println(WRITE_DATA_TO_FILE_IS_REWRITE_GUI);
+            do {
+                booleanResponse = BooleanConsoleReader.getBooleanData();
+            } while (booleanResponse.state != StringResponse.States.BACK_COMMAND && booleanResponse.state != StringResponse.States.OK);
+            if (booleanResponse.state == StringResponse.States.BACK_COMMAND) return;
+            // to do
+            break;
+        }
     }
-
 
     private static class Holder {
         public static final GUISingleton instance = new GUISingleton();

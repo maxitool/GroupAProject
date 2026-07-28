@@ -1,9 +1,18 @@
 package org.example;
 
 public class AnyCarBuilder implements CarBuilder{
-    private int horsepower;
+    private int horsepower = -1;
     private String model;
     private int year;
+
+    @Override
+    public CarBuilder setAll(String car) {
+        Car carClass = CarDeserializer.stringToCar(car);
+        if (carClass == null) return this;
+        return setHorsepower(carClass.getHorsepower()).
+                setModel(carClass.getModel()).
+                setYear(carClass.getYear());
+    }
 
     @Override
     public CarBuilder setHorsepower(int horsepower) {
