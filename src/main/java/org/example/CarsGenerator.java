@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class CarsGenerator implements FillCarsStrategy {
+public class CarsGenerator  {
     private static final List<String> CARS_BRANDS = List.of(
             "Audi", "BMW", "Mercedes-Benz", "Porsche", "Volkswagen", "Opel",
             "Alfa Romeo", "Ferrari", "Lamborghini", "Maserati",
@@ -19,8 +19,7 @@ public class CarsGenerator implements FillCarsStrategy {
     private static final int MIN_HORSEPOWER_VALUE = 50;
     private static final int MIN_YEAR_VALUE = 1894;
 
-    @Override
-    public List<Car> getCars(int countCars) {
+    public static List<Car> getCars(int countCars) {
         List<Car> cars = new ArrayList<>();
         AnyCarBuilder carBuilder = new AnyCarBuilder();
         StringBuilder BrandAndModel = new StringBuilder();

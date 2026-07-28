@@ -1,16 +1,17 @@
-package org.example.gui;
+package org.example;
 
-import org.example.Car;
-import org.example.CarsGenerator;
 import org.example.ConsoleReaders.IntConsoleReader;
 import org.example.ConsoleReaders.Responses.IntResponse;
 import org.example.ConsoleReaders.Responses.StringResponse;
+import org.example.ConsoleReaders.StringConsoleReader;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Supplier;
 
 public class GUISingleton {
+    private static final int CONSOLE_LINES_CAPACITY = 10000;
     private static final String MAIN_GUI = "\nMain GUI\n" +
             "Choose a option:\n" +
             "1. Fill data;\n" +
@@ -26,7 +27,15 @@ public class GUISingleton {
             "3. Fill with generated data;\n" +
             "back. Go to Main GUI.";
 
-    private static final String GENERATED_FILL_DATA_GUI = "\nGenerated fill data GUI\n" +
+    private static final String FILL_DATA_FROM_CONSOLE_GUI = "\nFill data from console GUI\n" +
+            "What is the name of the file you want to read data from?\n" +
+            "back. Go to Fill data GUI.";
+
+    private static final String FILL_DATA_FROM_FILE_GUI = "\nFill data from file GUI\n" +
+            "What is the name of the file you want to read data from?\n" +
+            "back. Go to Fill data GUI.";
+
+    private static final String FILL_GENERATED_DATA_GUI = "\nFill generated data GUI\n" +
             "How much data do you need to generate?\n" +
             "back. Go to Fill data GUI.";
 
@@ -40,8 +49,9 @@ public class GUISingleton {
             3, GUISingleton::sortData,
             4, GUISingleton::writeDataToFile
     ));
-    private static final HashMap<Integer, SupplierAndFillCarsStrategy> FILL_GUI_ACTIONS = new HashMap<>(Map.of(
-            3, new SupplierAndFillCarsStrategy( GUISingleton::fillGeneratedData, new CarsGenerator() )
+    private static final HashMap<Integer, Supplier<Boolean>> FILL_GUI_ACTIONS = new HashMap<>(Map.of(
+            2, GUISingleton::fillFromFileData,
+            3, GUISingleton::fillGeneratedData
     ));
     private static List<Car> cars = List.of();
 
@@ -81,21 +91,36 @@ public class GUISingleton {
                 System.out.println("Can't recognize wrote option");
                 continue;
             }
-            if(FILL_GUI_ACTIONS.get(answer.intData).function.get()) return;
+            if(FILL_GUI_ACTIONS.get(answer.intData).get()) return;
+        }
+    }
+
+    private static boolean fillFromConsoleData() {
+    }
+
+    private static boolean fillFromFileData() {
+        StringResponse answer;
+        System.out.println(FILL_DATA_FROM_FILE_GUI);
+        while(true) {
+            do {
+                answer = StringConsoleReader.getStringData();
+            } while (answer.state != StringResponse.States.BACK_COMMAND && answer.state != StringResponse.States.OK);
+            if (answer.state == StringResponse.States.BACK_COMMAND) return false;
+            // to do    cars =
+            return true;
         }
     }
 
     private static boolean fillGeneratedData() {
         IntResponse answer;
-        System.out.println(GENERATED_FILL_DATA_GUI);
+        System.out.println(FILL_GENERATED_DATA_GUI);
         do {
             answer = IntConsoleReader.getIntData();
         } while (answer.state != StringResponse.States.BACK_COMMAND && answer.state != StringResponse.States.OK);
         if (answer.state == StringResponse.States.BACK_COMMAND) return false;
-        cars = FILL_GUI_ACTIONS.get(3).fillCarsStrategy.getCars(answer.intData);
+        cars = CarsGenerator.getCars(answer.intData);
         return true;
     }
-
 
     private static void printData() {
         System.out.println(GET_DATA_GUI);
@@ -106,8 +131,12 @@ public class GUISingleton {
         if (answer.state == StringResponse.States.BACK_COMMAND) return;
         int count = answer.intData;
         if (count > cars.size()) {
-            System.out.println("Number of cars is less than the wrote value, " + cars.size() + " will be printed\n");
+            System.out.println("Number of cars is less than the wrote value, " + cars.size() + " cars will be printed\n");
             count = cars.size();
+        }
+        if (count > CONSOLE_LINES_CAPACITY) {
+            System.out.println("The wrote value must be less than console lines capacity, " + CONSOLE_LINES_CAPACITY + " cars will be printed\n");
+            count = CONSOLE_LINES_CAPACITY;
         }
         cars.stream().limit(count).forEach(item -> System.out.println(item.toString()));
     }
