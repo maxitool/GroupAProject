@@ -18,7 +18,7 @@ public class CarDeserializer {
                 System.out.println(++i + " argument of " + data +  " car class incorrectly set, correct format: key = value");
                 return null;
             }
-            dataHashMap.put(keyValue[0], keyValue[1]);
+            dataHashMap.put(keyValue[0].trim(), keyValue[1].trim());
         }
         if (isNotKeyContainsInMap(dataHashMap, "horsepower", data) ||
                 isNotKeyContainsInMap(dataHashMap, "model", data) ||
@@ -35,8 +35,8 @@ public class CarDeserializer {
     }
 
     private static boolean isNotKeyContainsInMap(HashMap<String, String> hashMap, String key, String data) {
-        boolean answer = hashMap.containsKey(key);
-        if (!answer) System.out.println("Didn't receive " + key + " field for " + data + " Car class");
+        boolean answer = !hashMap.containsKey(key);
+        if (answer) System.out.println("Didn't receive " + key + " field for " + data + " Car class");
         return answer;
     }
 }
