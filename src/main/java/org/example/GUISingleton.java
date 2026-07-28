@@ -45,6 +45,16 @@ public class GUISingleton {
             "How much data do you need to output?\n" +
             "back. Go to Main GUI.";
 
+    private static final String SORT_DATA_GUI = "\nSort data GUI\n" +
+            "Choose a option:\n" +
+            "1. Sort;\n" +
+            "2. Sort;\n" +
+            "3. Sort;\n" +
+            "4. Sort;\n" +
+            "5. Sort;\n" +
+            "6. Sort;\n" +
+            "back. Go to Main GUI.";
+
     private static final String WRITE_DATA_TO_FILE_FILENAME_GUI = "\nWrite data to file GUI\n" +
             "Enter the file name.\n" +
             "back. Go to Main GUI.";
@@ -153,6 +163,15 @@ public class GUISingleton {
     }
 
     private static void sortData() {
+        IntResponse answer;
+        while (true) {
+            System.out.println(SORT_DATA_GUI);
+            do {
+                answer = IntConsoleReader.getIntData();
+            } while (answer.state != StringResponse.States.BACK_COMMAND && answer.state != StringResponse.States.OK);
+            if (answer.state == StringResponse.States.BACK_COMMAND) return;
+            // Sort data with HashMap
+        }
     }
 
     private static void writeDataToFile() {
