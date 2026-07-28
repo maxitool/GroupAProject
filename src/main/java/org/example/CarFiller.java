@@ -46,7 +46,7 @@ public class CarFiller {
                     System.out.println("Enter car #" + (i + 1) + " in format: horsepower, model, year");
                     System.out.print("> ");
                     String input = StringConsoleReader.getStringData().stringData;
-                    Car car = Car.stringToCar(input);
+                    Car car = CarDeserializer.stringToCar(input);
                     if (car != null && car.getIsValidationGood()){
                         cars.add(car);
                     }else{

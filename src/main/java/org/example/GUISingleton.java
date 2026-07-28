@@ -154,7 +154,7 @@ public class GUISingleton {
         if (answer.state == StringResponse.States.BACK_COMMAND) return;
         int count = answer.intData;
         if (count > currentCars.size()) {
-            System.out.println("Number of cars is less than the wrote value, " + cars.size() + " cars will be printed\n");
+            System.out.println("Number of cars is less than the wrote value, " + currentCars.size() + " cars will be printed\n");
             count = currentCars.size();
         }
         if (count > CONSOLE_LINES_CAPACITY) {

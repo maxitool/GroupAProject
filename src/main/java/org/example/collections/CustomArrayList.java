@@ -3,6 +3,8 @@ package org.example.collections;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 public class CustomArrayList<T> implements Iterable<T> {
     private static final int DEFAULT_CAPACITY = 10;
@@ -28,6 +30,10 @@ public class CustomArrayList<T> implements Iterable<T> {
             throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
         }
         return (T) elements[index];
+    }
+
+    public Stream<T> stream() {
+        return StreamSupport.stream(spliterator(), false);
     }
 
     public int size(){
