@@ -70,6 +70,7 @@ public class GUISingleton {
             4, GUISingleton::writeDataToFile
     ));
     private static final HashMap<Integer, Supplier<Boolean>> FILL_GUI_ACTIONS = new HashMap<>(Map.of(
+            1, GUISingleton::fillFromConsoleData,
             2, GUISingleton::fillFromFileData,
             3, GUISingleton::fillGeneratedData
     ));
