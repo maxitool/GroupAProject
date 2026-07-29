@@ -35,6 +35,18 @@ public class CustomArrayList<T> extends AbstractList<T> {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
+    public T set(int index, T element) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
+        }
+
+        T oldValue = (T) elements[index];
+        elements[index] = element;
+        return oldValue;
+    }
+
+    @Override
     public int size(){
         return size;
     }
