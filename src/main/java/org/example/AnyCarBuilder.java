@@ -17,19 +17,19 @@ public class AnyCarBuilder implements CarBuilder{
     @Override
     public CarBuilder setHorsepower(int horsepower) {
         this.horsepower = horsepower;
-        return null;
+        return this;
     }
 
     @Override
     public CarBuilder setModel(String model) {
         this.model = model;
-        return null;
+        return this;
     }
 
     @Override
     public CarBuilder setYear(int year) {
         this.year = year;
-        return null;
+        return this;
     }
 
     @Override
