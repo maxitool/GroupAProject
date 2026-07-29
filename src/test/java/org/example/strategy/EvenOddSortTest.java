@@ -1,6 +1,7 @@
 package org.example.strategy;
 
 import org.example.Car;
+import org.example.collections.CustomArrayList;
 import org.example.comparator.HorsepowerComparator;
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +14,7 @@ public class EvenOddSortTest {
 
     @Test
     void testEvenOddSortByHorsepower() {
-        List<Car> cars = new ArrayList<>();
+        CustomArrayList<Car> cars = new CustomArrayList<>();
 
         cars.add(new Car(300, "BMW", 2020));
         cars.add(new Car(999, "Lada", 2000));
