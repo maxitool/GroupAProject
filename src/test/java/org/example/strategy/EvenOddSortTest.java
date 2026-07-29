@@ -21,7 +21,7 @@ public class EvenOddSortTest {
         cars.add(new Car(777, "Ford", 2010));
         cars.add(new Car(200, "Tesla", 2022));
         EvenOddSortStrategy sorter = new EvenOddSortStrategy();
-        sorter.sortEvenOnly(cars, new HorsepowerComparator());
+        sorter.sort(cars, new HorsepowerComparator());
 
         assertEquals(100, cars.get(0).getHorsepower());
         assertEquals(200, cars.get(2).getHorsepower());
