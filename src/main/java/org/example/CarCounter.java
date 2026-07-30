@@ -11,12 +11,25 @@ public class CarCounter {
     }
     public long countOccurrences(Car target, int threadCount) {
         if (cars==null || cars.isEmpty()) {
-            System.out.println("Коллекция пуста");
+            System.out.println("The collection is empty.");
             return 0;
         }
-        if (threadCount <= 0 ) threadCount = 1;
-        if (threadCount > cars.size()) threadCount = cars.size();
-        System.out.println("Подсчет в " + threadCount + " потоках");
+        int maxThreads = Runtime.getRuntime().availableProcessors();
+        System.out.println("Available cores: " + maxThreads);
+
+        if (threadCount <= 0) {
+            threadCount = 1;
+        }
+        if (threadCount > maxThreads) {
+            System.out.println("Requested " + threadCount + " threads, but only " + maxThreads + " are available.");
+            System.out.println("Using " + maxThreads + " threads.");
+            threadCount = maxThreads;
+        }
+        if (threadCount > cars.size()) {
+            System.out.println("More threads than cars. Limiting to " + cars.size() + " threads.");
+            threadCount = cars.size();
+        }
+        System.out.println("Counting in " + threadCount + " threads...");
         int size = cars.size();
         int partSize = size / threadCount;
         int remainder = size % threadCount;
@@ -30,7 +43,7 @@ public class CarCounter {
             Runnable  task = () -> {
                 long count = 0 ;
                 for (Car car : subList) {
-                    if (cars.equals(target)) count++;
+                    if (car.equals(target)) count++;
                 }
                 synchronized (results) {
                     results.add(count);
@@ -45,7 +58,7 @@ public class CarCounter {
             try {
                 thread.join();
             } catch (InterruptedException e) {
-                System.out.println("Ошибка: " + e.getMessage());
+                System.out.println("Error: " + e.getMessage());
             }
         }
         long total = 0;
@@ -53,11 +66,11 @@ public class CarCounter {
             total+= count;
 
         }
-        System.out.println("Найдено " + total);
+        System.out.println("Found " + total + " occurrences.");
         return total;
     }
     public void printOccurrences(Car target, int threadCount) {
         long count = countOccurrences(target, threadCount);
-        System.out.println("Результат: " + count + " вхождений");
+        System.out.println("Result: " + count + " occurrences.");
     }
 }
