@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 public class FileService {
 
     public static CustomArrayList<Car> readCarsFromFile(String filename) {
-        /*try {
+        try {
             return Files.lines(Paths.get(filename))
                     .filter(line -> !line.trim().isEmpty())
                     .map(CarDeserializer::stringToCar)
@@ -22,8 +22,7 @@ public class FileService {
         } catch (IOException e) {
             System.out.println("Ошибка при чтении файла: " + e.getMessage());
             return new CustomArrayList<>();
-        }*/
-        return null;
+        }
     }
 
     public static void saveCarsToFile(CustomArrayList<Car> cars, String filename, boolean append) {
