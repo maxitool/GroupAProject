@@ -78,9 +78,7 @@ public class GUISingleton {
     ));
 
     private static CustomArrayList<Car> currentCars = new CustomArrayList<>();
-
-
-    public int data(float value) { return 1;}
+    
 
     private GUISingleton() {}
 
