@@ -1,4 +1,4 @@
-package console.readers;
+package org.example.readers;
 
 import org.example.console.readers.DoubleConsoleReader;
 import org.example.console.readers.StringConsoleReader;

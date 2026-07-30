@@ -11,8 +11,8 @@ import org.example.console.readers.responses.StringResponse;
 import org.example.console.readers.StringConsoleReader;
 import org.example.collections.CustomArrayList;
 import org.example.models.car.Car;
-import org.example.strategy.BubbleSortStrategy;
-import org.example.strategy.EvenOddSortStrategy;
+import org.example.sort.BubbleSortStrategy;
+import org.example.sort.EvenOddSortStrategy;
 
 import java.io.File;
 import java.util.HashMap;
@@ -93,7 +93,7 @@ public class GUISingleton {
             3, GUISingleton::fillGeneratedData
     ));
 
-    private static CustomArrayList<Car> currentCars = new CustomArrayList<>();
+    private static CustomArrayList<Car> cars = new CustomArrayList<>();
 
 
     private GUISingleton() {}
@@ -137,7 +137,7 @@ public class GUISingleton {
 
     private static boolean fillFromConsoleData() {
         System.out.println(FILL_DATA_FROM_CONSOLE_GUI);
-        currentCars = CarFiller.fillFromConsole();
+        cars = CarFiller.fillFromConsole();
         return true;
     }
 
@@ -150,7 +150,7 @@ public class GUISingleton {
             } while (answer.state != StringResponse.States.BACK_COMMAND && answer.state != StringResponse.States.OK);
             if (answer.state == StringResponse.States.BACK_COMMAND) return false;
             answer.stringData = FILES_PATH + answer.stringData;
-            currentCars = CarFiller.fillFromFile(answer.stringData);
+            cars = CarFiller.fillFromFile(answer.stringData);
             return true;
         }
     }
@@ -162,7 +162,7 @@ public class GUISingleton {
             answer = IntConsoleReader.getIntData();
         } while (answer.state != StringResponse.States.BACK_COMMAND && answer.state != StringResponse.States.OK);
         if (answer.state == StringResponse.States.BACK_COMMAND) return false;
-        currentCars = CarFiller.fillRandom(answer.intData);
+        cars = CarFiller.fillRandom(answer.intData);
         return true;
     }
 
@@ -174,15 +174,15 @@ public class GUISingleton {
         } while (answer.state != StringResponse.States.BACK_COMMAND && answer.state != StringResponse.States.OK);
         if (answer.state == StringResponse.States.BACK_COMMAND) return;
         int count = answer.intData;
-        if (count > currentCars.size()) {
-            System.out.println("Number of cars is less than the wrote value, " + currentCars.size() + " cars will be printed\n");
-            count = currentCars.size();
+        if (count > cars.size()) {
+            System.out.println("Number of cars is less than the wrote value, " + cars.size() + " cars will be printed\n");
+            count = cars.size();
         }
         if (count > CONSOLE_LINES_CAPACITY) {
             System.out.println("The wrote value must be less than console lines capacity, " + CONSOLE_LINES_CAPACITY + " cars will be printed\n");
             count = CONSOLE_LINES_CAPACITY;
         }
-        currentCars.stream().limit(count).forEach(item -> System.out.println(item.toString()));
+        cars.stream().limit(count).forEach(item -> System.out.println(item.toString()));
     }
 
     private static void sortData() {
@@ -197,19 +197,19 @@ public class GUISingleton {
             switch (answer.intData) {
                 case 1:
                     bubbleSortStrategy = new BubbleSortStrategy();
-                    bubbleSortStrategy.sort(currentCars, new HorsepowerComparator());
+                    bubbleSortStrategy.sort(cars, new HorsepowerComparator());
                     break;
                 case 2:
                     bubbleSortStrategy = new BubbleSortStrategy();
-                    bubbleSortStrategy.sort(currentCars, new ModelComparator());
+                    bubbleSortStrategy.sort(cars, new ModelComparator());
                     break;
                 case 3:
                     bubbleSortStrategy = new BubbleSortStrategy();
-                    bubbleSortStrategy.sort(currentCars, new YearComparator());
+                    bubbleSortStrategy.sort(cars, new YearComparator());
                     break;
                 case 4:
                     EvenOddSortStrategy evenOddSortStrategy = new EvenOddSortStrategy();
-                    evenOddSortStrategy.sort(currentCars, new HorsepowerComparator());
+                    evenOddSortStrategy.sort(cars, new HorsepowerComparator());
                     break;
                 default:
                     System.out.println("Can't recognize wrote option");
@@ -219,7 +219,7 @@ public class GUISingleton {
 
     private static void writeDataToFile() {
         StringResponse stringAnswer; BooleanResponse booleanResponse;
-        if (currentCars == null || currentCars.isEmpty()) {
+        if (cars == null || cars.isEmpty()) {
             System.out.println("The car list is empty. Please sort the data first.");
             return;
         }
@@ -250,16 +250,16 @@ public class GUISingleton {
             } else {
                 System.out.println("Файл будет создан.");
             }
-            FileServiceTxt.saveCarsToFile(currentCars, filename , !isRewrite);
+            FileServiceTxt.saveCarsToFile(cars, filename , !isRewrite);
         }
     }
 
     private static void countNumberOfElementsN() {
-        if (currentCars.isEmpty()) {
+        if (cars.isEmpty()) {
             System.out.println("The collection is empty.");
             return;
         }
-        if (currentCars.size() == 1) {
+        if (cars.size() == 1) {
             System.out.println("The collection size = 1.");
             return;
         }
@@ -270,18 +270,18 @@ public class GUISingleton {
                 intResponse = IntConsoleReader.getIntData();
             } while (intResponse.state != StringResponse.States.BACK_COMMAND && intResponse.state != StringResponse.States.OK);
             if (intResponse.state == StringResponse.States.BACK_COMMAND) return;
-            if (intResponse.intData < 0 || intResponse.intData >= currentCars.size()) {
+            if (intResponse.intData < 0 || intResponse.intData >= cars.size()) {
                 System.out.println("Car with this index does not exist!");
                 continue;
             }
-            Car target = currentCars.get(intResponse.intData);
+            Car target = cars.get(intResponse.intData);
             int availableProcessors = Runtime.getRuntime().availableProcessors();
             System.out.print("Enter the number of threads (available: " + availableProcessors + "): ");
             do {
                 intResponse = IntConsoleReader.getIntData();
             } while (intResponse.state != StringResponse.States.BACK_COMMAND && intResponse.state != StringResponse.States.OK);
             if (intResponse.state == StringResponse.States.BACK_COMMAND) return;
-            CarCounter counter = new CarCounter(currentCars);
+            CarCounter counter = new CarCounter(cars);
             counter.printOccurrences(target, intResponse.intData);
             return;
         }

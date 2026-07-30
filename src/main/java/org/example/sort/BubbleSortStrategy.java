@@ -1,4 +1,4 @@
-package org.example.strategy;
+package org.example.sort;
 
 import org.example.models.car.Car;
 

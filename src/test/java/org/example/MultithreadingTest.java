@@ -1,6 +1,6 @@
+package org.example;
 
 import org.example.models.car.Car;
-import org.example.CarCounter;
 import org.junit.jupiter.api.Test;
 import org.example.collections.CustomArrayList;
 

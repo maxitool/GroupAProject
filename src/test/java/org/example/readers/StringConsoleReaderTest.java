@@ -1,4 +1,4 @@
-package console.readers;
+package org.example.readers;
 
 import org.example.console.readers.StringConsoleReader;
 import org.example.console.readers.responses.StringResponse;

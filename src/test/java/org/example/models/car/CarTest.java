@@ -1,6 +1,5 @@
-package models.car;
+package org.example.models.car;
 
-import org.example.models.car.Car;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
