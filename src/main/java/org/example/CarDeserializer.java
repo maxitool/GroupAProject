@@ -26,7 +26,7 @@ public class CarDeserializer {
         try {
             return new Car(
                     Integer.parseInt(dataHashMap.get("horsepower").replace("hp","").trim()),
-                    dataHashMap.get("model").replace("'","").trim(),
+                    dataHashMap.get("model").replace("'","").replace("\"","").trim(),
                     Integer.parseInt(dataHashMap.get("year").trim()));
         } catch (NumberFormatException e) {
             System.out.println("Can't convert String data ( " + data + " ) to Car class, reason: " + e.getMessage());

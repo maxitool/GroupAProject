@@ -15,6 +15,8 @@ import java.util.function.Supplier;
 
 public class GUISingleton {
     private static final int CONSOLE_LINES_CAPACITY = 10000;
+    private static final String DEFAULT_FILENAME = "sorted_cars.txt";
+
     private static final String MAIN_GUI = "\nMain GUI\n" +
             "Choose a option:\n" +
             "1. Fill data;\n" +
@@ -47,20 +49,22 @@ public class GUISingleton {
 
     private static final String SORT_DATA_GUI = "\nSort data GUI\n" +
             "Choose a option:\n" +
-            "1. Sort;\n" +
-            "2. Sort;\n" +
-            "3. Sort;\n" +
-            "4. Sort;\n" +
-            "5. Sort;\n" +
-            "6. Sort;\n" +
+            "1. Sorting by horsepower field;\n" +
+            "2. Sorting by model field;\n" +
+            "3. Sorting by year field;\n" +
+            "4. Sorting by horsepower field with even values;\n" +
+            "5. Sorting by model field with even values;\n" +
+            "6. Sorting by year field with even values;\n" +
             "back. Go to Main GUI.";
 
     private static final String WRITE_DATA_TO_FILE_FILENAME_GUI = "\nWrite data to file GUI\n" +
-            "Enter the file name.\n" +
+            "Enter the file name or click Enter to use the default file name (" + DEFAULT_FILENAME + ").\n" +
             "back. Go to Main GUI.";
 
+    private static final String BOOLEAN_ANSWER_TRUE = "yes", BOOLEAN_ANSWER_FALSE = "no";
+
     private static final String WRITE_DATA_TO_FILE_IS_REWRITE_GUI = "\nWrite data to file GUI\n" +
-            "Clear the file before inserting data?.\n" +
+            "Clear the file before inserting data? (" + BOOLEAN_ANSWER_TRUE + '/' + BOOLEAN_ANSWER_FALSE + ")\n" +
             "back. Go to Main GUI.";
 
     private static final HashMap<Integer, Runnable> MAIN_GUI_ACTIONS = new HashMap<>(Map.of(
@@ -70,9 +74,11 @@ public class GUISingleton {
             4, GUISingleton::writeDataToFile
     ));
     private static final HashMap<Integer, Supplier<Boolean>> FILL_GUI_ACTIONS = new HashMap<>(Map.of(
+            1, GUISingleton::fillFromConsoleData,
             2, GUISingleton::fillFromFileData,
             3, GUISingleton::fillGeneratedData
     ));
+
     private static CustomArrayList<Car> currentCars = new CustomArrayList<>();
 
 
@@ -182,26 +188,26 @@ public class GUISingleton {
             System.out.println("Отсортированный список пуст! Сначала выполните сортировку.");
             return;
         }
-        while(true) {
-            System.out.println(WRITE_DATA_TO_FILE_FILENAME_GUI);
-            do {
-                stringAnswer = StringConsoleReader.getStringData();
-            } while (stringAnswer.state != StringResponse.States.BACK_COMMAND && stringAnswer.state != StringResponse.States.OK);
-            if (stringAnswer.state == StringResponse.States.BACK_COMMAND) return;
-            // check format
+        System.out.println(WRITE_DATA_TO_FILE_FILENAME_GUI);
+        do {
+            stringAnswer = StringConsoleReader.getStringData();
+        } while (stringAnswer.state != StringResponse.States.BACK_COMMAND && stringAnswer.state != StringResponse.States.OK);
+        if (stringAnswer.state == StringResponse.States.BACK_COMMAND) return;
+        String filename = stringAnswer.stringData;
+        if (stringAnswer.stringData.isEmpty()) filename = DEFAULT_FILENAME;
+        File file = new File(filename);
+        boolean isRewrite = false;
+        if (file.exists()) {
             System.out.println(WRITE_DATA_TO_FILE_IS_REWRITE_GUI);
             do {
-                booleanResponse = BooleanConsoleReader.getBooleanData();
+                booleanResponse = BooleanConsoleReader.getBooleanData(BOOLEAN_ANSWER_TRUE, BOOLEAN_ANSWER_FALSE);
             } while (booleanResponse.state != StringResponse.States.BACK_COMMAND && booleanResponse.state != StringResponse.States.OK);
             if (booleanResponse.state == StringResponse.States.BACK_COMMAND) return;
-
-            // to do
-            File file = new File(stringAnswer.stringData);
-            if (!file.exists()) {
-                System.out.println("Файл будет создан.");
-            }
-            FileService.saveCarsToFile(currentCars, stringAnswer.stringData , booleanResponse.booleanData);
+            isRewrite = booleanResponse.booleanData;
+        } else {
+            System.out.println("Файл будет создан.");
         }
+        FileService.saveCarsToFile(currentCars, filename , !isRewrite);
     }
 
     private static class Holder {

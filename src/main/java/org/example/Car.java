@@ -13,15 +13,13 @@ public class Car {
         model = "";
         year = -1;
     }
+
     public Car(int horsepower, String model, int year) {
         this();
         setHorsepower(horsepower).setModel(model).setYear(year);
     }
-    public Car(CarBuilder carBuilder) {
-        this.horsepower = carBuilder.getHorsepower();
-        this.model = carBuilder.getModel();
-        this.year = carBuilder.getYear();
-    }
+
+    public synchronized static Builder builder() { return new Builder(); }
 
     public int getHorsepower() { return horsepower; }
     public String getModel() { return model; }
@@ -62,5 +60,33 @@ public class Car {
     @Override
     public int hashCode() {
         return Objects.hash(horsepower, model, year);
+    }
+
+    public static class Builder {
+        private int horsepower;
+        private String model;
+        private int year;
+
+        public Builder horsepower(int horsepower) {
+            this.horsepower = horsepower;
+            return this;
+        }
+
+        public Builder model(String model) {
+            this.model = model;
+            return this;
+        }
+
+        public Builder year(int year) {
+            this.year = year;
+            return this;
+        }
+
+        public Car build() {
+            Car car = new Car(horsepower, model, year);
+            if (CarValidator.validateCar(car)) return car;
+            System.out.println("The Car class didn't pass validation.");
+            return null;
+        }
     }
 }

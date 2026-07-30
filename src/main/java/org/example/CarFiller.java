@@ -45,10 +45,8 @@ public class CarFiller {
                     System.out.println("Enter car #" + (i + 1) + " in format: horsepower, model, year");
                     System.out.print("> ");
                     String input = StringConsoleReader.getStringData().stringData;
-                    AnyCarBuilder carBuilder = new AnyCarBuilder();
-                    carBuilder.setAll(input);
-                    Car car = carBuilder.build();
-                    if (car != null){
+                    Car car = CarDeserializer.stringToCar(input);
+                    if (CarValidator.validateCar(car)){
                         cars.add(car);
                     }else{
                         System.out.println("Invalid car data, skipping.");
@@ -62,7 +60,7 @@ public class CarFiller {
         CustomArrayList<Car> cars = new CustomArrayList<>();
         try(Stream<String> lines = Files.lines(Paths.get(filePath))) {
             lines.map(CarDeserializer::stringToCar)
-                    .filter(car -> car != null && CarValidator.validateCar(car))
+                    .filter(CarValidator::validateCar)
                     .forEach(cars::add);
         } catch (IOException e) {
             System.out.println("Error reading file: " + e.getMessage());
@@ -74,19 +72,18 @@ public class CarFiller {
         Random random = new Random();
         CustomArrayList<Car> cars = new CustomArrayList<>();
         Stream.generate(() -> {
-            AnyCarBuilder carBuilder = new AnyCarBuilder();
-            StringBuilder BrandAndModel = new StringBuilder();
-            carBuilder.setHorsepower(random.nextInt(MAX_HORSEPOWER_VALUE - MIN_HORSEPOWER_VALUE + 1) + MIN_HORSEPOWER_VALUE);
-            BrandAndModel.delete(0, BrandAndModel.length());
-            BrandAndModel.append(CARS_BRANDS.get(random.nextInt(CARS_BRANDS.size()))).append(' ');
+            StringBuilder brandAndModel = new StringBuilder(CARS_BRANDS.get(random.nextInt(CARS_BRANDS.size())) + ' ');
             int modelLength = random.nextInt(MAX_MODEL_LENGTH) + 1;
             for (int j = 0; j < modelLength; j++) {
-                BrandAndModel.append((char)(random.nextInt(26) + 65));
+                brandAndModel.append((char) (random.nextInt(26) + 65));
             }
-            carBuilder.setModel(BrandAndModel.toString());
-            carBuilder.setYear(random.nextInt(Year.now().getValue() - MIN_YEAR_VALUE) + MIN_YEAR_VALUE);
-            return carBuilder.build();
+            return Car.builder().
+                    horsepower(random.nextInt(MAX_HORSEPOWER_VALUE - MIN_HORSEPOWER_VALUE + 1) + MIN_HORSEPOWER_VALUE).
+                    model(brandAndModel.toString()).
+                    year(random.nextInt(Year.now().getValue() - MIN_YEAR_VALUE) + MIN_YEAR_VALUE).
+                    build();
         })
+                .filter(CarValidator::validateCar)
                 .limit(count)
                 .forEach(cars::add);
         return cars;
