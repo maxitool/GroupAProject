@@ -1,10 +1,8 @@
 package console.readers;
 
 import org.example.console.readers.BooleanConsoleReader;
-import org.example.console.readers.DoubleConsoleReader;
 import org.example.console.readers.StringConsoleReader;
 import org.example.console.readers.responses.BooleanResponse;
-import org.example.console.readers.responses.DoubleResponse;
 import org.example.console.readers.responses.StringResponse;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
