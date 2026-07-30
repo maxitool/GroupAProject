@@ -49,7 +49,10 @@ public class CarFiller {
                     do {
                         inputResponse = StringConsoleReader.getStringData();
                     } while (inputResponse.state != StringResponse.States.BACK_COMMAND && inputResponse.state != StringResponse.States.OK);
-                    if (inputResponse.state == StringResponse.States.BACK_COMMAND) return;
+                    if (inputResponse.state == StringResponse.States.BACK_COMMAND) {
+                        isBack.set(true);
+                        return;
+                    }
                     String input = inputResponse.stringData;
                     if (input == null || input.trim().isEmpty()){
                         System.out.println("Empty input, skipping car #" + (i + 1));
