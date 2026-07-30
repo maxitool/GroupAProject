@@ -7,6 +7,7 @@ import org.example.console.readers.responses.IntResponse;
 import org.example.console.readers.responses.StringResponse;
 import org.example.console.readers.StringConsoleReader;
 import org.example.collections.CustomArrayList;
+import org.example.CarCounter;
 
 import java.io.File;
 import java.util.HashMap;
@@ -21,6 +22,7 @@ public class GUISingleton {
             "2. Print data;\n" +
             "3. Sort data;\n" +
             "4. Write data to file;\n" +
+            "5. Count occurrences;\n" +
             "back. Stop program.";
 
     private static final String FILL_DATA_GUI = "\nFill data GUI\n" +
@@ -67,7 +69,8 @@ public class GUISingleton {
             1, GUISingleton::fillData,
             2, GUISingleton::printData,
             3, GUISingleton::sortData,
-            4, GUISingleton::writeDataToFile
+            4, GUISingleton::writeDataToFile,
+            5, GUISingleton::countOccurrences
     ));
     private static final HashMap<Integer, Supplier<Boolean>> FILL_GUI_ACTIONS = new HashMap<>(Map.of(
             2, GUISingleton::fillFromFileData,
@@ -179,29 +182,87 @@ public class GUISingleton {
     private static void writeDataToFile() {
         StringResponse stringAnswer; BooleanResponse booleanResponse;
         if (currentCars == null || currentCars.isEmpty()) {
-            System.out.println("Отсортированный список пуст! Сначала выполните сортировку.");
+            System.out.println("The car list is empty. Please sort the data first.");
             return;
         }
-        while(true) {
-            System.out.println(WRITE_DATA_TO_FILE_FILENAME_GUI);
-            do {
-                stringAnswer = StringConsoleReader.getStringData();
-            } while (stringAnswer.state != StringResponse.States.BACK_COMMAND && stringAnswer.state != StringResponse.States.OK);
-            if (stringAnswer.state == StringResponse.States.BACK_COMMAND) return;
-            // check format
+        System.out.println(WRITE_DATA_TO_FILE_FILENAME_GUI);
+        String filename = null;
+        boolean isValid = false;
+        while (!isValid) {
+        do {
+            stringAnswer = StringConsoleReader.getStringData();
+        } while (stringAnswer.state != StringResponse.States.BACK_COMMAND && stringAnswer.state != StringResponse.States.OK);
+        if (stringAnswer.state == StringResponse.States.BACK_COMMAND) return;
+         filename = stringAnswer.stringData;
+        if (stringAnswer.stringData.isEmpty()) {
+            filename = "sorted_cars.txt";
+            isValid = true;
+        } else {
+            if (filename.toLowerCase().endsWith(".txt")) {
+                isValid = true;
+            } else {
+                System.out.println("Error! The file name must end with .txt");
+                System.out.println("Please try again (or enter 'back' to cancel):");
+            }
+        }
+    }
+
+    File file = new File(filename);
+        boolean isRewrite = false;
+        if (file.exists()) {
             System.out.println(WRITE_DATA_TO_FILE_IS_REWRITE_GUI);
             do {
                 booleanResponse = BooleanConsoleReader.getBooleanData();
             } while (booleanResponse.state != StringResponse.States.BACK_COMMAND && booleanResponse.state != StringResponse.States.OK);
             if (booleanResponse.state == StringResponse.States.BACK_COMMAND) return;
-
-            // to do
-            File file = new File(stringAnswer.stringData);
-            if (!file.exists()) {
-                System.out.println("Файл будет создан.");
-            }
-            FileService.saveCarsToFile(currentCars, stringAnswer.stringData , booleanResponse.booleanData);
+            isRewrite = booleanResponse.booleanData;
+        } else {
+            System.out.println("The file will be created.");
         }
+        FileServiceTxt.saveCarsToFile(currentCars, filename , !isRewrite);
+    }
+
+    private static void countOccurrences() {
+        if (currentCars == null || currentCars.isEmpty()) {
+            System.out.println("No data available for counting! Please fill the list first.");
+            return;
+        }
+
+        System.out.println("\nSelect a car to count occurrences:");
+        for (int i = 0; i < currentCars.size(); i++) {
+            System.out.println((i + 1) + ". " + currentCars.get(i));
+        }
+
+        System.out.print("Enter the car number: ");
+        IntResponse indexResponse = IntConsoleReader.getIntData();
+        if (indexResponse.state != StringResponse.States.OK) {
+            System.out.println("Invalid input!");
+            return;
+        }
+
+        int index = indexResponse.intData - 1;
+        if (index < 0 || index >= currentCars.size()) {
+            System.out.println("Car with this number does not exist!");
+            return;
+        }
+
+        Car target = currentCars.get(index);
+
+        int availableProcessors = Runtime.getRuntime().availableProcessors();
+        System.out.print("Enter the number of threads (Enter for 4, available: " + availableProcessors + "): ");
+
+        String threadInput = StringConsoleReader.getStringData().stringData;
+        int threadCount = 4;
+        if (!threadInput.trim().isEmpty()) {
+            try {
+                threadCount = Integer.parseInt(threadInput.trim());
+            } catch (NumberFormatException e) {
+                System.out.println("Using 4 threads by default.");
+            }
+        }
+
+        CarCounter counter = new CarCounter(currentCars);
+        counter.printOccurrences(target, threadCount);
     }
 
     private static class Holder {
