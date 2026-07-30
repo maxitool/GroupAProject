@@ -261,7 +261,7 @@ public class GUISingleton {
             return;
         }
     }
-    
+
     private static class Holder {
         public static final GUISingleton instance = new GUISingleton();
     }
