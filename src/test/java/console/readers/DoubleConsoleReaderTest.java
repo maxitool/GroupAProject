@@ -70,6 +70,13 @@ public class DoubleConsoleReaderTest {
     }
 
     @Test
+    public void getDoubleData_withBeyondNegativeRangeDouble_cantConvertState() {
+        StringConsoleReaderTest.provideInput("-1.8e50000d");
+        DoubleResponse response = DoubleConsoleReader.getDoubleData();
+        Assertions.assertEquals(StringResponse.States.CANT_CONVERT, response.state);
+    }
+
+    @Test
     public void getDoubleData_with2DotsDouble_cantConvertState() {
         StringConsoleReaderTest.provideInput("123..123");
         DoubleResponse response = DoubleConsoleReader.getDoubleData();
