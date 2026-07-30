@@ -52,9 +52,7 @@ public class GUISingleton {
             "1. Sorting by horsepower field;\n" +
             "2. Sorting by model field;\n" +
             "3. Sorting by year field;\n" +
-            "4. Sorting by horsepower field with even values;\n" +
-            "5. Sorting by model field with even values;\n" +
-            "6. Sorting by year field with even values;\n" +
+            "4. Sorting by even horsepower values;\n" +
             "back. Go to Main GUI.";
 
     private static final String WRITE_DATA_TO_FILE_FILENAME_GUI = "\nWrite data to file GUI\n" +
@@ -81,6 +79,8 @@ public class GUISingleton {
 
     private static CustomArrayList<Car> currentCars = new CustomArrayList<>();
 
+
+    public int data(float value) { return 1;}
 
     private GUISingleton() {}
 
