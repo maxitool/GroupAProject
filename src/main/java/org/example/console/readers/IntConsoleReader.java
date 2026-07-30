@@ -4,6 +4,7 @@ import org.example.console.readers.responses.IntResponse;
 import org.example.console.readers.responses.StringResponse;
 
 public class IntConsoleReader extends StringConsoleReader {
+
     public static synchronized IntResponse getIntData() {
         StringResponse stringResponse = getStringData();
         IntResponse longResponse = new IntResponse(stringResponse);

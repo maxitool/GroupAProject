@@ -13,12 +13,14 @@ public class StringConsoleReader {
             return;
         scanner = new Scanner(System.in);
     }
+
     public static synchronized void closeScanner() {
         if (scanner == null)
             return;
         scanner.close();
         scanner = null;
     }
+
     public static synchronized StringResponse getStringData() {
         if (scanner == null)
             openScanner();

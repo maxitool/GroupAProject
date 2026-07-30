@@ -4,6 +4,7 @@ import org.example.console.readers.responses.DoubleResponse;
 import org.example.console.readers.responses.StringResponse;
 
 public class DoubleConsoleReader extends StringConsoleReader {
+
     public static synchronized DoubleResponse getDoubleData() {
         StringResponse stringResponse = getStringData();
         DoubleResponse doubleResponse = new DoubleResponse(stringResponse);
@@ -15,6 +16,12 @@ public class DoubleConsoleReader extends StringConsoleReader {
             System.out.println("Can't convert the wrote data to double. " + e.getMessage());
             doubleResponse.errorMessage = e.getMessage();
             doubleResponse.state = StringResponse.States.CANT_CONVERT;
+        }
+        if (Double.isInfinite(doubleResponse.doubleData)) {
+            doubleResponse.state = StringResponse.States.CANT_CONVERT;
+            String message = "Double value is infinity or negative infinity.";
+            doubleResponse.errorMessage = message;
+            System.out.println("Can't convert the wrote data to double, reason: " + message);
         }
         return doubleResponse;
     }
