@@ -258,36 +258,10 @@ public class GUISingleton {
             if (intResponse.state == StringResponse.States.BACK_COMMAND) return;
             CarCounter counter = new CarCounter(currentCars);
             counter.printOccurrences(target, intResponse.intData);
-        }
-    }
-
-    private static void countOccurrences() {
-        if (currentCars == null || currentCars.isEmpty()) {
-            System.out.println("No data available for counting! Please fill the list first.");
             return;
         }
-
-        System.out.println("\nSelect a car to count occurrences:");
-        for (int i = 0; i < currentCars.size(); i++) {
-            System.out.println((i + 1) + ". " + currentCars.get(i));
-        }
-
-        System.out.print("Enter the car number: ");
-        IntResponse indexResponse = IntConsoleReader.getIntData();
-        if (indexResponse.state != StringResponse.States.OK) {
-            System.out.println("Invalid input!");
-            return;
-        }
-
-        int index = indexResponse.intData - 1;
-
-
-        //
-
-
-
     }
-
+    
     private static class Holder {
         public static final GUISingleton instance = new GUISingleton();
     }
