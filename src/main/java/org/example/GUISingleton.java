@@ -23,6 +23,7 @@ public class GUISingleton {
             "2. Print data;\n" +
             "3. Sort data;\n" +
             "4. Write data to file;\n" +
+            "5. Count number of elements N in the collection;\n" +
             "back. Stop program.";
 
     private static final String FILL_DATA_GUI = "\nFill data GUI\n" +
@@ -65,11 +66,16 @@ public class GUISingleton {
             "Clear the file before inserting data? (" + BOOLEAN_ANSWER_TRUE + '/' + BOOLEAN_ANSWER_FALSE + ")\n" +
             "back. Go to Main GUI.";
 
+    private static final String COUNT_NUMBER_OF_ELEMENTS_GUI = "\nCount number of elements GUI\n" +
+            "Enter number of the N element you want to count\n" +
+            "back. Go to Main GUI.";
+
     private static final HashMap<Integer, Runnable> MAIN_GUI_ACTIONS = new HashMap<>(Map.of(
             1, GUISingleton::fillData,
             2, GUISingleton::printData,
             3, GUISingleton::sortData,
-            4, GUISingleton::writeDataToFile
+            4, GUISingleton::writeDataToFile,
+            5,GUISingleton::countNumberOfElementsN
     ));
     private static final HashMap<Integer, Supplier<Boolean>> FILL_GUI_ACTIONS = new HashMap<>(Map.of(
             1, GUISingleton::fillFromConsoleData,
@@ -206,6 +212,24 @@ public class GUISingleton {
             System.out.println("Файл будет создан.");
         }
         FileService.saveCarsToFile(currentCars, filename , !isRewrite);
+    }
+
+    private static void countNumberOfElementsN() {
+        if (currentCars.isEmpty()) {
+            System.out.println("The collection is empty.");
+            return;
+        }
+        if (currentCars.size() == 1) {
+            System.out.println("The collection size = 1.");
+            return;
+        }
+        System.out.println(COUNT_NUMBER_OF_ELEMENTS_GUI);
+        IntResponse answer;
+        do {
+            answer = IntConsoleReader.getIntData();
+        } while (answer.state != StringResponse.States.BACK_COMMAND && answer.state != StringResponse.States.OK);
+        if (answer.state == StringResponse.States.BACK_COMMAND) return;
+        // to do
     }
 
     private static class Holder {
