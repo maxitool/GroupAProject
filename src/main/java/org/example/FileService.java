@@ -18,7 +18,7 @@ public class FileService {
                     .filter(line -> !line.trim().isEmpty())
                     .map(CarDeserializer::stringToCar)
                     .filter(CarValidator::validateCar)
-                    .collect(Collectors.collectingAndThen(Collectors.toList(),CustomArrayList::new));
+                    .collect(Collectors.toCollection(CustomArrayList<Car>::new));
         } catch (IOException e) {
             System.out.println("Ошибка при чтении файла: " + e.getMessage());
             return new CustomArrayList<>();
