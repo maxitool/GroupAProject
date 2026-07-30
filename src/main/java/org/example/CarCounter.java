@@ -66,7 +66,6 @@ public class CarCounter {
             total+= count;
 
         }
-        System.out.println("Found " + total + " occurrences.");
         return total;
     }
     public void printOccurrences(Car target, int threadCount) {
