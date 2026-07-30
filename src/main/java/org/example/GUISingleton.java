@@ -15,6 +15,7 @@ import java.util.function.Supplier;
 
 public class GUISingleton {
     private static final int CONSOLE_LINES_CAPACITY = 10000;
+    private static final String FILES_PATH = "data\\";
     private static final String DEFAULT_FILENAME = "sorted_cars.txt";
 
     private static final String MAIN_GUI = "\nMain GUI\n" +
@@ -139,6 +140,7 @@ public class GUISingleton {
                 answer = StringConsoleReader.getStringData();
             } while (answer.state != StringResponse.States.BACK_COMMAND && answer.state != StringResponse.States.OK);
             if (answer.state == StringResponse.States.BACK_COMMAND) return false;
+            answer.stringData = FILES_PATH + answer.stringData;
             currentCars = CarFiller.fillFromFile(answer.stringData);
             return true;
         }
@@ -199,6 +201,7 @@ public class GUISingleton {
         if (stringAnswer.state == StringResponse.States.BACK_COMMAND) return;
         String filename = stringAnswer.stringData;
         if (stringAnswer.stringData.isEmpty()) filename = DEFAULT_FILENAME;
+        filename = FILES_PATH + filename;
         File file = new File(filename);
         boolean isRewrite = false;
         if (file.exists()) {
