@@ -1,5 +1,7 @@
-import org.example.Car;
-import org.example.CarValidator;
+package models.car;
+
+import org.example.models.car.Car;
+import org.example.models.car.CarValidator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

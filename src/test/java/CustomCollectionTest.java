@@ -1,4 +1,4 @@
-import org.example.Car;
+import org.example.models.car.Car;
 import org.example.collections.CustomArrayList;
 
 public class CustomCollectionTest {

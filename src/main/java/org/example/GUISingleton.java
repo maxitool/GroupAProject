@@ -10,10 +10,9 @@ import org.example.console.readers.responses.IntResponse;
 import org.example.console.readers.responses.StringResponse;
 import org.example.console.readers.StringConsoleReader;
 import org.example.collections.CustomArrayList;
-import org.example.CarCounter;
+import org.example.models.car.Car;
 import org.example.strategy.BubbleSortStrategy;
 import org.example.strategy.EvenOddSortStrategy;
-import org.example.strategy.SortStrategy;
 
 import java.io.File;
 import java.util.HashMap;

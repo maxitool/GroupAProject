@@ -1,6 +1,7 @@
 package org.example;
 
 import org.example.collections.CustomArrayList;
+import org.example.models.car.Car;
 
 import java.io.FileWriter;
 import java.io.IOException;

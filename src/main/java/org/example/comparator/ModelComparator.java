@@ -1,6 +1,6 @@
 package org.example.comparator;
 
-import org.example.Car;
+import org.example.models.car.Car;
 
 import java.util.Comparator;
 

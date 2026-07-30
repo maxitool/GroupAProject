@@ -1,6 +1,9 @@
 package org.example;
 
 import org.example.collections.CustomArrayList;
+import org.example.models.car.Car;
+import org.example.models.car.CarDeserializer;
+import org.example.models.car.CarValidator;
 
 import java.io.IOException;
 import java.nio.file.Files;

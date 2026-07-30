@@ -1,6 +1,6 @@
 package org.example.strategy;
 
-import org.example.Car;
+import org.example.models.car.Car;
 
 import java.util.Comparator;
 import java.util.List;

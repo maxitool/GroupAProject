@@ -1,4 +1,4 @@
-package org.example;
+package org.example.models.car;
 
 import java.util.HashMap;
 

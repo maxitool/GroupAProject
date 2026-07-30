@@ -1,6 +1,6 @@
 package org.example.strategy;
 
-import org.example.Car;
+import org.example.models.car.Car;
 import org.example.comparator.HorsepowerComparator;
 import org.example.comparator.ModelComparator;
 import org.example.comparator.YearComparator;

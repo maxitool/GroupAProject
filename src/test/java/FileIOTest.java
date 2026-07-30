@@ -1,5 +1,5 @@
 
-import org.example.Car;
+import org.example.models.car.Car;
 import org.example.FileServiceTxt;
 import org.example.collections.CustomArrayList;
 import org.junit.jupiter.api.Test;
