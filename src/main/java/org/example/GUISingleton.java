@@ -1,5 +1,8 @@
 package org.example;
 
+import org.example.comparator.HorsepowerComparator;
+import org.example.comparator.ModelComparator;
+import org.example.comparator.YearComparator;
 import org.example.console.readers.BooleanConsoleReader;
 import org.example.console.readers.IntConsoleReader;
 import org.example.console.readers.responses.BooleanResponse;
@@ -8,6 +11,9 @@ import org.example.console.readers.responses.StringResponse;
 import org.example.console.readers.StringConsoleReader;
 import org.example.collections.CustomArrayList;
 import org.example.CarCounter;
+import org.example.strategy.BubbleSortStrategy;
+import org.example.strategy.EvenOddSortStrategy;
+import org.example.strategy.SortStrategy;
 
 import java.io.File;
 import java.util.HashMap;
@@ -182,13 +188,33 @@ public class GUISingleton {
 
     private static void sortData() {
         IntResponse answer;
+        BubbleSortStrategy bubbleSortStrategy;
         while (true) {
             System.out.println(SORT_DATA_GUI);
             do {
                 answer = IntConsoleReader.getIntData();
             } while (answer.state != StringResponse.States.BACK_COMMAND && answer.state != StringResponse.States.OK);
             if (answer.state == StringResponse.States.BACK_COMMAND) return;
-            // Sort data with HashMap
+            switch (answer.intData) {
+                case 1:
+                    bubbleSortStrategy = new BubbleSortStrategy();
+                    bubbleSortStrategy.sort(currentCars, new HorsepowerComparator());
+                    break;
+                case 2:
+                    bubbleSortStrategy = new BubbleSortStrategy();
+                    bubbleSortStrategy.sort(currentCars, new ModelComparator());
+                    break;
+                case 3:
+                    bubbleSortStrategy = new BubbleSortStrategy();
+                    bubbleSortStrategy.sort(currentCars, new YearComparator());
+                    break;
+                case 4:
+                    EvenOddSortStrategy evenOddSortStrategy = new EvenOddSortStrategy();
+                    evenOddSortStrategy.sort(currentCars, new HorsepowerComparator());
+                    break;
+                default:
+                    System.out.println("Can't recognize wrote option");
+            }
         }
     }
 
