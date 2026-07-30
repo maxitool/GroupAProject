@@ -40,8 +40,8 @@ public class StreamFillTest {
         // 1. Готовим тестовые данные
         //    Это именно то, что пользователь ввёл бы с клавиатуры
         String simulatedInput = "2\n" +              // Количество машин
-                "150, Toyota, 2020\n" + // Машина #1
-                "200, BMW, 2021\n";     // Машина #2
+                "horsepower=150, model='Toyota', year=2020\n" + // Машина #1
+                "horsepower=200, model='BMW', year=2021\n";     // Машина #2
 
         System.out.println("Simulated input:");
         System.out.println("  " + simulatedInput.replace("\n", "\n  "));
