@@ -12,14 +12,14 @@ public class BubbleSortStrategy implements SortStrategy {
 
         if (cars == null) {
 
-            System.out.println("Ошибка: переданный список равен null");
+            System.out.println("Error: passed list is null");
             return;
 
         }
 
         if (comparator == null) {
 
-            System.out.println("Ошибка: компаратор равен null");
+            System.out.println("Error: comparator is null");
             return;
 
         }

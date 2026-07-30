@@ -1,43 +1,37 @@
 package org.example.strategy;
 
 import org.example.Car;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.IntStream;
 
 public class EvenOddSortStrategy {
 
-    public void sortEvenOnly(List<Car> cars, Comparator<Car> comparator) {
+    public void sort (List<Car> cars, Comparator<Car> comparator) {
 
         if (cars == null || comparator == null || cars.size() <= 1) {
             return;
         }
 
-        List<Car> evenCars = new ArrayList<>();
-        List<Integer> evenIndices = new ArrayList<>();
+        List<Integer> evenIndices = IntStream.range(0, cars.size())
+                .filter(i -> cars.get(i) != null && cars.get(i).getHorsepower() % 2 == 0)
+                .boxed()
+                .toList();
 
-        for (int i = 0; i < cars.size(); i++) {
-            Car car = cars.get(i);
-
-            if (car != null) {
-                if (car.getHorsepower() % 2 == 0) {
-                    evenCars.add(car);
-                    evenIndices.add(i);
-                }
-
-            }
-
-        }
+        List<Car> evenCars = new ArrayList<>(
+                evenIndices.stream()
+                        .map(i -> cars.get(i))
+                        .toList()
+        );
 
         BubbleSortStrategy bubbleSort = new BubbleSortStrategy();
         bubbleSort.sort(evenCars, comparator);
 
-        for (int i = 0; i < evenIndices.size(); i++) {
-            int originalIndex = evenIndices.get(i);
-            Car sortedCar = evenCars.get(i);
-
-            cars.set(originalIndex, sortedCar);
-        }
+        IntStream.range(0, evenIndices.size())
+                .forEach(i -> cars.set(evenIndices.get(i), evenCars.get(i)));
 
     }
+
 }
