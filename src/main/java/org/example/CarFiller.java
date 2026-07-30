@@ -31,15 +31,11 @@ public class CarFiller {
 
     public static CustomArrayList<Car> fillFromConsole(){
         System.out.println("Enter number of cars: ");
-        IntResponse countResponse = IntConsoleReader.getIntData();
-        if (countResponse.state == StringResponse.States.BACK_COMMAND) {
-            System.out.println("Returning to previous menu.");
-            return new CustomArrayList<>();
-        }
-        if (countResponse.state != StringResponse.States.OK){
-            System.out.println("Invalid count, returning empty list.");
-            return new CustomArrayList<>();
-        }
+        IntResponse countResponse;
+        do {
+            countResponse = IntConsoleReader.getIntData();
+        } while (countResponse.state != StringResponse.States.BACK_COMMAND && countResponse.state != StringResponse.States.OK);
+        if (countResponse.state == StringResponse.States.BACK_COMMAND) return new CustomArrayList<>();;
         int count = countResponse.intData;
         CustomArrayList<Car> cars = new CustomArrayList<>();
         System.out.println("Enter car data in format: horsepower=123, model='BMW X5', year=2020");
@@ -49,23 +45,18 @@ public class CarFiller {
                 .takeWhile(i -> !isBack.get())
                 .forEach(i -> {
                     System.out.print("Car #" + (i + 1) + " > ");
-                    StringResponse inputResponse = StringConsoleReader.getStringData();
-                    if (inputResponse.state == StringResponse.States.BACK_COMMAND){
-                        System.out.println("Returning to previous menu. " + i + " cars added.");
-                        isBack.set(true);
-                        return;
-                    }
-                    if (inputResponse.state != StringResponse.States.OK) {
-                        System.out.println("Error reading input, skipping car #" + (i + 1));
-                        return;
-                    }
+                    StringResponse inputResponse;
+                    do {
+                        inputResponse = StringConsoleReader.getStringData();
+                    } while (inputResponse.state != StringResponse.States.BACK_COMMAND && inputResponse.state != StringResponse.States.OK);
+                    if (inputResponse.state == StringResponse.States.BACK_COMMAND) return;
                     String input = inputResponse.stringData;
                     if (input == null || input.trim().isEmpty()){
                         System.out.println("Empty input, skipping car #" + (i + 1));
                         return;
                     }
-                        Car car = CarDeserializer.stringToCar(input);
-                        if (CarValidator.validateCar(car)){
+                    Car car = CarDeserializer.stringToCar(input);
+                    if (CarValidator.validateCar(car)) {
                         cars.add(car);
                         System.out.println("Car #" + (i + 1) + " added successfully!");
                     }else{
