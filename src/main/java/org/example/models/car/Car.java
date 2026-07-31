@@ -3,7 +3,6 @@ package org.example.models.car;
 import java.util.Objects;
 
 public class Car {
-    public static final int COUNT_FIELDS = 3;
     private int horsepower;
     private String model;
     private int year;

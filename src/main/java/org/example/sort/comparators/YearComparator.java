@@ -1,10 +1,10 @@
-package org.example.comparator;
+package org.example.sort.comparators;
 
 import org.example.models.car.Car;
 
 import java.util.Comparator;
 
-public class HorsepowerComparator implements Comparator<Car> {
+public class YearComparator implements Comparator<Car> {
 
 
     @Override
@@ -14,6 +14,6 @@ public class HorsepowerComparator implements Comparator<Car> {
         if (o1 == null) return -1;
         if (o2 == null) return 1;
 
-        return Integer.compare(o1.getHorsepower(), o2.getHorsepower());
+        return Integer.compare(o1.getYear(), o2.getYear());
     }
 }

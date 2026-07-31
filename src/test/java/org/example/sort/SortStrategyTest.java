@@ -1,9 +1,9 @@
 package org.example.sort;
 
 import org.example.models.car.Car;
-import org.example.comparator.HorsepowerComparator;
-import org.example.comparator.ModelComparator;
-import org.example.comparator.YearComparator;
+import org.example.sort.comparators.HorsepowerComparator;
+import org.example.sort.comparators.ModelComparator;
+import org.example.sort.comparators.YearComparator;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

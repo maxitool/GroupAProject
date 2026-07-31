@@ -1,0 +1,4 @@
+Car{horsepower=90, model="Citroen SA', year=1914, key=123213}
+Car{horsepower=56 hp, model=Aston Martin UOGNZTL, year=2015}
+Car{horsepower=90 hp, model='Citroen SA', year=1914}
+Car{horsepower=56 hp, model='Aston Martin UOGNZTL', year=2015}

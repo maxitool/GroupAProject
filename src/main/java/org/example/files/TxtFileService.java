@@ -1,0 +1,82 @@
+package org.example.files;
+
+import org.example.collections.CustomArrayList;
+import org.example.models.car.Car;
+import org.example.models.car.CarDeserializer;
+import org.example.models.car.CarValidator;
+
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+public class TxtFileService implements FileServiceStrategy {
+    private static final String FILE_FORMAT = ".txt";
+
+    @Override
+    public String getFileFormat() {
+        return FILE_FORMAT;
+    }
+
+    @Override
+    public boolean isFileFormatGood(String filename) {
+        if (filename == null) {
+            return false;
+        }
+        return filename.toLowerCase().endsWith(FILE_FORMAT);
+    }
+
+    @Override
+    public List<Car> readCars(String filename) {
+        if (filename == null) {
+            System.out.println("filename = null");
+            return new CustomArrayList<>();
+        }
+        if (!isFileFormatGood(filename)) {
+            System.out.println("The filename format is must be " + FILE_FORMAT);
+            return new CustomArrayList<>();
+        }
+        if (!FileService.isFileExist(filename)) {
+            System.out.println("The file isn't exist");
+            return new CustomArrayList<>();
+        }
+        try (Stream<String> lines = Files.lines(Paths.get(filename))) {
+            return lines
+                    .map(CarDeserializer::stringToCar)
+                    .filter(CarValidator::validateCar)
+                    .collect(Collectors.toCollection(CustomArrayList::new));
+        } catch (IOException e) {
+            System.out.println("Error reading file: " + e.getMessage());
+        }
+        return new CustomArrayList<>();
+    }
+
+    @Override
+    public boolean writeCars(String filename, boolean isAppend, List<Car> cars) {
+        if (filename == null) {
+            System.out.println("filename = null.");
+            return false;
+        }
+        if (cars == null || cars.isEmpty()) {
+            System.out.println("No data to write!");
+            return false;
+        }
+        if (!isFileFormatGood(filename)) {
+            System.out.println("The filename format is must be " + FILE_FORMAT);
+            return false;
+        }
+        try (FileWriter writer = new FileWriter(filename, isAppend)) {
+            for (Car car : cars) {
+                writer.write(car.toString() + "\n");
+            }
+            System.out.println("Data saved to " + filename);
+            return true;
+        } catch (IOException e) {
+            System.out.println("Error writing to file: " + e.getMessage());
+        }
+        return  false;
+    }
+}

@@ -1,8 +1,8 @@
 package org.example;
 
-import org.example.comparator.HorsepowerComparator;
-import org.example.comparator.ModelComparator;
-import org.example.comparator.YearComparator;
+import org.example.sort.comparators.HorsepowerComparator;
+import org.example.sort.comparators.ModelComparator;
+import org.example.sort.comparators.YearComparator;
 import org.example.console.readers.BooleanConsoleReader;
 import org.example.console.readers.IntConsoleReader;
 import org.example.console.readers.responses.BooleanResponse;
@@ -10,12 +10,16 @@ import org.example.console.readers.responses.IntResponse;
 import org.example.console.readers.responses.StringResponse;
 import org.example.console.readers.StringConsoleReader;
 import org.example.collections.CustomArrayList;
+import org.example.files.FileService;
+import org.example.files.FileServiceStrategy;
+import org.example.files.TxtFileService;
 import org.example.models.car.Car;
 import org.example.sort.BubbleSortStrategy;
 import org.example.sort.EvenOddSortStrategy;
 
-import java.io.File;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 
@@ -92,8 +96,11 @@ public class GUISingleton {
             2, GUISingleton::fillFromFileData,
             3, GUISingleton::fillGeneratedData
     ));
+    private static final List<FileServiceStrategy> FILE_SERVICE_STRATEGIES_LIST = List.of(
+            new TxtFileService()
+    );
 
-    private static CustomArrayList<Car> cars = new CustomArrayList<>();
+    private static List<Car> cars = new CustomArrayList<>();
 
 
     private GUISingleton() {}
@@ -143,14 +150,27 @@ public class GUISingleton {
 
     private static boolean fillFromFileData() {
         StringResponse answer;
+        cars = Collections.unmodifiableList(cars);
         System.out.println(FILL_DATA_FROM_FILE_GUI);
         while(true) {
             do {
                 answer = StringConsoleReader.getStringData();
             } while (answer.state != StringResponse.States.BACK_COMMAND && answer.state != StringResponse.States.OK);
             if (answer.state == StringResponse.States.BACK_COMMAND) return false;
-            answer.stringData = FILES_PATH + answer.stringData;
-            cars = CarFiller.fillFromFile(answer.stringData);
+            String filename = answer.stringData;
+            String streamFilename = filename;
+            FileServiceStrategy strategy = FILE_SERVICE_STRATEGIES_LIST.stream()
+                    .filter(item -> item.isFileFormatGood(streamFilename))
+                    .findFirst().orElse(null);
+            filename = FILES_PATH + answer.stringData;
+            if (strategy == null) {
+                System.out.println("The file you wrote isn't in correct format.");
+                System.out.println("Available formats:");
+                FILE_SERVICE_STRATEGIES_LIST.forEach(item -> System.out.println(item.getFileFormat()));
+                System.out.println("Please try again (or enter 'back' to cancel):");
+                continue;
+            }
+            cars = FileService.readCars(strategy, filename);
             return true;
         }
     }
@@ -232,15 +252,22 @@ public class GUISingleton {
             } while (stringAnswer.state != StringResponse.States.BACK_COMMAND && stringAnswer.state != StringResponse.States.OK);
             if (stringAnswer.state == StringResponse.States.BACK_COMMAND) return;
             filename = stringAnswer.stringData;
-            if (stringAnswer.stringData.isEmpty()) filename = DEFAULT_FILENAME;
-            filename = FILES_PATH + filename;
-            File file = new File(filename);
-            if (!filename.toLowerCase().endsWith(".txt")) {
-                System.out.println("Error! The file name must end with .txt");
+            if (stringAnswer.stringData.isEmpty()) {
+                filename = DEFAULT_FILENAME;
+            }
+            String streamFilename = filename;
+            FileServiceStrategy strategy = FILE_SERVICE_STRATEGIES_LIST.stream()
+                    .filter(item -> item.isFileFormatGood(streamFilename))
+                    .findFirst().orElse(null);
+            if (strategy == null) {
+                System.out.println("The file you wrote isn't in correct format.");
+                System.out.println("Available formats:");
+                FILE_SERVICE_STRATEGIES_LIST.forEach(item -> System.out.println(item.getFileFormat()));
                 System.out.println("Please try again (or enter 'back' to cancel):");
                 continue;
             }
-            if (file.exists()) {
+            filename = FILES_PATH + filename;
+            if (FileService.isFileExist(filename)) {
                 System.out.println(WRITE_DATA_TO_FILE_IS_REWRITE_GUI);
                 do {
                     booleanResponse = BooleanConsoleReader.getBooleanData(BOOLEAN_ANSWER_TRUE, BOOLEAN_ANSWER_FALSE);
@@ -248,9 +275,10 @@ public class GUISingleton {
                 if (booleanResponse.state == StringResponse.States.BACK_COMMAND) return;
                 isRewrite = booleanResponse.booleanData;
             } else {
-                System.out.println("Файл будет создан.");
+                System.out.println("The file will be created.");
             }
-            FileServiceTxt.saveCarsToFile(cars, filename , !isRewrite);
+            FileService.writeCars(strategy, filename, !isRewrite, cars);
+            break;
         }
     }
 

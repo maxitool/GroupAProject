@@ -8,27 +8,23 @@ import org.example.models.car.CarValidator;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.stream.Collectors;
 
-public class ReadFileStrategy implements FileOperationStrategy{
-    @Override
-    public void execute(String filename, CustomArrayList<Car> cars) {
-        try {
-            CustomArrayList<Car> loadedCars = Files.lines(Paths.get(filename))
-                    .filter(line -> !line.trim().isEmpty())
-                    .map(CarDeserializer::stringToCar)
-                    .filter(car -> car != null && CarValidator.validateCar(car))
-                    .collect(Collectors.toCollection(CustomArrayList::new));
+public class ReadFileStrategy{
 
-            cars.clear();
-            cars.addAll(loadedCars);
+    public List<Car> readCars(String filename) {
+        return List.of();
+    }
 
 
-            System.out.println("Read " + cars.size() + " cars from " + filename);
+    public boolean writeCars(String filename, List<Car> cars) {
+        return false;
+    }
 
-        } catch (IOException e) {
-            System.out.println("Error reading file: " + e.getMessage());
-        }
+
+    public void execute(String filename, List<Car> cars) {
+
     }
 
 

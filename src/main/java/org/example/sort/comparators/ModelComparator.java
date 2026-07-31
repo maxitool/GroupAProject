@@ -1,4 +1,4 @@
-package org.example.comparator;
+package org.example.sort.comparators;
 
 import org.example.models.car.Car;
 

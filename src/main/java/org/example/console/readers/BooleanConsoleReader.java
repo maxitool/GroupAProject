@@ -5,7 +5,7 @@ import org.example.console.readers.responses.StringResponse;
 
 public class BooleanConsoleReader extends StringConsoleReader {
 
-    public static synchronized BooleanResponse getBooleanData() {
+    public static synchronized BooleanResponse getBooleanData(boolean doConsoleLogAfterParse) {
         StringResponse stringResponse = getStringData();
         BooleanResponse booleanResponse = new BooleanResponse(stringResponse);
         if (booleanResponse.state != StringResponse.States.OK) return booleanResponse;
@@ -19,10 +19,15 @@ public class BooleanConsoleReader extends StringConsoleReader {
             booleanResponse.state = StringResponse.States.CANT_CONVERT;
         }
         if (!data.equals("true") && !data.equals("false")) {
-            System.out.println("Can't convert the wrote data to boolean, data: " + booleanResponse.stringData);
+            if (doConsoleLogAfterParse) {
+                System.out.println("Can't convert the wrote data to boolean, data: " + booleanResponse.stringData);
+            }
             booleanResponse.state = StringResponse.States.CANT_CONVERT;
         }
         return booleanResponse;
+    }
+    public static synchronized BooleanResponse getBooleanData() {
+        return getBooleanData(true);
     }
 
     public static synchronized BooleanResponse getBooleanData(String trueValue, String falseValue) {
@@ -30,8 +35,10 @@ public class BooleanConsoleReader extends StringConsoleReader {
             System.out.println("trueValue = null or falseValue = null in BooleanConsoleReader.getBooleanData.");
             return new BooleanResponse(new StringResponse());
         }
-        BooleanResponse booleanResponse = getBooleanData();
-        if (booleanResponse.state != StringResponse.States.OK && booleanResponse.state != StringResponse.States.CANT_CONVERT) return booleanResponse;
+        BooleanResponse booleanResponse = getBooleanData(false);
+        if (booleanResponse.state != StringResponse.States.OK && booleanResponse.state != StringResponse.States.CANT_CONVERT) {
+            return booleanResponse;
+        }
         trueValue = trueValue.trim();
         trueValue = Character.toLowerCase(trueValue.charAt(0)) + trueValue.substring(1);
         falseValue = falseValue.trim();
