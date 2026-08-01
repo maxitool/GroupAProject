@@ -52,11 +52,12 @@ class DataGeneratorTest {
     @Test
     void generateCars_always_yearInRange2000to2025() {
         CustomArrayList<Car> cars = DataGenerator.generateCars(50);
+        boolean isTestPass = true;
         for (Car car : cars) {
             int year = car.getYear();
-            assertTrue(year >= 2000 && year <= 2025,
-                    "Год должен быть между 2000 и 2025, но был: " + year);
+            isTestPass = isTestPass && (CarValidator.validateYear(car.getYear()));
         }
+        assertTrue(isTestPass, "Год должен быть между 2000 и 2025");
     }
 
     @Test
