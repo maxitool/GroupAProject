@@ -228,20 +228,21 @@ public class GUISingleton {
             if (answer.state == StringResponse.States.BACK_COMMAND) return;
             switch (answer.intData) {
                 case 1:
+                    cars = Collections.unmodifiableList(cars);
                     bubbleSortStrategy = new BubbleSortStrategy();
-                    bubbleSortStrategy.sort(cars, new HorsepowerComparator());
+                    cars = bubbleSortStrategy.sort(cars, new HorsepowerComparator());
                     break;
                 case 2:
                     bubbleSortStrategy = new BubbleSortStrategy();
-                    bubbleSortStrategy.sort(cars, new ModelComparator());
+                    cars = bubbleSortStrategy.sort(cars, new ModelComparator());
                     break;
                 case 3:
                     bubbleSortStrategy = new BubbleSortStrategy();
-                    bubbleSortStrategy.sort(cars, new YearComparator());
+                    cars = bubbleSortStrategy.sort(cars, new YearComparator());
                     break;
                 case 4:
                     EvenOddSortStrategy evenOddSortStrategy = new EvenOddSortStrategy();
-                    evenOddSortStrategy.sort(cars, new HorsepowerComparator());
+                    cars = evenOddSortStrategy.sort(cars, new HorsepowerComparator());
                     break;
                 default:
                     System.out.println("Can't recognize wrote option");
