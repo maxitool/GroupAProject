@@ -2,22 +2,20 @@ package org.example.collections;
 
 import java.util.AbstractList;
 import java.util.Arrays;
-import java.util.Iterator;
-import java.util.NoSuchElementException;
 
 public class CustomArrayList<T> extends AbstractList<T> {
     private static final int DEFAULT_CAPACITY = 10;
     private Object[] elements;
     private int size;
 
-    public CustomArrayList(){
+    public CustomArrayList() {
         elements = new Object[DEFAULT_CAPACITY];
         size = 0;
     }
 
     @Override
-    public boolean add(T element){
-        if (size == elements.length){
+    public boolean add(T element) {
+        if (size == elements.length) {
             int newCapacity = elements.length + (elements.length >> 1);
             elements = Arrays.copyOf(elements, newCapacity);
         }
@@ -27,8 +25,8 @@ public class CustomArrayList<T> extends AbstractList<T> {
 
     @Override
     @SuppressWarnings("unchecked")
-    public T get(int index){
-        if (index < 0 || index >= size){
+    public T get(int index) {
+        if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
         }
         return (T) elements[index];

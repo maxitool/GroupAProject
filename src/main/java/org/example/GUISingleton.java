@@ -29,74 +29,85 @@ public class GUISingleton {
     private static final String FILES_PATH = "data\\";
     private static final String DEFAULT_FILENAME = "sorted_cars.txt";
 
-    private static final String MAIN_GUI = "\nMain GUI\n" +
-            "Choose a option:\n" +
-            "1. Fill data;\n" +
-            "2. Print data;\n" +
-            "3. Sort data;\n" +
-            "4. Write data to file;\n" +
-            "5. Count number of elements N in the collection;\n" +
-            "back. Stop program.";
-
-    private static final String FILL_DATA_GUI = "\nFill data GUI\n" +
-            "Choose a option:\n" +
-            "1. Fill from the console;\n" +
-            "2. Fill from a file;\n" +
-            "3. Fill with generated data;\n" +
-            "back. Go to Main GUI.";
-
-    private static final String FILL_DATA_FROM_CONSOLE_GUI = "\nFill data from console GUI\n" +
-            "back. Go to Fill data GUI.";
-
-    private static final String FILL_DATA_FROM_FILE_GUI = "\nFill data from file GUI\n" +
-            "What is the name of the file you want to read data from?\n" +
-            "back. Go to Fill data GUI.";
-
-    private static final String FILL_GENERATED_DATA_GUI = "\nFill generated data GUI\n" +
-            "How much data do you need to generate?\n" +
-            "back. Go to Fill data GUI.";
-
-    private static final String GET_DATA_GUI = "\nPrint data GUI\n" +
-            "How much data do you need to output?\n" +
-            "back. Go to Main GUI.";
-
-    private static final String SORT_DATA_GUI = "\nSort data GUI\n" +
-            "Choose a option:\n" +
-            "1. Sorting by horsepower field;\n" +
-            "2. Sorting by model field;\n" +
-            "3. Sorting by year field;\n" +
-            "4. Sorting by even horsepower values;\n" +
-            "back. Go to Main GUI.";
-
-    private static final String WRITE_DATA_TO_FILE_FILENAME_GUI = "\nWrite data to file GUI\n" +
-            "Enter the file name or click Enter to use the default file name (" + DEFAULT_FILENAME + ").\n" +
-            "back. Go to Main GUI.";
-
-    private static final String BOOLEAN_ANSWER_TRUE = "yes", BOOLEAN_ANSWER_FALSE = "no";
-
-    private static final String WRITE_DATA_TO_FILE_IS_REWRITE_GUI = "\nWrite data to file GUI\n" +
-            "Clear the file before inserting data? (" + BOOLEAN_ANSWER_TRUE + '/' + BOOLEAN_ANSWER_FALSE + ")\n" +
-            "back. Go to Main GUI.";
-
-    private static final String COUNT_NUMBER_OF_ELEMENTS_GUI = "\nCount number of elements GUI\n" +
-            "Enter index of the N element you want to count\n" +
-            "back. Go to Main GUI.";
-
+    private static final String MAIN_GUI = """
+            
+            Main GUI
+            Choose a option:
+            1. Fill data;
+            2. Print data;
+            3. Sort data;
+            4. Write data to file;
+            5. Count number of elements N in the collection;
+            back. Stop program.""";
     private static final HashMap<Integer, Runnable> MAIN_GUI_ACTIONS = new HashMap<>(Map.of(
             1, GUISingleton::fillData,
             2, GUISingleton::printData,
             3, GUISingleton::sortData,
             4, GUISingleton::writeDataToFile,
-
             5,GUISingleton::countNumberOfElementsN
-
-
     ));
+
+    private static final String FILL_DATA_GUI = """
+            
+            Fill data GUI
+            Choose a option:
+            1. Fill from the console;
+            2. Fill from a file;
+            3. Fill with generated data;
+            back. Go to Main GUI.""";
     private static final HashMap<Integer, Supplier<Boolean>> FILL_GUI_ACTIONS = new HashMap<>(Map.of(
             1, GUISingleton::fillFromConsoleData,
             2, GUISingleton::fillFromFileData,
             3, GUISingleton::fillGeneratedData
     ));
+    private static final String FILL_DATA_FROM_CONSOLE_GUI = """
+            
+            Fill data from console GUI
+            back. Go to Fill data GUI.""";
+    private static final String FILL_DATA_FROM_FILE_GUI = """
+            
+            Fill data from file GUI
+            What is the name of the file you want to read data from?
+            back. Go to Fill data GUI.""";
+    private static final String FILL_GENERATED_DATA_GUI = """
+            
+            Fill generated data GUI
+            How much data do you need to generate?
+            back. Go to Fill data GUI.""";
+
+    private static final String PRINT_DATA_GUI = """
+            
+            Print data GUI
+            How much data do you need to output?
+            back. Go to Main GUI.""";
+
+    private static final String SORT_DATA_GUI = """
+            
+            Sort data GUI
+            Choose a option:
+            1. Sorting by horsepower field;
+            2. Sorting by model field;
+            3. Sorting by year field;
+            4. Sorting by even horsepower values;
+            back. Go to Main GUI.""";
+
+    private static final String WRITE_DATA_TO_FILE_FILENAME_GUI = '\n' +
+            "Write data to file GUI\n" +
+            "Enter the file name or click Enter to use the default file name (" + DEFAULT_FILENAME + ").\n" +
+            "back. Go to Main GUI.";
+
+    private static final String BOOLEAN_ANSWER_TRUE = "yes", BOOLEAN_ANSWER_FALSE = "no";
+    private static final String WRITE_DATA_TO_FILE_IS_REWRITE_GUI = '\n' +
+            "Write data to file GUI\n" +
+            "Clear the file before inserting data? (" + BOOLEAN_ANSWER_TRUE + '/' + BOOLEAN_ANSWER_FALSE + ")\n" +
+            "back. Go to Main GUI.";
+
+    private static final String COUNT_NUMBER_OF_ELEMENTS_GUI = """
+            
+            Count number of elements GUI
+            Enter index of the N element you want to count
+            back. Go to Main GUI.""";
+
     private static final List<FileServiceStrategy> FILE_SERVICE_STRATEGIES_LIST = List.of(
             new TxtFileService()
     );
@@ -188,7 +199,7 @@ public class GUISingleton {
     }
 
     private static void printData() {
-        System.out.println(GET_DATA_GUI);
+        System.out.println(PRINT_DATA_GUI);
         IntResponse answer;
         do {
             answer = IntConsoleReader.getIntData();

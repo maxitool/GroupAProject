@@ -36,11 +36,11 @@ public class DataGenerator {
                     for (int j = 0; j < modelLength; j++) {
                         brandAndModel.append((char) (random.nextInt(26) + 65));
                     }
-                    return Car.builder().
-                            horsepower(random.nextInt(MAX_HORSEPOWER_VALUE - MIN_HORSEPOWER_VALUE + 1) + MIN_HORSEPOWER_VALUE).
-                            model(brandAndModel.toString()).
-                            year(random.nextInt(Year.now().getValue() - MIN_YEAR_VALUE) + MIN_YEAR_VALUE).
-                            build();
+                    return Car.builder()
+                            .horsepower(random.nextInt(MAX_HORSEPOWER_VALUE - MIN_HORSEPOWER_VALUE + 1) + MIN_HORSEPOWER_VALUE)
+                            .model(brandAndModel.toString())
+                            .year(random.nextInt(Year.now().getValue() - MIN_YEAR_VALUE) + MIN_YEAR_VALUE)
+                            .build();
                 })
                 .limit(count)
                 .forEach(cars::add);

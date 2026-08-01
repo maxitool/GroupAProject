@@ -13,7 +13,7 @@ import java.util.stream.IntStream;
 
 public class DataConsoleReader {
 
-    public static CustomArrayList<Car> readCars(){
+    public static CustomArrayList<Car> readCars() {
         System.out.println("Enter number of cars: ");
         IntResponse countResponse;
         do {
@@ -38,7 +38,7 @@ public class DataConsoleReader {
                         return;
                     }
                     String input = inputResponse.stringData;
-                    if (input == null || input.trim().isEmpty()){
+                    if (input == null || input.trim().isEmpty()) {
                         System.out.println("Empty input, skipping car #" + (i + 1));
                         return;
                     }
@@ -46,7 +46,7 @@ public class DataConsoleReader {
                     if (CarValidator.validateCar(car)) {
                         cars.add(car);
                         System.out.println("Car #" + (i + 1) + " added successfully!");
-                    }else{
+                    } else {
                         System.out.println("Invalid car data, skipping car #" + (i + 1));
                         System.out.println("Expected format: horsepower=<horsepower>, model='<model>', year=<year>");
                     }

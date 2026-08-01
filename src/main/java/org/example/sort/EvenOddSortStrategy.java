@@ -10,7 +10,6 @@ import java.util.stream.IntStream;
 public class EvenOddSortStrategy {
 
     public void sort (List<Car> cars, Comparator<Car> comparator) {
-
         if (cars == null || comparator == null || cars.size() <= 1) {
             return;
         }
@@ -22,7 +21,7 @@ public class EvenOddSortStrategy {
 
         List<Car> evenCars = new ArrayList<>(
                 evenIndices.stream()
-                        .map(i -> cars.get(i))
+                        .map(cars::get)
                         .toList()
         );
 
@@ -33,5 +32,4 @@ public class EvenOddSortStrategy {
                 .forEach(i -> cars.set(evenIndices.get(i), evenCars.get(i)));
 
     }
-
 }

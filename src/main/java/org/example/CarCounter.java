@@ -11,6 +11,7 @@ public class CarCounter {
     public CarCounter(List<Car> cars) {
         this.cars = cars;
     }
+
     public long countOccurrences(Car target, int threadCount) {
         if (cars==null || cars.isEmpty()) {
             System.out.println("The collection is empty.");
@@ -49,7 +50,6 @@ public class CarCounter {
                 }
                 synchronized (results) {
                     results.add(count);
-
                 }
             };
             Thread thread =  new Thread(task);
@@ -66,10 +66,10 @@ public class CarCounter {
         long total = 0;
         for (long count : results){
             total+= count;
-
         }
         return total;
     }
+
     public void printOccurrences(Car target, int threadCount) {
         long count = countOccurrences(target, threadCount);
         System.out.println("Result: " + count + " occurrences.");
