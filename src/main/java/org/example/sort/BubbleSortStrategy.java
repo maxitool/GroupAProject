@@ -1,5 +1,6 @@
 package org.example.sort;
 
+import org.example.collections.CustomArrayList;
 import org.example.models.car.Car;
 
 import java.util.Comparator;
@@ -8,32 +9,39 @@ import java.util.List;
 public class BubbleSortStrategy implements SortStrategy {
 
     @Override
-    public void sort(List<Car> cars, Comparator<Car> comparator) {
+    public List<Car> sort(List<Car>cars , Comparator<Car> comparator) {
+
         if (cars == null) {
             System.out.println("Error: passed list is null");
-            return;
+            return new CustomArrayList<>();
         }
 
         if (comparator == null) {
             System.out.println("Error: comparator is null");
-            return;
+            return cars;
         }
 
         if (cars.size() <= 1) {
-            return;
+            return cars;
         }
 
-        int n = cars.size();
+        List<Car> sortedCars = new CustomArrayList<>();
+        sortedCars.addAll(cars);
+
+
+
+        int n = sortedCars.size();
         for (int i = 0; i < n - 1; i++) {
             for (int j = 0; j < n - i - 1; j++) {
-                Car current = cars.get(j);
-                Car next = cars.get(j + 1);
+                Car current = sortedCars.get(j);
+                Car next = sortedCars.get(j + 1);
 
                 if (comparator.compare(current, next) > 0) {
-                    cars.set(j, next);
-                    cars.set(j + 1, current);
+                    sortedCars.set(j, next);
+                    sortedCars.set(j + 1, current);
                 }
             }
         }
+        return sortedCars;
     }
 }

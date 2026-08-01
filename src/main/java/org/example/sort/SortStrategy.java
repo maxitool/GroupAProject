@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface SortStrategy {
 
-    void sort (List<Car> cars, Comparator<Car> comparator);
+    List<Car> sort (List<Car> cars, Comparator<Car> comparator);
 
 }
