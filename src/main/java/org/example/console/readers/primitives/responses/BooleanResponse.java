@@ -1,4 +1,4 @@
-package org.example.console.readers.responses;
+package org.example.console.readers.primitives.responses;
 
 public class BooleanResponse extends StringResponse{
     public boolean booleanData = false;

@@ -1,9 +1,9 @@
 package org.example.readers;
 
-import org.example.console.readers.IntConsoleReader;
-import org.example.console.readers.StringConsoleReader;
-import org.example.console.readers.responses.IntResponse;
-import org.example.console.readers.responses.StringResponse;
+import org.example.console.readers.primitives.IntConsoleReader;
+import org.example.console.readers.primitives.StringConsoleReader;
+import org.example.console.readers.primitives.responses.IntResponse;
+import org.example.console.readers.primitives.responses.StringResponse;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;

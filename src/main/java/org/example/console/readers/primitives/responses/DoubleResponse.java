@@ -1,4 +1,4 @@
-package org.example.console.readers.responses;
+package org.example.console.readers.primitives.responses;
 
 public class DoubleResponse extends StringResponse {
     public double doubleData = 0;

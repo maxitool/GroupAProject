@@ -1,7 +1,7 @@
-package org.example.console.readers;
+package org.example.console.readers.primitives;
 
-import org.example.console.readers.responses.DoubleResponse;
-import org.example.console.readers.responses.StringResponse;
+import org.example.console.readers.primitives.responses.DoubleResponse;
+import org.example.console.readers.primitives.responses.StringResponse;
 
 public class DoubleConsoleReader extends StringConsoleReader {
 

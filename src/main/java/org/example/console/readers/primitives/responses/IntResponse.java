@@ -1,4 +1,4 @@
-package org.example.console.readers.responses;
+package org.example.console.readers.primitives.responses;
 
 public class IntResponse extends StringResponse {
     public int intData = 0;

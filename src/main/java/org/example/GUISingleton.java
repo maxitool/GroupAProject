@@ -1,14 +1,15 @@
 package org.example;
 
+import org.example.console.readers.DataConsoleReader;
 import org.example.sort.comparators.HorsepowerComparator;
 import org.example.sort.comparators.ModelComparator;
 import org.example.sort.comparators.YearComparator;
-import org.example.console.readers.BooleanConsoleReader;
-import org.example.console.readers.IntConsoleReader;
-import org.example.console.readers.responses.BooleanResponse;
-import org.example.console.readers.responses.IntResponse;
-import org.example.console.readers.responses.StringResponse;
-import org.example.console.readers.StringConsoleReader;
+import org.example.console.readers.primitives.BooleanConsoleReader;
+import org.example.console.readers.primitives.IntConsoleReader;
+import org.example.console.readers.primitives.responses.BooleanResponse;
+import org.example.console.readers.primitives.responses.IntResponse;
+import org.example.console.readers.primitives.responses.StringResponse;
+import org.example.console.readers.primitives.StringConsoleReader;
 import org.example.collections.CustomArrayList;
 import org.example.files.FileService;
 import org.example.files.FileServiceStrategy;
@@ -144,7 +145,7 @@ public class GUISingleton {
 
     private static boolean fillFromConsoleData() {
         System.out.println(FILL_DATA_FROM_CONSOLE_GUI);
-        cars = CarFiller.fillFromConsole();
+        cars = DataConsoleReader.readCars();
         return true;
     }
 
@@ -182,7 +183,7 @@ public class GUISingleton {
             answer = IntConsoleReader.getIntData();
         } while (answer.state != StringResponse.States.BACK_COMMAND && answer.state != StringResponse.States.OK);
         if (answer.state == StringResponse.States.BACK_COMMAND) return false;
-        cars = CarFiller.fillRandom(answer.intData);
+        cars = DataGenerator.generateCars(answer.intData);
         return true;
     }
 

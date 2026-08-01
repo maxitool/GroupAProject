@@ -1,7 +1,7 @@
-package org.example.console.readers;
+package org.example.console.readers.primitives;
 
-import org.example.console.readers.responses.BooleanResponse;
-import org.example.console.readers.responses.StringResponse;
+import org.example.console.readers.primitives.responses.BooleanResponse;
+import org.example.console.readers.primitives.responses.StringResponse;
 
 public class BooleanConsoleReader extends StringConsoleReader {
 
