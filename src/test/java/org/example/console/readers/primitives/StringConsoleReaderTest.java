@@ -1,6 +1,5 @@
-package org.example.readers;
+package org.example.console.readers.primitives;
 
-import org.example.console.readers.primitives.StringConsoleReader;
 import org.example.console.readers.primitives.responses.StringResponse;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
