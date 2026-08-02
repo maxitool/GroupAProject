@@ -1,26 +1,30 @@
 package org.example;
 
+import org.example.collections.CustomArrayList;
 import org.example.console.readers.DataConsoleReader;
-import org.example.sort.SortStrategy;
-import org.example.sort.comparators.HorsepowerComparator;
-import org.example.sort.comparators.ModelComparator;
-import org.example.sort.comparators.YearComparator;
 import org.example.console.readers.primitives.BooleanConsoleReader;
 import org.example.console.readers.primitives.IntConsoleReader;
+import org.example.console.readers.primitives.StringConsoleReader;
 import org.example.console.readers.primitives.responses.BooleanResponse;
 import org.example.console.readers.primitives.responses.IntResponse;
 import org.example.console.readers.primitives.responses.StringResponse;
-import org.example.console.readers.primitives.StringConsoleReader;
-import org.example.collections.CustomArrayList;
 import org.example.files.FileService;
 import org.example.files.FileServiceStrategy;
 import org.example.files.TxtFileServiceStrategy;
 import org.example.models.car.Car;
 import org.example.sort.BubbleSortStrategy;
 import org.example.sort.EvenOddSortStrategy;
-import java.nio.file.Path;
+import org.example.sort.SortStrategy;
+import org.example.sort.comparators.HorsepowerComparator;
+import org.example.sort.comparators.ModelComparator;
+import org.example.sort.comparators.YearComparator;
 
-import java.util.*;
+import java.nio.file.Path;
+import java.util.AbstractList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.function.Supplier;
 
 public class GuiSingleton {
@@ -119,9 +123,7 @@ public class GuiSingleton {
 
     private static final String COUNT_NUMBER_OF_ELEMENTS_GUI = '\n' + """
             Count number of elements GUI
-            Enter index of the N element you want to count
-            """ +
-            GO_BACK_TO_MAIN_GUI;
+            Enter index of the N element you want to count""";
 
     private static final List<FileServiceStrategy> FILE_SERVICE_STRATEGIES_LIST = List.of(
             new TxtFileServiceStrategy()
@@ -361,6 +363,8 @@ public class GuiSingleton {
             return;
         }
         System.out.println(COUNT_NUMBER_OF_ELEMENTS_GUI);
+        System.out.println("Indexes from 0 to " + (cars.size() - 1));
+        System.out.println(GO_BACK_TO_MAIN_GUI);
         IntResponse intResponse;
         do {
             do {
@@ -374,8 +378,9 @@ public class GuiSingleton {
                 continue;
             }
             Car target = cars.get(intResponse.intData);
+            System.out.println("Selected car: " + target.toString());
             int availableProcessors = Runtime.getRuntime().availableProcessors();
-            System.out.print("Enter the number of threads (available: " + availableProcessors + "): ");
+            System.out.println("Enter count of threads (available: " + availableProcessors + "): ");
             do {
                 intResponse = IntConsoleReader.getIntData();
             } while (intResponse.state != StringResponse.States.BACK_COMMAND && intResponse.state != StringResponse.States.OK);
