@@ -274,7 +274,6 @@ public class GuiSingleton {
         }
         IntResponse intAnswer;
         BooleanResponse booleanAnswer;
-        List<Car> newCars;
         do {
             System.out.println(SORT_DATA_GUI);
             do {
@@ -291,12 +290,7 @@ public class GuiSingleton {
                 System.out.println("Sort strategy or comparator is null in SORT_GUI_ACTIONS");
                 return;
             }
-            newCars = SORT_GUI_ACTIONS.get(intAnswer.intData).strategy.sort(cars, SORT_GUI_ACTIONS.get(intAnswer.intData).comparator);
-            if (newCars.isEmpty()) {
-                System.out.println("Failed to sort, rollback sort");
-                continue;
-            }
-            cars = newCars;
+            cars = SORT_GUI_ACTIONS.get(intAnswer.intData).strategy.sort(cars, SORT_GUI_ACTIONS.get(intAnswer.intData).comparator);
             System.out.println(DO_PRINT_AFTER_SORT_GUI);
             do {
                 booleanAnswer = BooleanConsoleReader.getBooleanData(BOOLEAN_ANSWER_TRUE, BOOLEAN_ANSWER_FALSE);
