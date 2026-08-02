@@ -3,10 +3,8 @@ package org.example.sort;
 import org.example.collections.CustomArrayList;
 import org.example.models.car.Car;
 
-import java.util.AbstractList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.function.Supplier;
 
 public class BubbleSortStrategy implements SortStrategy {
 

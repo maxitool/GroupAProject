@@ -48,6 +48,6 @@ public class EvenOddSortStrategy implements SortStrategy {
 
         IntStream.range(0, evenIndices.size())
                 .forEach(i -> streamSortedCars.set(evenIndices.get(i), streamEvenCars.get(i)));
-        return sortedCars;
+        return streamSortedCars;
     }
 }
