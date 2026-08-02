@@ -9,26 +9,31 @@ public class StringConsoleReader {
     private volatile static Scanner scanner;
 
     public static synchronized void openScanner() {
-        if (scanner != null)
+        if (scanner != null) {
             return;
+        }
         scanner = new Scanner(System.in);
     }
 
     public static synchronized void closeScanner() {
-        if (scanner == null)
+        if (scanner == null) {
             return;
+        }
         scanner.close();
         scanner = null;
     }
 
     public static synchronized StringResponse getStringData() {
-        if (scanner == null)
+        if (scanner == null) {
             openScanner();
+        }
+
         StringResponse response = new StringResponse();
         try {
             response.stringData = scanner.nextLine();
             if (response.stringData.equals(GuiSingleton.GO_BACK_COMMAND)) {
                 response.state = StringResponse.States.BACK_COMMAND;
+                scanner.reset();
                 return response;
             }
             response.state = StringResponse.States.OK;
@@ -37,6 +42,7 @@ public class StringConsoleReader {
             response.state = StringResponse.States.BAD_RESPONSE;
             response.errorMessage = e.getMessage();
         }
+        scanner.reset();
         return response;
     }
 }
