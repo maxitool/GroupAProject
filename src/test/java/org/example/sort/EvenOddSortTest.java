@@ -1,7 +1,7 @@
 package org.example.sort;
 
-import org.example.models.car.Car;
 import org.example.collections.CustomArrayList;
+import org.example.models.car.Car;
 import org.example.sort.comparators.HorsepowerComparator;
 import org.junit.jupiter.api.Test;
 
