@@ -6,7 +6,6 @@ import org.example.console.readers.primitives.StringConsoleReaderTest;
 import org.example.models.car.Car;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
