@@ -20,25 +20,25 @@ public class TxtFileServiceTest {
     private final TxtFileService txtFileService = new TxtFileService();
 
     @Test
-    void getFileFormat_returnsTxtFormat() {
+    void when_getFileFormatOfTxtFileService_then_returnTxtFormat() {
         assertEquals(".txt", txtFileService.getFileFormat());
     }
 
     @Test
-    void isFileFormatGood_txtFilename_returnsTrue() {
+    void when_isFileFormatGoodWithtxtFilenames_then_returnTrue() {
         assertTrue(txtFileService.isFileFormatGood("cars.txt"));
         assertTrue(txtFileService.isFileFormatGood("CARS.TXT"));
     }
 
     @Test
-    void isFileFormatGood_wrongFormat_returnsFalse() {
+    void when_isFileFormatGoodWithWrongFormat_then_returnFalse() {
         assertFalse(txtFileService.isFileFormatGood("cars.csv"));
         assertFalse(txtFileService.isFileFormatGood("cars.json"));
         assertFalse(txtFileService.isFileFormatGood(null));
     }
 
     @Test
-    void writeCars_overwriteMode_writesCarsToFile() throws IOException {
+    void when_writeCarsWithOverwriteMode_then_returnTrueAndWritesCarsToFile() throws IOException {
         Path file = tempDirectory.resolve("cars.txt");
 
         CustomArrayList<Car> cars = new CustomArrayList<>();
@@ -62,7 +62,7 @@ public class TxtFileServiceTest {
     }
 
     @Test
-    void writeCars_overwriteMode_replacesExistingData() throws IOException {
+    void when_writeCarsWithOverwriteMode_then_returnTrueWithReplacesExistingData() throws IOException {
         Path file = tempDirectory.resolve("cars.txt");
 
         CustomArrayList<Car> oldCars = new CustomArrayList<>();
@@ -93,7 +93,7 @@ public class TxtFileServiceTest {
     }
 
     @Test
-    void writeCars_appendMode_addsCarsToExistingFile() throws IOException {
+    void when_writeCarsWithAppendMode_then_returnTrueWithAddsCarsToExistingFile() throws IOException {
         Path file = tempDirectory.resolve("cars.txt");
 
         CustomArrayList<Car> firstCars = new CustomArrayList<>();
@@ -126,7 +126,7 @@ public class TxtFileServiceTest {
     }
 
     @Test
-    void readCars_validFile_returnsCarsFromFile() throws IOException {
+    void when_readCarsWithValidFile_then_returnCarsFromFile() throws IOException {
         Path file = tempDirectory.resolve("cars.txt");
 
         Files.writeString(
@@ -149,7 +149,7 @@ public class TxtFileServiceTest {
     }
 
     @Test
-    void readCars_invalidCarInFile_skipsInvalidCar() throws IOException {
+    void when_readCarsWithInvalidCarInFile_then_returnCarsFromFileAndSkipsInvalidCar() throws IOException {
         Path file = tempDirectory.resolve("cars.txt");
 
         Files.writeString(
@@ -167,7 +167,7 @@ public class TxtFileServiceTest {
     }
 
     @Test
-    void readCars_nonExistingFile_returnsEmptyCollection() {
+    void when_readCarsWithNonExistingFile_then_returnEmptyCollection() {
         Path file = tempDirectory.resolve("non-existing.txt");
 
         List<Car> cars = txtFileService.readCars(file.toString());
@@ -177,7 +177,7 @@ public class TxtFileServiceTest {
     }
 
     @Test
-    void readCars_wrongFileFormat_returnsEmptyCollection() {
+    void when_readCarsWithWrongFileFormat_then_returnEmptyCollection() {
         Path file = tempDirectory.resolve("cars.csv");
 
         List<Car> cars = txtFileService.readCars(file.toString());
@@ -187,7 +187,7 @@ public class TxtFileServiceTest {
     }
 
     @Test
-    void writeCars_emptyCollection_returnsFalse() {
+    void when_writeCarsWithEmptyCollection_then_returnFalse() {
         Path file = tempDirectory.resolve("cars.txt");
         CustomArrayList<Car> cars = new CustomArrayList<>();
 
@@ -202,7 +202,7 @@ public class TxtFileServiceTest {
     }
 
     @Test
-    void writeCars_nullCollection_returnsFalse() {
+    void when_writeCarsWithNullCollection_then_returnFalse() {
         Path file = tempDirectory.resolve("cars.txt");
 
         boolean result = txtFileService.writeCars(
@@ -216,7 +216,7 @@ public class TxtFileServiceTest {
     }
 
     @Test
-    void writeCars_wrongFileFormat_returnsFalse() {
+    void when_writeCarsWithWrongFileFormat_then_returnFalse() {
         Path file = tempDirectory.resolve("cars.csv");
 
         CustomArrayList<Car> cars = new CustomArrayList<>();
@@ -233,7 +233,7 @@ public class TxtFileServiceTest {
     }
 
     @Test
-    void writeAndReadCars_preservesOriginalCars() {
+    void when_writeAndReadCars_then_returnPreservesOriginalCars() {
         Path file = tempDirectory.resolve("cars.txt");
 
         CustomArrayList<Car> originalCars = new CustomArrayList<>();

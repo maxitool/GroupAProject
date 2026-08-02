@@ -28,35 +28,35 @@ public class StringConsoleReaderTest {
     }
 
     @Test
-    public void getStringData_withEmpty_badResponseState() {
+    public void when_getEmpty_then_returnResponseWithBadResponseState() {
         provideInput("");
         StringResponse response = StringConsoleReader.getStringData();
         Assertions.assertEquals(StringResponse.States.BAD_RESPONSE, response.state);
     }
 
     @Test
-    public void getStringData_withString_okState() {
+    public void when_getString_then_returnResponseWithOkState() {
         provideInput("data");
         StringResponse response = StringConsoleReader.getStringData();
         Assertions.assertEquals(StringResponse.States.OK, response.state);
     }
 
     @Test
-    public void getStringData_withBackCommand_backCommandState() {
+    public void when_getBackCommand_then_returnResponseWithBackCommandState() {
         provideInput("back");
         StringResponse response = StringConsoleReader.getStringData();
         Assertions.assertEquals(StringResponse.States.BACK_COMMAND, response.state);
     }
 
     @Test
-    public void getStringData_withBackCommandAndSpacesInside_okState() {
+    public void when_getStringAndSpacesInside_then_returnResponseWithOkState() {
         provideInput("b a c k");
         StringResponse response = StringConsoleReader.getStringData();
         Assertions.assertEquals(StringResponse.States.OK, response.state);
     }
 
     @Test
-    public void getStringData_withBackCommandAndSpacesOutside_backCommandState() {
+    public void when_getStringAndSpacesOutside_then_returnResponseWithOkState() {
         provideInput(" back ");
         StringResponse response = StringConsoleReader.getStringData();
         Assertions.assertEquals(StringResponse.States.OK, response.state);

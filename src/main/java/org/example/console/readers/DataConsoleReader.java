@@ -23,6 +23,10 @@ public class DataConsoleReader {
             countResponse = IntConsoleReader.getIntData();
         } while (countResponse.state != StringResponse.States.BACK_COMMAND && countResponse.state != StringResponse.States.OK);
         if (countResponse.state == StringResponse.States.BACK_COMMAND) return new CustomArrayList<>();;
+        if (countResponse.intData < 0) {
+            System.out.println("The wrote number must be greater then or equal to 0");
+            return createCollectionSupplier.get();
+        }
         int count = countResponse.intData;
         List<Car> cars = createCollectionSupplier.get();
         System.out.println("Enter car data in format: " + Car.CAR_FORMAT);

@@ -33,7 +33,7 @@ public class DataConsoleReaderTest {
     }
 
     @Test
-    public void testReadCars_2cars_2carsAdded() {
+    public void when_read2Cars_then_returnListWith2Cars() {
         provideInput("2\n" +
                 "horsepower=150, model='Toyota', year=2020\n" +
                 "horsepower=200, model='BMW', year=2021\n");
@@ -44,7 +44,7 @@ public class DataConsoleReaderTest {
     }
 
     @Test
-    public void testReadCars_0cars_emptyCollection() {
+    public void when_read0Cars_then_returnEmptyList() {
         provideInput("0\n");
         List<Car> cars = DataConsoleReader.readCars();
         assertEquals(0, cars.size());
@@ -52,7 +52,7 @@ public class DataConsoleReaderTest {
     }
 
     @Test
-    public void testReadCars_emptyInputLine_skipsCar() {
+    public void when_read1CarWithEmptyLine_then_returnEmptyList() {
         provideInput("1\n" +
                 "\n");
         List<Car> cars = DataConsoleReader.readCars();
@@ -61,7 +61,7 @@ public class DataConsoleReaderTest {
     }
 
     @Test
-    public void testReadCars_backCommand_emptyCollection() {
+    public void when_readBackCommand_then_returnEmptyList() {
         provideInput("back\n");
         List<Car> cars = DataConsoleReader.readCars();
         assertEquals(0, cars.size());
@@ -69,7 +69,7 @@ public class DataConsoleReaderTest {
     }
 
     @Test
-    public void testReadCars_invalidData_skipsInvalid() {
+    public void when_read3CarsWith1InvalidAnd2ValidCars_then_returnListWith2ValidCars() {
         provideInput("3\n" +
                 "horsepower=150, model='Toyota', year=2020\n" +
                 "horsepower=-50, model='Bad', year=2020\n" +  // невалидный

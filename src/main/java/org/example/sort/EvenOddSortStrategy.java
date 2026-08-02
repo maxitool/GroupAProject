@@ -23,11 +23,18 @@ public class EvenOddSortStrategy implements SortStrategy {
             return cars;
         }
 
-        List<Car> sortedCars = new CustomArrayList<>();
+        List<Car> sortedCars = null;
+        try {
+            sortedCars =  cars.getClass().getDeclaredConstructor().newInstance();
+        } catch (Exception e) {
+            System.out.println("Can't create new instance copy of cars");
+            return cars;
+        }
         sortedCars.addAll(cars);
+        List<Car> streamSortedCars = sortedCars;
 
         List<Integer> evenIndices = IntStream.range(0, sortedCars.size())
-                .filter(i -> sortedCars.get(i) != null && sortedCars.get(i).getHorsepower() % 2 == 0)
+                .filter(i -> streamSortedCars.get(i) != null && streamSortedCars.get(i).getHorsepower() % 2 == 0)
                 .boxed()
                 .toList();
         List<Car> evenCars = new ArrayList<>(
@@ -40,7 +47,7 @@ public class EvenOddSortStrategy implements SortStrategy {
         List<Car> streamEvenCars = bubbleSort.sort(evenCars, comparator);
 
         IntStream.range(0, evenIndices.size())
-                .forEach(i -> sortedCars.set(evenIndices.get(i), streamEvenCars.get(i)));
+                .forEach(i -> streamSortedCars.set(evenIndices.get(i), streamEvenCars.get(i)));
         return sortedCars;
     }
 }

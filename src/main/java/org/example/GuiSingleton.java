@@ -75,7 +75,7 @@ public class GuiSingleton {
 
     private static final String FILL_DATA_FROM_FILE_GUI = '\n' + """
             Fill data from file GUI
-            What is the name of the file you want to read data from? +
+            What is the name of the file you want to read data from?
             """ +
             GO_BACK_COMMAND + ". Go to Fill data GUI";
 
@@ -87,8 +87,7 @@ public class GuiSingleton {
 
     private static final String PRINT_DATA_GUI = '\n' + """
             Print data GUI
-            How much data do you need to output?
-            """;
+            How much data do you need to output?""";
 
     private static final String SORT_DATA_GUI = '\n' + """
             Sort data GUI
@@ -180,7 +179,6 @@ public class GuiSingleton {
         System.out.println(FILL_DATA_FROM_CONSOLE_GUI);
         newCars = DataConsoleReader.readCars(CREATE_COLLECTION_SUPPLIER);
         if (newCars.isEmpty()) {
-            System.out.println("The data wasn't filled in");
             return false;
         }
         cars = newCars;
@@ -213,10 +211,10 @@ public class GuiSingleton {
             }
             newCars = FileService.readCars(strategy, filename, CREATE_COLLECTION_SUPPLIER);
             if (newCars.isEmpty()) {
-                System.out.println("The data wasn't filled in");
                 return false;
             }
             cars = newCars;
+            System.out.println(cars.size() + " cars was received");
             return true;
         } while(true);
     }
@@ -251,6 +249,10 @@ public class GuiSingleton {
             answer = IntConsoleReader.getIntData();
         } while (answer.state != StringResponse.States.BACK_COMMAND && answer.state != StringResponse.States.OK);
         if (answer.state == StringResponse.States.BACK_COMMAND) {
+            return;
+        }
+        if (answer.intData < 0) {
+            System.out.println("The wrote number must be greater then or equal to 0");
             return;
         }
         int count = answer.intData;
@@ -307,7 +309,7 @@ public class GuiSingleton {
     private static void writeDataToFile() {
         StringResponse stringAnswer; BooleanResponse booleanResponse;
         if (cars == null || cars.isEmpty()) {
-            System.out.println("The car list is empty. Please sort the data first.");
+            System.out.println("The list of data is empty");
             return;
         }
         System.out.println(WRITE_DATA_TO_FILE_FILENAME_GUI);
@@ -355,7 +357,7 @@ public class GuiSingleton {
 
     private static void countNumberOfElementsN() {
         if (cars.isEmpty()) {
-            System.out.println("The collection is empty.");
+            System.out.println("The list of data is empty");
             return;
         }
         System.out.println(COUNT_NUMBER_OF_ELEMENTS_GUI);

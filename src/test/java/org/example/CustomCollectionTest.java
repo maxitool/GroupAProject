@@ -28,20 +28,20 @@ public class CustomCollectionTest {
     }
 
     @Test
-    void testInitialSize_emptyCollection_sizeIsZero() {
+    void when_testInitialSizeWithEmptyCollection_then_returnEmptyList() {
         CustomArrayList<Car> emptyList = new CustomArrayList<>();
         assertEquals(0, emptyList.size());
         assertTrue(emptyList.isEmpty());
     }
 
     @Test
-    void testAdd_addThreeCars_sizeIsThree() {
+    void when_testAddWithThreeCars_then_returnCustomCollectionWith3Cars() {
         assertEquals(3, list.size());
         assertFalse(list.isEmpty());
     }
 
     @Test
-    void testGet_getElements_returnsCorrectCars() {
+    void when_getElements_then_returnElements() {
         assertEquals(car1, list.get(0));
         assertEquals(car2, list.get(1));
         assertEquals(car3, list.get(2));
@@ -51,7 +51,7 @@ public class CustomCollectionTest {
     }
 
     @Test
-    void testSet_replaceElement_returnsOldElement() {
+    void when_replaceElement_then_returnOldElement() {
         Car newCar = new Car(999, "NewTest", 2025);
         Car old = list.set(1, newCar);
         assertEquals(car2, old);
@@ -64,7 +64,7 @@ public class CustomCollectionTest {
     }
 
     @Test
-    void testIteration_afterSet_iterationWorksCorrectly() {
+    void when_testIteration_then_iterationWorksCorrectly() {
         Car newCar = new Car(777, "Replaced", 2024);
         list.set(1, newCar);
         int index = 0;
@@ -82,7 +82,7 @@ public class CustomCollectionTest {
     }
 
     @Test
-    void testSet_invalidIndex_throwsIndexOutOfBoundsException() {
+    void when_testSetWithInvalidIndex_then_throwsIndexOutOfBoundsException() {
         Car newCar = new Car(999, "NewTest", 2025);
         assertThrows(IndexOutOfBoundsException.class, () -> {
             list.set(10, newCar);
@@ -93,7 +93,7 @@ public class CustomCollectionTest {
     }
 
     @Test
-    void testGet_invalidIndex_throwsIndexOutOfBoundsException() {
+    void when_testGetWithInvalidIndex_then_throwsIndexOutOfBoundsException() {
         assertThrows(IndexOutOfBoundsException.class, () -> {
             list.get(5);
         });
@@ -103,7 +103,7 @@ public class CustomCollectionTest {
     }
 
     @Test
-    void testAdd_nullElement_returnsFalse() {
+    void when_testAddWithNullElement_then_returnFalse() {
         CustomArrayList<Car> testList = new CustomArrayList<>();
         boolean result = testList.add(null);
         assertTrue(result);
@@ -111,7 +111,7 @@ public class CustomCollectionTest {
     }
 
     @Test
-    void testClear_removeAllElements_collectionIsEmpty() {
+    void when_removeAllElements_then_collectionIsEmpty() {
         assertEquals(3, list.size());
         list.clear();
         assertEquals(0, list.size());
@@ -119,7 +119,7 @@ public class CustomCollectionTest {
     }
 
     @Test
-    void testToArray_convertToArray_returnsCorrectArray() {
+    void when_convertToArray_then_returnsCorrectArray() {
         Object[] array = list.toArray();
         assertEquals(3, array.length);
         assertEquals(car1, array[0]);
@@ -128,13 +128,13 @@ public class CustomCollectionTest {
     }
 
     @Test
-    void testToString_returnsCorrectString() {
+    void when_toString_then_returnsCorrectString() {
         String expected = "[" + car1 + ", " + car2 + ", " + car3 + "]";
         assertEquals(expected, list.toString());
     }
 
     @Test
-    void testAdd_autoGrow_whenFull() {
+    void when_fullBeforeAdd_then_autoGrow() {
         CustomArrayList<Car> testList = new CustomArrayList<>();
         for (int i = 0; i < 10; i++) {
             testList.add(new Car(i + 1, "Test", 2020));
@@ -147,7 +147,7 @@ public class CustomCollectionTest {
     }
 
     @Test
-    void testSet_replaceFirstElement_returnsOldElement() {
+    void when_replaceFirstElement_then_returnsOldElement() {
         Car newCar = new Car(999, "FirstReplaced", 2024);
         Car old = list.set(0, newCar);
         assertEquals(car1, old);
@@ -157,7 +157,7 @@ public class CustomCollectionTest {
     }
 
     @Test
-    void testSet_replaceLastElement_returnsOldElement() {
+    void when_replaceLastElement_then_returnsOldElement() {
         Car newCar = new Car(999, "LastReplaced", 2024);
         Car old = list.set(2, newCar);
         assertEquals(car3, old);
@@ -167,7 +167,7 @@ public class CustomCollectionTest {
     }
 
     @Test
-    void testSet_afterClear_throwsException() {
+    void when_setAfterClear_then_throwsException() {
         list.clear();
         Car newCar = new Car(999, "New", 2024);
         assertThrows(IndexOutOfBoundsException.class, () -> {
@@ -176,7 +176,7 @@ public class CustomCollectionTest {
     }
 
     @Test
-    void testAdd_afterClear_addsToEmptyCollection() {
+    void when_addAfterClear_then_addsToEmptyCollection() {
         list.clear();
         assertEquals(0, list.size());
         Car newCar = new Car(150, "AfterClear", 2020);

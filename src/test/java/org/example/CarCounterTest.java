@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class CarCounterTest {
 
     @Test
-    void countOccurrences_oneThread_returnsCorrectCount() {
+    void when_countOccurrencesWithOneThread_then_returnCorrectCount() {
         CustomArrayList<Car> cars = createCars();
         Car target = new Car(200, "BMW", 2020);
 
@@ -24,7 +24,7 @@ public class CarCounterTest {
     }
 
     @Test
-    void countOccurrences_multipleThreads_returnsCorrectCount() {
+    void when_countOccurrencesWithMultipleThreads_then_returnCorrectCount() {
         CustomArrayList<Car> cars = createCars();
         Car target = new Car(200, "BMW", 2020);
 
@@ -36,7 +36,7 @@ public class CarCounterTest {
     }
 
     @Test
-    void countOccurrences_differentThreadCounts_returnSameResult() {
+    void when_countOccurrencesWithDifferentThreadCounts_then_returnSameResult() {
         CustomArrayList<Car> cars = createCars();
         Car target = new Car(200, "BMW", 2020);
 
@@ -57,7 +57,7 @@ public class CarCounterTest {
     }
 
     @Test
-    void countOccurrences_equalObjects_countsAllOccurrences() {
+    void when_countOccurrencesWithEqualObjects_then_returnCountsAllOccurrences() {
         CustomArrayList<Car> cars = new CustomArrayList<>();
 
         cars.add(new Car(200, "BMW", 2020));
@@ -73,7 +73,7 @@ public class CarCounterTest {
     }
 
     @Test
-    void countOccurrences_targetIsAbsent_returnsZero() {
+    void when_countOccurrencesWithTargetIsAbsent_then_returnZero() {
         CustomArrayList<Car> cars = createCars();
         Car target = new Car(500, "Ferrari", 2024);
 
@@ -85,7 +85,7 @@ public class CarCounterTest {
     }
 
     @Test
-    void countOccurrences_emptyCollection_returnsZero() {
+    void when_countOccurrencesWithEmptyCollection_then_returnZero() {
         CustomArrayList<Car> cars = new CustomArrayList<>();
         Car target = new Car(200, "BMW", 2020);
 
@@ -97,7 +97,7 @@ public class CarCounterTest {
     }
 
     @Test
-    void countOccurrences_nullCollection_returnsZero() {
+    void when_countOccurrencesWithNullCollection_then_returnZero() {
         Car target = new Car(200, "BMW", 2020);
         CarCounter counter = new CarCounter(null);
 
@@ -107,7 +107,7 @@ public class CarCounterTest {
     }
 
     @Test
-    void countOccurrences_zeroThreadCount_usesOneThread() {
+    void when_countOccurrencesWithZeroThreadCount_then_returnCountAllOccurrencesUsesOneThread() {
         CustomArrayList<Car> cars = createCars();
         Car target = new Car(200, "BMW", 2020);
 
@@ -119,7 +119,7 @@ public class CarCounterTest {
     }
 
     @Test
-    void countOccurrences_negativeThreadCount_usesOneThread() {
+    void when_countOccurrencesWithNegativeThreadCount_then_returnCountAllOccurrencesUsesOneThread() {
         CustomArrayList<Car> cars = createCars();
         Car target = new Car(200, "BMW", 2020);
 
@@ -131,7 +131,7 @@ public class CarCounterTest {
     }
 
     @Test
-    void countOccurrences_moreThreadsThanCars_returnsCorrectCount() {
+    void when_countOccurrencesWithMoreThreadsThanCars_then_returnCorrectCount() {
         CustomArrayList<Car> cars = new CustomArrayList<>();
         cars.add(new Car(200, "BMW", 2020));
         cars.add(new Car(100, "Audi", 2019));
@@ -145,7 +145,7 @@ public class CarCounterTest {
     }
 
     @Test
-    void countOccurrences_singleCar_returnsOne() {
+    void when_countOccurrencesWithSingleCar_then_returnOne() {
         CustomArrayList<Car> cars = new CustomArrayList<>();
         cars.add(new Car(200, "BMW", 2020));
 
@@ -158,7 +158,7 @@ public class CarCounterTest {
     }
 
     @Test
-    void countOccurrences_largeCollection_returnsCorrectCount() {
+    void when_countOccurrencesWithLargeCollection_then_returnCorrectCount() {
         CustomArrayList<Car> cars = new CustomArrayList<>();
         Car target = new Car(200, "BMW", 2020);
 
@@ -178,7 +178,7 @@ public class CarCounterTest {
     }
 
     @Test
-    void printOccurrences_printsResultToConsole() {
+    void when_printOccurrencesWithLargeCollection_then_printsResultToConsole() {
         CustomArrayList<Car> cars = new CustomArrayList<>();
         cars.add(new Car(200, "BMW", 2020));
         cars.add(new Car(100, "Audi", 2019));

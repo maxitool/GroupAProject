@@ -17,7 +17,7 @@ public class FileServiceTest {
     Path tempDirectory;
 
     @Test
-    void isFileExist_existingFile_returnsTrue() throws Exception {
+    void when_isFileExistWithExistingFile_then_returnTrue() throws Exception {
         Path file = tempDirectory.resolve("cars.txt");
         Files.createFile(file);
 
@@ -27,7 +27,7 @@ public class FileServiceTest {
     }
 
     @Test
-    void isFileExist_nonExistingFile_returnsFalse() {
+    void when_isFileExistWithNonExistingFile_then_returnFalse() {
         Path file = tempDirectory.resolve("non-existing.txt");
 
         boolean result = FileService.isFileExist(file.toString());
@@ -36,14 +36,14 @@ public class FileServiceTest {
     }
 
     @Test
-    void isFileExist_nullFilename_returnsFalse() {
+    void when_isFileExistWithNull_then_returnFalse() {
         boolean result = FileService.isFileExist(null);
 
         assertFalse(result);
     }
 
     @Test
-    void readCars_nullStrategy_returnsEmptyCollection() {
+    void when_readCarsWithNullStrategy_then_returnEmptyList() {
         List<Car> cars = FileService.readCars(
                 null,
                 "cars.txt"
@@ -54,7 +54,7 @@ public class FileServiceTest {
     }
 
     @Test
-    void writeCars_nullStrategy_returnsFalse() {
+    void when_writeCarsWithNullStrategy_then_returnFalse() {
         CustomArrayList<Car> cars = new CustomArrayList<>();
         cars.add(new Car(150, "Toyota", 2020));
 
@@ -69,7 +69,7 @@ public class FileServiceTest {
     }
 
     @Test
-    void writeAndReadCars_txtStrategy_returnsOriginalCars() {
+    void when_writeAndReadCarsWithTxtStrategy_then_returnOriginalCars() {
         Path file = tempDirectory.resolve("cars.txt");
         TxtFileService strategy = new TxtFileService();
 
