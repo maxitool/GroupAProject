@@ -9,8 +9,15 @@ public class BooleanConsoleReader extends StringConsoleReader {
         StringResponse stringResponse = getStringData();
         BooleanResponse booleanResponse = new BooleanResponse(stringResponse);
         if (booleanResponse.state != StringResponse.States.OK) return booleanResponse;
+        if (booleanResponse.stringData.isEmpty()) {
+            String message = "Can't convert empty data to boolean";
+            System.out.println(message);
+            booleanResponse.errorMessage = message;
+            booleanResponse.state = StringResponse.States.CANT_CONVERT;
+            return booleanResponse;
+        }
         String data = booleanResponse.stringData.replace(" ", "").trim();
-        data = Character.toLowerCase(data.charAt(0)) + data.substring(1);
+        data = data.toLowerCase();
         try {
             booleanResponse.booleanData = Boolean.parseBoolean(data);
         } catch (NumberFormatException e) {
@@ -36,7 +43,8 @@ public class BooleanConsoleReader extends StringConsoleReader {
             return new BooleanResponse(new StringResponse());
         }
         BooleanResponse booleanResponse = getBooleanData(false);
-        if (booleanResponse.state != StringResponse.States.OK && booleanResponse.state != StringResponse.States.CANT_CONVERT) {
+        if ((booleanResponse.state != StringResponse.States.OK && booleanResponse.state != StringResponse.States.CANT_CONVERT)
+                || booleanResponse.stringData.isEmpty()) {
             return booleanResponse;
         }
         trueValue = trueValue.trim();
@@ -57,6 +65,7 @@ public class BooleanConsoleReader extends StringConsoleReader {
             return booleanResponse;
         }
         booleanResponse.state = StringResponse.States.CANT_CONVERT;
+        System.out.println("Can't convert the wrote data to boolean, data: " + booleanResponse.stringData);
         return booleanResponse;
     }
 }
