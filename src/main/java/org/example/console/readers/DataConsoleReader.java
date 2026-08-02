@@ -9,11 +9,14 @@ import org.example.models.car.Car;
 import org.example.models.car.CarDeserializer;
 import org.example.models.car.CarValidator;
 
+import java.util.AbstractList;
+import java.util.List;
+import java.util.function.Supplier;
 import java.util.stream.IntStream;
 
 public class DataConsoleReader {
 
-    public static CustomArrayList<Car> readCars() {
+    public static List<Car> readCars(Supplier<AbstractList<Car>> createCollectionSupplier) {
         System.out.println("Enter number of cars: ");
         IntResponse countResponse;
         do {
@@ -21,7 +24,7 @@ public class DataConsoleReader {
         } while (countResponse.state != StringResponse.States.BACK_COMMAND && countResponse.state != StringResponse.States.OK);
         if (countResponse.state == StringResponse.States.BACK_COMMAND) return new CustomArrayList<>();;
         int count = countResponse.intData;
-        CustomArrayList<Car> cars = new CustomArrayList<>();
+        List<Car> cars = createCollectionSupplier.get();
         System.out.println("Enter car data in format: " + Car.CAR_FORMAT);
         System.out.println("Or type 'back' to return to the previous menu.");
         java.util.concurrent.atomic.AtomicBoolean isBack = new java.util.concurrent.atomic.AtomicBoolean(false);
@@ -53,5 +56,8 @@ public class DataConsoleReader {
                 });
         System.out.println("Successfully added " + cars.size() + " valid cars.");
         return cars;
+    }
+    public static List<Car> readCars() {
+        return readCars(CustomArrayList::new);
     }
 }

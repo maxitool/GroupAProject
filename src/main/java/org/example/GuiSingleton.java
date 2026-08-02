@@ -128,7 +128,8 @@ public class GuiSingleton {
             new TxtFileService()
     );
 
-    private static List<Car> cars = new CustomArrayList<>();
+    private static final Supplier<AbstractList<Car>> CREATE_COLLECTION_SUPPLIER = CustomArrayList::new;
+    private static List<Car> cars = CREATE_COLLECTION_SUPPLIER.get();
 
 
     private GuiSingleton() {}
@@ -177,7 +178,7 @@ public class GuiSingleton {
     private static boolean fillFromConsoleData() {
         List<Car> newCars;
         System.out.println(FILL_DATA_FROM_CONSOLE_GUI);
-        newCars = DataConsoleReader.readCars();
+        newCars = DataConsoleReader.readCars(CREATE_COLLECTION_SUPPLIER);
         if (newCars.isEmpty()) {
             System.out.println("The data wasn't filled in");
             return false;
@@ -210,7 +211,7 @@ public class GuiSingleton {
                 System.out.println("Please try again or enter 'back' to cancel");
                 continue;
             }
-            newCars = FileService.readCars(strategy, filename);
+            newCars = FileService.readCars(strategy, filename, CREATE_COLLECTION_SUPPLIER);
             if (newCars.isEmpty()) {
                 System.out.println("The data wasn't filled in");
                 return false;
@@ -233,7 +234,7 @@ public class GuiSingleton {
             System.out.println("The size of data must be greater than 0");
             return false;
         }
-        cars = DataGenerator.generateCars(answer.intData);
+        cars = DataGenerator.generateCars(answer.intData, CREATE_COLLECTION_SUPPLIER);
         return true;
     }
 

@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -36,7 +37,7 @@ public class DataConsoleReaderTest {
         provideInput("2\n" +
                 "horsepower=150, model='Toyota', year=2020\n" +
                 "horsepower=200, model='BMW', year=2021\n");
-        CustomArrayList<Car> cars = DataConsoleReader.readCars();
+        List<Car> cars = DataConsoleReader.readCars();
         assertEquals(2, cars.size());
         assertEquals(150, cars.get(0).getHorsepower());
         assertEquals(200, cars.get(1).getHorsepower());
@@ -45,7 +46,7 @@ public class DataConsoleReaderTest {
     @Test
     public void testReadCars_0cars_emptyCollection() {
         provideInput("0\n");
-        CustomArrayList<Car> cars = DataConsoleReader.readCars();
+        List<Car> cars = DataConsoleReader.readCars();
         assertEquals(0, cars.size());
         assertTrue(cars.isEmpty());
     }
@@ -54,7 +55,7 @@ public class DataConsoleReaderTest {
     public void testReadCars_emptyInputLine_skipsCar() {
         provideInput("1\n" +
                 "\n");
-        CustomArrayList<Car> cars = DataConsoleReader.readCars();
+        List<Car> cars = DataConsoleReader.readCars();
         assertEquals(0, cars.size(), "Car should not be added when empty input is provided");
         assertTrue(cars.isEmpty());
     }
@@ -62,7 +63,7 @@ public class DataConsoleReaderTest {
     @Test
     public void testReadCars_backCommand_emptyCollection() {
         provideInput("back\n");
-        CustomArrayList<Car> cars = DataConsoleReader.readCars();
+        List<Car> cars = DataConsoleReader.readCars();
         assertEquals(0, cars.size());
         assertTrue(cars.isEmpty());
     }
@@ -73,7 +74,7 @@ public class DataConsoleReaderTest {
                 "horsepower=150, model='Toyota', year=2020\n" +
                 "horsepower=-50, model='Bad', year=2020\n" +  // невалидный
                 "horsepower=200, model='BMW', year=2021\n");
-        CustomArrayList<Car> cars = DataConsoleReader.readCars();
+        List<Car> cars = DataConsoleReader.readCars();
         assertEquals(2, cars.size());
         assertEquals("Toyota", cars.get(0).getModel());
         assertEquals("BMW", cars.get(1).getModel());

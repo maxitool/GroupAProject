@@ -5,34 +5,36 @@ import org.example.models.car.Car;
 import org.example.models.car.CarValidator;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class DataGeneratorTest {
 
     @Test
     void generateCars_withPositiveCount_returnsCollectionOfSpecifiedSize() {
-        CustomArrayList<Car> cars = DataGenerator.generateCars(10);
+        List<Car> cars = DataGenerator.generateCars(10);
         assertEquals(10, cars.size(), "Должно быть сгенерировано ровно 10 машин");
         assertFalse(cars.isEmpty(), "Коллекция не должна быть пустой");
     }
 
     @Test
     void generateCars_withZeroCount_returnsEmptyCollection() {
-        CustomArrayList<Car> cars = DataGenerator.generateCars(0);
+        List<Car> cars = DataGenerator.generateCars(0);
         assertEquals(0, cars.size(), "При нулевом количестве должна быть пустая коллекция");
         assertTrue(cars.isEmpty(), "Коллекция должна быть пустой");
     }
 
     @Test
     void generateCars_withNegativeCount_returnsEmptyCollection() {
-        CustomArrayList<Car> cars = DataGenerator.generateCars(-5);
+        List<Car> cars = DataGenerator.generateCars(-5);
         assertEquals(0, cars.size(), "При отрицательном количестве должна быть пустая коллекция");
         assertTrue(cars.isEmpty(), "Коллекция должна быть пустой");
     }
 
     @Test
     void generateCars_always_returnsOnlyValidCars() {
-        CustomArrayList<Car> cars = DataGenerator.generateCars(100);
+        List<Car> cars = DataGenerator.generateCars(100);
         for (Car car : cars) {
             assertTrue(CarValidator.validateCar(car),
                     "Все сгенерированные машины должны быть валидными: " + car);
@@ -41,7 +43,7 @@ class DataGeneratorTest {
 
     @Test
     void generateCars_always_horsepowerInRange50to500() {
-        CustomArrayList<Car> cars = DataGenerator.generateCars(50);
+        List<Car> cars = DataGenerator.generateCars(50);
         for (Car car : cars) {
             int hp = car.getHorsepower();
             assertTrue(hp >= 50 && hp <= 500,
@@ -51,7 +53,7 @@ class DataGeneratorTest {
 
     @Test
     void generateCars_always_yearInRange2000to2025() {
-        CustomArrayList<Car> cars = DataGenerator.generateCars(50);
+        List<Car> cars = DataGenerator.generateCars(50);
         boolean isTestPass = true;
         for (Car car : cars) {
             int year = car.getYear();
@@ -62,7 +64,7 @@ class DataGeneratorTest {
 
     @Test
     void generateCars_always_modelIsNotEmpty() {
-        CustomArrayList<Car> cars = DataGenerator.generateCars(20);
+        List<Car> cars = DataGenerator.generateCars(20);
         for (Car car : cars) {
             assertNotNull(car.getModel(), "Модель не должна быть null");
             assertFalse(car.getModel().isEmpty(), "Модель не должна быть пустой");
