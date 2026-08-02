@@ -301,11 +301,7 @@ public class GUISingleton {
             System.out.println("The collection is empty.");
             return;
         }
-       /* if (cars.size() == 1) {
-            System.out.println("The collection size = 1.");
-            return;
-        }*/
-
+        
         System.out.println(COUNT_NUMBER_OF_ELEMENTS_GUI);
         IntResponse intResponse;
         while (true) {
