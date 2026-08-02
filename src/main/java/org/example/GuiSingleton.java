@@ -34,7 +34,7 @@ public class GuiSingleton {
 
     private static final String BOOLEAN_ANSWER_TRUE = "yes", BOOLEAN_ANSWER_FALSE = "no";
 
-    private static final String MAIN_GUI = """
+    private static final String MAIN_GUI = '\n' + """
             Main GUI
             Choose a option:
             1. Fill data;
@@ -54,7 +54,7 @@ public class GuiSingleton {
             6, GuiSingleton::clearData
     ));
 
-    private static final String FILL_DATA_GUI = """
+    private static final String FILL_DATA_GUI = '\n' + """
             Fill data GUI
             Choose a option:
             1. Fill from the console;
@@ -68,29 +68,29 @@ public class GuiSingleton {
             3, GuiSingleton::fillGeneratedData
     ));
 
-    private static final String FILL_DATA_FROM_CONSOLE_GUI = """
+    private static final String FILL_DATA_FROM_CONSOLE_GUI = '\n' + """
             Fill data from console GUI
             """ +
             GO_BACK_COMMAND + ". Go to Fill data GUI";
 
-    private static final String FILL_DATA_FROM_FILE_GUI = """
+    private static final String FILL_DATA_FROM_FILE_GUI = '\n' + """
             Fill data from file GUI
             What is the name of the file you want to read data from? +
             """ +
             GO_BACK_COMMAND + ". Go to Fill data GUI";
 
-    private static final String FILL_GENERATED_DATA_GUI = """
+    private static final String FILL_GENERATED_DATA_GUI = '\n' + """
             Fill generated data GUI
             How much data do you need to generate?
             """ +
             GO_BACK_COMMAND + ". Go to Fill data GUI";
 
-    private static final String PRINT_DATA_GUI = """
+    private static final String PRINT_DATA_GUI = '\n' + """
             Print data GUI
             How much data do you need to output?
             """;
 
-    private static final String SORT_DATA_GUI = """
+    private static final String SORT_DATA_GUI = '\n' + """
             Sort data GUI
             Choose a option:
             1. Sorting by horsepower field;
@@ -100,17 +100,16 @@ public class GuiSingleton {
             """ +
             GO_BACK_TO_MAIN_GUI;
     private static final SortStrategy bubbleSortStrategy = new BubbleSortStrategy();
-    private static final SortStrategy evenOddSortStrategy = new EvenOddSortStrategy();
     private static final HashMap<Integer, SortStrategyAndComparator> SORT_GUI_ACTIONS = new HashMap<>(Map.of(
             1, new SortStrategyAndComparator(bubbleSortStrategy, new HorsepowerComparator()),
             2, new SortStrategyAndComparator(bubbleSortStrategy, new ModelComparator()),
             3, new SortStrategyAndComparator(bubbleSortStrategy, new YearComparator()),
-            4, new SortStrategyAndComparator(evenOddSortStrategy, new HorsepowerComparator())
+            4, new SortStrategyAndComparator(new EvenOddSortStrategy(), new HorsepowerComparator())
             ));
     private static final String DO_PRINT_AFTER_SORT_GUI =
             "Print the resulting data after sorting? (" + BOOLEAN_ANSWER_TRUE + '/' + BOOLEAN_ANSWER_FALSE + ')';
 
-    private static final String WRITE_DATA_TO_FILE_FILENAME_GUI = """
+    private static final String WRITE_DATA_TO_FILE_FILENAME_GUI = '\n' + """
             Write data to file GUI
             """ +
             "Enter the file name or click Enter to use the default file name (" + DEFAULT_FILENAME + ").\n" +
@@ -119,7 +118,7 @@ public class GuiSingleton {
             "Clear the file before inserting data? (" + BOOLEAN_ANSWER_TRUE + '/' + BOOLEAN_ANSWER_FALSE + ")\n" +
             GO_BACK_TO_MAIN_GUI;
 
-    private static final String COUNT_NUMBER_OF_ELEMENTS_GUI = """
+    private static final String COUNT_NUMBER_OF_ELEMENTS_GUI = '\n' + """
             Count number of elements GUI
             Enter index of the N element you want to count
             """ +
@@ -239,6 +238,10 @@ public class GuiSingleton {
     }
 
     private static void printData() {
+        if (cars.isEmpty()) {
+            System.out.println("The data is empty");
+            return;
+        }
         System.out.println(PRINT_DATA_GUI);
         System.out.println("Current size of the data list = " + cars.size());
         System.out.println(GO_BACK_TO_MAIN_GUI);

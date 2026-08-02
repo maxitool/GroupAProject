@@ -13,7 +13,6 @@ import java.util.stream.IntStream;
 
 public class DataConsoleReader {
 
-
     public static CustomArrayList<Car> readCars() {
         System.out.println("Enter number of cars: ");
         IntResponse countResponse;
