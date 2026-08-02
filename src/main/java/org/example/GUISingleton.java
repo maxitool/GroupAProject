@@ -301,7 +301,7 @@ public class GUISingleton {
             System.out.println("The collection is empty.");
             return;
         }
-        
+
         System.out.println(COUNT_NUMBER_OF_ELEMENTS_GUI);
         IntResponse intResponse;
         while (true) {
