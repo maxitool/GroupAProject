@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 public class StringConsoleReader {
     private volatile static Scanner scanner;
+    private volatile static boolean isClosed;
 
     public static synchronized void openScanner() {
         if (scanner != null) {
@@ -16,19 +17,24 @@ public class StringConsoleReader {
     }
 
     public static synchronized void closeScanner() {
-        if (scanner == null) {
+        if (scanner == null || isClosed) {
             return;
         }
         scanner.close();
         scanner = null;
+        isClosed = true;
+        System.out.println("Input stream is closed");
     }
 
     public static synchronized StringResponse getStringData() {
+        StringResponse response = new StringResponse();
+        if (isClosed) {
+            response.errorMessage = "Input stream is closed";
+            return  response;
+        }
         if (scanner == null) {
             openScanner();
         }
-
-        StringResponse response = new StringResponse();
         try {
             response.stringData = scanner.nextLine();
             if (response.stringData.trim().equals(GuiSingleton.GO_BACK_COMMAND)) {

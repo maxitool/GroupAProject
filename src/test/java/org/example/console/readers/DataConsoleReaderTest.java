@@ -15,7 +15,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class DataConsoleReaderTest {
-    private final InputStream originalSystemIn = System.in;
 
     public static void provideInput(String data){
         ByteArrayInputStream testIn = new ByteArrayInputStream(data.getBytes());
