@@ -17,18 +17,20 @@ import java.util.stream.IntStream;
 public class DataConsoleReader {
 
     public static List<Car> readCars(Supplier<AbstractList<Car>> createCollectionSupplier) {
+        List<Car> cars = createCollectionSupplier.get();
         System.out.println("Enter number of cars: ");
         IntResponse countResponse;
         do {
             countResponse = IntConsoleReader.getIntData();
         } while (countResponse.state != StringResponse.States.BACK_COMMAND && countResponse.state != StringResponse.States.OK);
-        if (countResponse.state == StringResponse.States.BACK_COMMAND) return new CustomArrayList<>();;
+        if (countResponse.state == StringResponse.States.BACK_COMMAND) {
+            return cars;
+        }
         if (countResponse.intData < 0) {
             System.out.println("The wrote number must be greater then or equal to 0");
-            return createCollectionSupplier.get();
+            return cars;
         }
         int count = countResponse.intData;
-        List<Car> cars = createCollectionSupplier.get();
         System.out.println("Enter car data in format: " + Car.CAR_FORMAT);
         System.out.println("Or type 'back' to return to the previous menu.");
         java.util.concurrent.atomic.AtomicBoolean isBack = new java.util.concurrent.atomic.AtomicBoolean(false);
