@@ -14,7 +14,7 @@ import org.example.console.readers.primitives.StringConsoleReader;
 import org.example.collections.CustomArrayList;
 import org.example.files.FileService;
 import org.example.files.FileServiceStrategy;
-import org.example.files.TxtFileService;
+import org.example.files.TxtFileServiceStrategy;
 import org.example.models.car.Car;
 import org.example.sort.BubbleSortStrategy;
 import org.example.sort.EvenOddSortStrategy;
@@ -125,7 +125,7 @@ public class GuiSingleton {
             GO_BACK_TO_MAIN_GUI;
 
     private static final List<FileServiceStrategy> FILE_SERVICE_STRATEGIES_LIST = List.of(
-            new TxtFileService()
+            new TxtFileServiceStrategy()
     );
 
     private static final Supplier<AbstractList<Car>> CREATE_COLLECTION_SUPPLIER = CustomArrayList::new;

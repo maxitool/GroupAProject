@@ -15,7 +15,7 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class TxtFileService implements FileServiceStrategy {
+public class TxtFileServiceStrategy implements FileServiceStrategy {
     private static final String FILE_FORMAT = ".txt";
 
     @Override

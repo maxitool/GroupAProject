@@ -12,12 +12,12 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TxtFileServiceTest {
+public class TxtFileServiceStrategyTest {
 
     @TempDir
     Path tempDirectory;
 
-    private final TxtFileService txtFileService = new TxtFileService();
+    private final TxtFileServiceStrategy txtFileService = new TxtFileServiceStrategy();
 
     @Test
     void when_getFileFormatOfTxtFileService_then_returnTxtFormat() {

@@ -71,7 +71,7 @@ public class FileServiceTest {
     @Test
     void when_writeAndReadCarsWithTxtStrategy_then_returnOriginalCars() {
         Path file = tempDirectory.resolve("cars.txt");
-        TxtFileService strategy = new TxtFileService();
+        TxtFileServiceStrategy strategy = new TxtFileServiceStrategy();
 
         CustomArrayList<Car> originalCars = new CustomArrayList<>();
         originalCars.add(new Car(150, "Toyota", 2020));
