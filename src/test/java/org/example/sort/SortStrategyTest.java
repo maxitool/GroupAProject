@@ -7,7 +7,6 @@ import org.example.sort.comparators.ModelComparator;
 import org.example.sort.comparators.YearComparator;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

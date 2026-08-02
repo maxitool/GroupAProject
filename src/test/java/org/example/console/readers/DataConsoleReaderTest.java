@@ -1,6 +1,5 @@
 package org.example.console.readers;
 
-import org.example.collections.CustomArrayList;
 import org.example.console.readers.primitives.StringConsoleReader;
 import org.example.console.readers.primitives.StringConsoleReaderTest;
 import org.example.models.car.Car;
