@@ -1,11 +1,11 @@
 package org.example.console.readers.primitives;
 
+import org.example.GuiSingleton;
 import org.example.console.readers.primitives.responses.StringResponse;
 
 import java.util.Scanner;
 
 public class StringConsoleReader {
-    public static final String GO_BACK_COMMAND = "back";
     private volatile static Scanner scanner;
 
     public static synchronized void openScanner() {
@@ -27,7 +27,7 @@ public class StringConsoleReader {
         StringResponse response = new StringResponse();
         try {
             response.stringData = scanner.nextLine();
-            if (response.stringData.equals(GO_BACK_COMMAND)) {
+            if (response.stringData.equals(GuiSingleton.GO_BACK_COMMAND)) {
                 response.state = StringResponse.States.BACK_COMMAND;
                 return response;
             }
