@@ -23,7 +23,7 @@ public class DataGenerator {
     private static final int MIN_HORSEPOWER_VALUE = 50;
     private static final int MIN_YEAR_VALUE = 1894;
 
-    public static CustomArrayList<Car> generateCars(int count){
+    public static CustomArrayList<Car> generateCars(int count) {
         CustomArrayList<Car> cars = new CustomArrayList<>();
         if (count <= 0) {
             System.out.println("The count for generate cars must be greater than 0");
