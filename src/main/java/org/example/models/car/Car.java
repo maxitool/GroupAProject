@@ -13,7 +13,6 @@ public class Car {
         model = "";
         year = -1;
     }
-
     public Car(int horsepower, String model, int year) {
         this();
         setHorsepower(horsepower).setModel(model).setYear(year);
@@ -51,9 +50,13 @@ public class Car {
 
     @Override
     public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Car car = (Car) o;
-        if (hashCode() != car.hashCode()) return false;
+        if (hashCode() != car.hashCode()) {
+            return false;
+        }
         return horsepower == car.horsepower && year == car.year && Objects.equals(model, car.model);
     }
 
@@ -84,7 +87,9 @@ public class Car {
 
         public Car build() {
             Car car = new Car(horsepower, model, year);
-            if (CarValidator.validateCar(car)) return car;
+            if (CarValidator.validateCar(car)) {
+                return car;
+            }
             System.out.println("The Car class didn't pass validation.");
             return null;
         }
