@@ -31,7 +31,7 @@ public class StringConsoleReader {
         StringResponse response = new StringResponse();
         try {
             response.stringData = scanner.nextLine();
-            if (response.stringData.equals(GuiSingleton.GO_BACK_COMMAND)) {
+            if (response.stringData.trim().equals(GuiSingleton.GO_BACK_COMMAND)) {
                 response.state = StringResponse.States.BACK_COMMAND;
                 scanner.reset();
                 return response;
