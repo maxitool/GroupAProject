@@ -1,2 +1,10 @@
-Car{horsepower=90 hp, model='Citroen SA', year=1914}
-Car{horsepower=56 hp, model='Aston Martin UOGNZTL', year=2015}
+Car{horsepower=75, model='Volkswagen GJIFCK', year=2020}
+Car{horsepower=185, model='BMW MXG', year=2013}
+Car{horsepower=190, model='Daihatsu QM', year=1945}
+Car{horsepower=330, model='Rolls-Royce GD', year=1984}
+Car{horsepower=336, model='Toyota ZEZ', year=1982}
+Car{horsepower=369, model='Nissan BTGJPB', year=1986}
+Car{horsepower=377, model='Subaru LTHO', year=1905}
+Car{horsepower=428, model='Jaguar OEELP', year=1896}
+Car{horsepower=444, model='Chrysler GQSKUWRC', year=1922}
+Car{horsepower=491, model='Mercedes-Benz I', year=2002}

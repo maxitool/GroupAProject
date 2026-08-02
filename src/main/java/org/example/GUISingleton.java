@@ -17,6 +17,7 @@ import org.example.files.TxtFileService;
 import org.example.models.car.Car;
 import org.example.sort.BubbleSortStrategy;
 import org.example.sort.EvenOddSortStrategy;
+import java.nio.file.Path;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -26,7 +27,7 @@ import java.util.function.Supplier;
 
 public class GUISingleton {
     private static final int CONSOLE_LINES_CAPACITY = 10000;
-    private static final String FILES_PATH = "data\\";
+   private static final Path FILES_PATH = Path.of("data");
     private static final String DEFAULT_FILENAME = "sorted_cars.txt";
 
     private static final String MAIN_GUI = """
@@ -174,7 +175,7 @@ public class GUISingleton {
             FileServiceStrategy strategy = FILE_SERVICE_STRATEGIES_LIST.stream()
                     .filter(item -> item.isFileFormatGood(streamFilename))
                     .findFirst().orElse(null);
-            filename = FILES_PATH + answer.stringData;
+            filename = FILES_PATH.resolve(answer.stringData).toString();
             if (strategy == null) {
                 System.out.println("The file you wrote isn't in correct format.");
                 System.out.println("Available formats:");
@@ -279,7 +280,7 @@ public class GUISingleton {
                 System.out.println("Please try again (or enter 'back' to cancel):");
                 continue;
             }
-            filename = FILES_PATH + filename;
+            filename = FILES_PATH.resolve(filename).toString();
             if (FileService.isFileExist(filename)) {
                 System.out.println(WRITE_DATA_TO_FILE_IS_REWRITE_GUI);
                 do {
@@ -300,10 +301,11 @@ public class GUISingleton {
             System.out.println("The collection is empty.");
             return;
         }
-        if (cars.size() == 1) {
+       /* if (cars.size() == 1) {
             System.out.println("The collection size = 1.");
             return;
-        }
+        }*/
+
         System.out.println(COUNT_NUMBER_OF_ELEMENTS_GUI);
         IntResponse intResponse;
         while (true) {
