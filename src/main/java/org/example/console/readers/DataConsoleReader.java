@@ -13,6 +13,7 @@ import java.util.stream.IntStream;
 
 public class DataConsoleReader {
 
+
     public static CustomArrayList<Car> readCars() {
         System.out.println("Enter number of cars: ");
         IntResponse countResponse;
@@ -22,7 +23,7 @@ public class DataConsoleReader {
         if (countResponse.state == StringResponse.States.BACK_COMMAND) return new CustomArrayList<>();;
         int count = countResponse.intData;
         CustomArrayList<Car> cars = new CustomArrayList<>();
-        System.out.println("Enter car data in format: horsepower=<horsepower>, model='<model>', year=<year>");
+        System.out.println("Enter car data in format: " + Car.CAR_FORMAT);
         System.out.println("Or type 'back' to return to the previous menu.");
         java.util.concurrent.atomic.AtomicBoolean isBack = new java.util.concurrent.atomic.AtomicBoolean(false);
         IntStream.range(0,count)
@@ -43,12 +44,12 @@ public class DataConsoleReader {
                         return;
                     }
                     Car car = CarDeserializer.stringToCar(input);
-                    if (CarValidator.validateCar(car)) {
+                    if (CarValidator.validateCar(car, false)) {
                         cars.add(car);
                         System.out.println("Car #" + (i + 1) + " added successfully!");
                     } else {
                         System.out.println("Invalid car data, skipping car #" + (i + 1));
-                        System.out.println("Expected format: horsepower=<horsepower>, model='<model>', year=<year>");
+                        System.out.println("Expected format: " + Car.CAR_FORMAT);
                     }
                 });
         System.out.println("Successfully added " + cars.size() + " valid cars.");

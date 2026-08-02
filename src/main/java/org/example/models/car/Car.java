@@ -3,6 +3,7 @@ package org.example.models.car;
 import java.util.Objects;
 
 public class Car {
+    public static final String CAR_FORMAT = "horsepower=<horsepower>, model='<model>', year=<year>";
     private int horsepower;
     private String model;
     private int year;

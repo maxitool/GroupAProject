@@ -10,7 +10,7 @@ import java.util.stream.IntStream;
 
 public class EvenOddSortStrategy implements SortStrategy {
 
-    public List<Car> sort (List<Car>cars , Comparator<Car> comparator) {
+    public List<Car> sort (List<Car> cars , Comparator<Car> comparator) {
 
         if (cars == null) {
             System.out.println("Error: passed list is null");

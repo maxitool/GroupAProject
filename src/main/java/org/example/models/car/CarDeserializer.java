@@ -29,7 +29,7 @@ public class CarDeserializer {
                     dataHashMap.get("model").replace("'","").replace("\"","").trim(),
                     Integer.parseInt(dataHashMap.get("year").trim()));
         } catch (NumberFormatException e) {
-            System.out.println("Can't convert String data ( " + data + " ) to Car class, reason: " + e.getMessage());
+            System.out.println("Can't convert String data ( " + data + " ) to Car class, " + e.getMessage());
         }
         return null;
     }

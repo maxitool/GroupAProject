@@ -9,7 +9,7 @@ import java.util.List;
 public class BubbleSortStrategy implements SortStrategy {
 
     @Override
-    public List<Car> sort(List<Car>cars , Comparator<Car> comparator) {
+    public List<Car> sort(List<Car> cars , Comparator<Car> comparator) {
 
         if (cars == null) {
             System.out.println("Error: passed list is null");

@@ -1,6 +1,7 @@
 package org.example;
 
 import org.example.console.readers.DataConsoleReader;
+import org.example.sort.SortStrategy;
 import org.example.sort.comparators.HorsepowerComparator;
 import org.example.sort.comparators.ModelComparator;
 import org.example.sort.comparators.YearComparator;
@@ -19,19 +20,19 @@ import org.example.sort.BubbleSortStrategy;
 import org.example.sort.EvenOddSortStrategy;
 import java.nio.file.Path;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Supplier;
 
 public class GuiSingleton {
     public static final String GO_BACK_COMMAND = "back";
     private static final String GO_BACK_TO_MAIN_GUI = GO_BACK_COMMAND + ". Go to Main GUI.";
+
     private static final int CONSOLE_LINES_CAPACITY = 10000;
 
     private static final Path FILES_PATH = Path.of("data");
     private static final String DEFAULT_FILENAME = "sorted_cars.txt";
+
+    private static final String BOOLEAN_ANSWER_TRUE = "yes", BOOLEAN_ANSWER_FALSE = "no";
 
     private static final String MAIN_GUI = """
             Main GUI
@@ -96,6 +97,16 @@ public class GuiSingleton {
             4. Sorting by even horsepower values;
             """ +
             GO_BACK_TO_MAIN_GUI;
+    private static final SortStrategy bubbleSortStrategy = new BubbleSortStrategy();
+    private static final SortStrategy evenOddSortStrategy = new EvenOddSortStrategy();
+    private static final HashMap<Integer, SortStrategyAndComparator> SORT_GUI_ACTIONS = new HashMap<>(Map.of(
+            1, new SortStrategyAndComparator(bubbleSortStrategy, new HorsepowerComparator()),
+            2, new SortStrategyAndComparator(bubbleSortStrategy, new ModelComparator()),
+            3, new SortStrategyAndComparator(bubbleSortStrategy, new YearComparator()),
+            4, new SortStrategyAndComparator(evenOddSortStrategy, new HorsepowerComparator())
+            ));
+    private static final String DO_PRINT_AFTER_SORT_GUI =
+            "Print the resulting list of cars after sorting? (" + BOOLEAN_ANSWER_TRUE + '/' + BOOLEAN_ANSWER_FALSE + ')';
 
     private static final String WRITE_DATA_TO_FILE_FILENAME_GUI = """
             Write data to file GUI
@@ -103,7 +114,7 @@ public class GuiSingleton {
             "Enter the file name or click Enter to use the default file name (" + DEFAULT_FILENAME + ").\n" +
             GO_BACK_TO_MAIN_GUI;
 
-    private static final String BOOLEAN_ANSWER_TRUE = "yes", BOOLEAN_ANSWER_FALSE = "no";
+
     private static final String WRITE_DATA_TO_FILE_IS_REWRITE_GUI = """
             Write data to file GUI
             """ +
@@ -242,36 +253,44 @@ public class GuiSingleton {
     }
 
     private static void sortData() {
-        IntResponse answer;
-        BubbleSortStrategy bubbleSortStrategy;
+        if (cars.isEmpty()) {
+            System.out.println("The list of cars is empty");
+            return;
+        }
+        IntResponse intAnswer;
+        BooleanResponse booleanAnswer;
+        List<Car> newCars;
         do {
             System.out.println(SORT_DATA_GUI);
             do {
-                answer = IntConsoleReader.getIntData();
-            } while (answer.state != StringResponse.States.BACK_COMMAND && answer.state != StringResponse.States.OK);
-            if (answer.state == StringResponse.States.BACK_COMMAND) {
+                intAnswer = IntConsoleReader.getIntData();
+            } while (intAnswer.state != StringResponse.States.BACK_COMMAND && intAnswer.state != StringResponse.States.OK);
+            if (intAnswer.state == StringResponse.States.BACK_COMMAND) {
                 return;
             }
-            switch (answer.intData) {
-                case 1:
-                    cars = Collections.unmodifiableList(cars);
-                    bubbleSortStrategy = new BubbleSortStrategy();
-                    cars = bubbleSortStrategy.sort(cars, new HorsepowerComparator());
-                    break;
-                case 2:
-                    bubbleSortStrategy = new BubbleSortStrategy();
-                    cars = bubbleSortStrategy.sort(cars, new ModelComparator());
-                    break;
-                case 3:
-                    bubbleSortStrategy = new BubbleSortStrategy();
-                    cars = bubbleSortStrategy.sort(cars, new YearComparator());
-                    break;
-                case 4:
-                    EvenOddSortStrategy evenOddSortStrategy = new EvenOddSortStrategy();
-                    cars = evenOddSortStrategy.sort(cars, new HorsepowerComparator());
-                    break;
-                default:
-                    System.out.println("Can't recognize wrote option");
+            if (!SORT_GUI_ACTIONS.containsKey(intAnswer.intData)) {
+                System.out.println("Can't recognize wrote option");
+                continue;
+            }
+            if (SORT_GUI_ACTIONS.get(intAnswer.intData).strategy == null || SORT_GUI_ACTIONS.get(intAnswer.intData).comparator == null) {
+                System.out.println("Sort strategy or comparator is null in SORT_GUI_ACTIONS");
+                return;
+            }
+            newCars = SORT_GUI_ACTIONS.get(intAnswer.intData).strategy.sort(cars, SORT_GUI_ACTIONS.get(intAnswer.intData).comparator);
+            if (newCars.isEmpty()) {
+                System.out.println("Failed to sort, rollback sort");
+                continue;
+            }
+            cars = newCars;
+            System.out.println(DO_PRINT_AFTER_SORT_GUI);
+            do {
+                booleanAnswer = BooleanConsoleReader.getBooleanData(BOOLEAN_ANSWER_TRUE, BOOLEAN_ANSWER_FALSE);
+            } while (booleanAnswer.state != StringResponse.States.BACK_COMMAND && booleanAnswer.state != StringResponse.States.OK);
+            if (booleanAnswer.state == StringResponse.States.BACK_COMMAND) {
+                return;
+            }
+            if (booleanAnswer.booleanData) {
+                printData();
             }
         } while (true);
     }
@@ -360,5 +379,15 @@ public class GuiSingleton {
 
     private static class Holder {
         public static final GuiSingleton instance = new GuiSingleton();
+    }
+
+    private static class SortStrategyAndComparator {
+        public final SortStrategy strategy;
+        public final Comparator<Car> comparator;
+
+        public SortStrategyAndComparator(SortStrategy strategy, Comparator<Car> comparator) {
+            this.strategy = strategy;
+            this.comparator = comparator;
+        }
     }
 }
