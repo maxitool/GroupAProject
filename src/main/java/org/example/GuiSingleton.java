@@ -51,8 +51,7 @@ public class GuiSingleton {
             3, GuiSingleton::sortData,
             4, GuiSingleton::writeDataToFile,
             5, GuiSingleton::countNumberOfElementsN,
-            6, GuiSingleton::clearData,
-            7, GuiSingleton::checktype
+            6, GuiSingleton::clearData
     ));
 
     private static final String FILL_DATA_GUI = '\n' + """
@@ -131,10 +130,6 @@ public class GuiSingleton {
     private static final Supplier<AbstractList<Car>> CREATE_COLLECTION_SUPPLIER = CustomArrayList::new;
     private static List<Car> cars = CREATE_COLLECTION_SUPPLIER.get();
 
-
-    private static void checktype() {
-        System.out.println(cars.getClass());
-    }
 
     private GuiSingleton() {}
 
