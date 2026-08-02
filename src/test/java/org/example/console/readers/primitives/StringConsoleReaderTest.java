@@ -56,9 +56,9 @@ public class StringConsoleReaderTest {
     }
 
     @Test
-    public void when_getStringAndSpacesOutside_then_returnResponseWithOkState() {
+    public void when_getStringAndSpacesOutside_then_returnResponseWithBackCommandState() {
         provideInput(" back ");
         StringResponse response = StringConsoleReader.getStringData();
-        Assertions.assertEquals(StringResponse.States.OK, response.state);
+        Assertions.assertEquals(StringResponse.States.BACK_COMMAND, response.state);
     }
 }
