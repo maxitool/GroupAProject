@@ -25,7 +25,7 @@ import java.util.function.Supplier;
 
 public class GuiSingleton {
     public static final String GO_BACK_COMMAND = "back";
-    private static final String GO_BACK_TO_MAIN_GUI = GO_BACK_COMMAND + ". Go to Main GUI.";
+    private static final String GO_BACK_TO_MAIN_GUI = GO_BACK_COMMAND + ". Go to Main GUI";
 
     private static final int CONSOLE_LINES_CAPACITY = 10000;
 
@@ -42,6 +42,7 @@ public class GuiSingleton {
             3. Sort data;
             4. Write data to file;
             5. Count number of elements N in the collection;
+            6. Clear data;
             """ +
             GO_BACK_COMMAND + ". Stop program.";
     private static final HashMap<Integer, Runnable> MAIN_GUI_ACTIONS = new HashMap<>(Map.of(
@@ -49,7 +50,8 @@ public class GuiSingleton {
             2, GuiSingleton::printData,
             3, GuiSingleton::sortData,
             4, GuiSingleton::writeDataToFile,
-            5, GuiSingleton::countNumberOfElementsN
+            5, GuiSingleton::countNumberOfElementsN,
+            6, GuiSingleton::clearData
     ));
 
     private static final String FILL_DATA_GUI = """
@@ -69,19 +71,19 @@ public class GuiSingleton {
     private static final String FILL_DATA_FROM_CONSOLE_GUI = """
             Fill data from console GUI
             """ +
-            GO_BACK_COMMAND + ". Go to Fill data GUI.";
+            GO_BACK_COMMAND + ". Go to Fill data GUI";
 
     private static final String FILL_DATA_FROM_FILE_GUI = """
             Fill data from file GUI
             What is the name of the file you want to read data from? +
             """ +
-            GO_BACK_COMMAND + ". Go to Fill data GUI.";
+            GO_BACK_COMMAND + ". Go to Fill data GUI";
 
     private static final String FILL_GENERATED_DATA_GUI = """
             Fill generated data GUI
             How much data do you need to generate?
             """ +
-            GO_BACK_COMMAND + ". Go to Fill data GUI.";
+            GO_BACK_COMMAND + ". Go to Fill data GUI";
 
     private static final String PRINT_DATA_GUI = """
             Print data GUI
@@ -106,23 +108,18 @@ public class GuiSingleton {
             4, new SortStrategyAndComparator(evenOddSortStrategy, new HorsepowerComparator())
             ));
     private static final String DO_PRINT_AFTER_SORT_GUI =
-            "Print the resulting list of cars after sorting? (" + BOOLEAN_ANSWER_TRUE + '/' + BOOLEAN_ANSWER_FALSE + ')';
+            "Print the resulting data after sorting? (" + BOOLEAN_ANSWER_TRUE + '/' + BOOLEAN_ANSWER_FALSE + ')';
 
     private static final String WRITE_DATA_TO_FILE_FILENAME_GUI = """
             Write data to file GUI
             """ +
             "Enter the file name or click Enter to use the default file name (" + DEFAULT_FILENAME + ").\n" +
             GO_BACK_TO_MAIN_GUI;
-
-
-    private static final String WRITE_DATA_TO_FILE_IS_REWRITE_GUI = """
-            Write data to file GUI
-            """ +
+    private static final String WRITE_DATA_TO_FILE_IS_REWRITE_GUI =
             "Clear the file before inserting data? (" + BOOLEAN_ANSWER_TRUE + '/' + BOOLEAN_ANSWER_FALSE + ")\n" +
             GO_BACK_TO_MAIN_GUI;
 
     private static final String COUNT_NUMBER_OF_ELEMENTS_GUI = """
-            Write data to file GUI
             Count number of elements GUI
             Enter index of the N element you want to count
             """ +
@@ -140,7 +137,7 @@ public class GuiSingleton {
     public static GuiSingleton getInstance() { return Holder.instance; }
 
     public void run() {
-        System.out.println("\nGroup A program is running.");
+        System.out.println("\nGroup A program is running");
         IntResponse answer;
         do {
             System.out.println(MAIN_GUI);
@@ -175,19 +172,24 @@ public class GuiSingleton {
             if(FILL_GUI_ACTIONS.get(answer.intData).get()) {
                 return;
             }
-            System.out.println("The data wasn't filled in");
         } while (true);
     }
 
     private static boolean fillFromConsoleData() {
+        List<Car> newCars;
         System.out.println(FILL_DATA_FROM_CONSOLE_GUI);
-        cars = DataConsoleReader.readCars();
+        newCars = DataConsoleReader.readCars();
+        if (newCars.isEmpty()) {
+            System.out.println("The data wasn't filled in");
+            return false;
+        }
+        cars = newCars;
         return true;
     }
 
     private static boolean fillFromFileData() {
+        List<Car> newCars;
         StringResponse answer;
-        cars = Collections.unmodifiableList(cars);
         System.out.println(FILL_DATA_FROM_FILE_GUI);
         do {
             do {
@@ -203,13 +205,18 @@ public class GuiSingleton {
                     .findFirst().orElse(null);
             filename = FILES_PATH.resolve(answer.stringData).toString();
             if (strategy == null) {
-                System.out.println("The file you wrote isn't in correct format.");
+                System.out.println("The file you wrote isn't in correct format");
                 System.out.println("Available formats:");
                 FILE_SERVICE_STRATEGIES_LIST.forEach(item -> System.out.println(item.getFileFormat()));
-                System.out.println("Please try again or enter 'back' to cancel:");
+                System.out.println("Please try again or enter 'back' to cancel");
                 continue;
             }
-            cars = FileService.readCars(strategy, filename);
+            newCars = FileService.readCars(strategy, filename);
+            if (newCars.isEmpty()) {
+                System.out.println("The data wasn't filled in");
+                return false;
+            }
+            cars = newCars;
             return true;
         } while(true);
     }
@@ -223,13 +230,17 @@ public class GuiSingleton {
         if (answer.state == StringResponse.States.BACK_COMMAND) {
             return false;
         }
+        if (answer.intData <= 0) {
+            System.out.println("The size of data must be greater than 0");
+            return false;
+        }
         cars = DataGenerator.generateCars(answer.intData);
         return true;
     }
 
     private static void printData() {
         System.out.println(PRINT_DATA_GUI);
-        System.out.println("Current size of the cars list = " + cars.size());
+        System.out.println("Current size of the data list = " + cars.size());
         System.out.println(GO_BACK_TO_MAIN_GUI);
         IntResponse answer;
         do {
@@ -240,11 +251,11 @@ public class GuiSingleton {
         }
         int count = answer.intData;
         if (count > cars.size()) {
-            System.out.println("Number of cars is less than the wrote value, " + cars.size() + " cars will be printed\n");
+            System.out.println("Number of elements is less than the wrote value, " + cars.size() + " elements will be printed\n");
             count = cars.size();
         }
         if (count > CONSOLE_LINES_CAPACITY) {
-            System.out.println("The wrote value must be less than console lines capacity, " + CONSOLE_LINES_CAPACITY + " cars will be printed\n");
+            System.out.println("The wrote value must be less than console lines capacity, " + CONSOLE_LINES_CAPACITY + " elements will be printed\n");
             count = CONSOLE_LINES_CAPACITY;
         }
         cars.stream().limit(count).forEach(item -> System.out.println(item.toString()));
@@ -254,7 +265,7 @@ public class GuiSingleton {
 
     private static void sortData() {
         if (cars.isEmpty()) {
-            System.out.println("The list of cars is empty");
+            System.out.println("The list of data is empty");
             return;
         }
         IntResponse intAnswer;
@@ -377,9 +388,15 @@ public class GuiSingleton {
         } while (true);
     }
 
+    private static void clearData() {
+        cars.clear();
+        System.out.println("The data has been cleared");
+    }
+
     private static class Holder {
         public static final GuiSingleton instance = new GuiSingleton();
     }
+
 
     private static class SortStrategyAndComparator {
         public final SortStrategy strategy;
