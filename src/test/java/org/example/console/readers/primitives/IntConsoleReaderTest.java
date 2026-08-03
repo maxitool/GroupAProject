@@ -20,56 +20,56 @@ public class IntConsoleReaderTest {
     }
 
     @Test
-    public void getIntData_withInt_okState() {
+    public void when_getInt_then_returnResponseWithOkState() {
         StringConsoleReaderTest.provideInput("123");
         IntResponse response = IntConsoleReader.getIntData();
         Assertions.assertEquals(StringResponse.States.OK, response.state);
     }
 
     @Test
-    public void getIntData_withNegativeInt_okState() {
+    public void when_getNegativeInt_then_returnResponseWithOkState() {
         StringConsoleReaderTest.provideInput("-123");
         IntResponse response = IntConsoleReader.getIntData();
         Assertions.assertEquals(StringResponse.States.OK, response.state);
     }
 
     @Test
-    public void getIntData_withIntAndSpaces_okState() {
+    public void when_getIntAndSpaces_then_returnResponseWithOkState() {
         StringConsoleReaderTest.provideInput(" 100 000 000 ");
         IntResponse response = IntConsoleReader.getIntData();
         Assertions.assertEquals(StringResponse.States.OK, response.state);
     }
 
     @Test
-    public void getIntData_withBeyondRangeInt_cantConvertState() {
+    public void when_getBeyondRangeInt_then_returnResponseWithCantConvertState() {
         StringConsoleReaderTest.provideInput("1232834823482394823948923");
         IntResponse response = IntConsoleReader.getIntData();
         Assertions.assertEquals(StringResponse.States.CANT_CONVERT, response.state);
     }
 
     @Test
-    public void getIntData_withDouble_cantConvertState() {
+    public void when_getDouble_then_returnResponseWithCantConvertState() {
         StringConsoleReaderTest.provideInput("123.43");
         IntResponse response = IntConsoleReader.getIntData();
         Assertions.assertEquals(StringResponse.States.CANT_CONVERT, response.state);
     }
 
     @Test
-    public void getIntData_withEmpty_badResponseState() {
+    public void when_getEmpty_then_returnResponseWithBadResponseState() {
         StringConsoleReaderTest.provideInput("");
         IntResponse response = IntConsoleReader.getIntData();
         Assertions.assertEquals(StringResponse.States.BAD_RESPONSE, response.state);
     }
 
     @Test
-    public void getIntData_withString_cantConvertState(){
+    public void when_getString_then_returnResponseWithCantConvertState(){
         StringConsoleReaderTest.provideInput("data");
         IntResponse response = IntConsoleReader.getIntData();
         Assertions.assertEquals(StringResponse.States.CANT_CONVERT, response.state);
     }
 
     @Test
-    public void getIntData_withBoolean_cantConvertState() {
+    public void when_getBoolean_then_returnResponseWithCantConvertState() {
         StringConsoleReaderTest.provideInput("true");
         IntResponse response = IntConsoleReader.getIntData();
         Assertions.assertEquals(StringResponse.States.CANT_CONVERT, response.state);

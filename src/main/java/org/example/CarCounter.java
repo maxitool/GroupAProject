@@ -46,7 +46,9 @@ public class CarCounter {
             Runnable  task = () -> {
                 long count = 0 ;
                 for (Car car : subList) {
-                    if (car.equals(target)) count++;
+                    if (car.equals(target)) {
+                        count++;
+                    }
                 }
                 synchronized (results) {
                     results.add(count);
@@ -64,7 +66,7 @@ public class CarCounter {
             }
         }
         long total = 0;
-        for (long count : results){
+        for (long count : results) {
             total+= count;
         }
         return total;

@@ -20,23 +20,27 @@ public class CarDeserializer {
             }
             dataHashMap.put(keyValue[0].trim(), keyValue[1].trim());
         }
-        if (!isKeyContainsInMap(dataHashMap, "horsepower", data) ||
-                !isKeyContainsInMap(dataHashMap, "model", data) ||
-                !isKeyContainsInMap(dataHashMap, "year", data)) return null;
+        if (!isKeyContainsInMap(dataHashMap, "horsepower", data)
+                || !isKeyContainsInMap(dataHashMap, "model", data)
+                || !isKeyContainsInMap(dataHashMap, "year", data)) {
+            return null;
+        }
         try {
             return new Car(
                     Integer.parseInt(dataHashMap.get("horsepower").replace("hp","").trim()),
                     dataHashMap.get("model").replace("'","").replace("\"","").trim(),
                     Integer.parseInt(dataHashMap.get("year").trim()));
         } catch (NumberFormatException e) {
-            System.out.println("Can't convert String data ( " + data + " ) to Car class, reason: " + e.getMessage());
+            System.out.println("Can't convert String data ( " + data + " ) to Car class, " + e.getMessage());
         }
         return null;
     }
 
     private static boolean isKeyContainsInMap(HashMap<String, String> hashMap, String key, String data) {
         boolean answer = hashMap.containsKey(key);
-        if (!answer) System.out.println("Didn't receive " + key + " field for " + data + " Car class");
+        if (!answer) {
+            System.out.println("Didn't receive " + key + " field for " + data + " Car class");
+        }
         return answer;
     }
 }

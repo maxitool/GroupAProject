@@ -1,33 +1,37 @@
 package org.example.console.readers.primitives;
 
+import org.example.GuiSingleton;
 import org.example.console.readers.primitives.responses.StringResponse;
 
 import java.util.Scanner;
 
 public class StringConsoleReader {
-    public static final String GO_BACK_COMMAND = "back";
     private volatile static Scanner scanner;
 
     public static synchronized void openScanner() {
-        if (scanner != null)
+        if (scanner != null) {
             return;
+        }
         scanner = new Scanner(System.in);
     }
 
     public static synchronized void closeScanner() {
-        if (scanner == null)
+        if (scanner == null) {
             return;
+        }
         scanner.close();
         scanner = null;
+        System.out.println("Input stream is closed");
     }
 
     public static synchronized StringResponse getStringData() {
-        if (scanner == null)
-            openScanner();
         StringResponse response = new StringResponse();
+        if (scanner == null) {
+            openScanner();
+        }
         try {
             response.stringData = scanner.nextLine();
-            if (response.stringData.equals(GO_BACK_COMMAND)) {
+            if (response.stringData.trim().equals(GuiSingleton.GO_BACK_COMMAND)) {
                 response.state = StringResponse.States.BACK_COMMAND;
                 return response;
             }

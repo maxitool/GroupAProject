@@ -7,7 +7,5 @@ import java.util.List;
 
 
 public interface SortStrategy {
-
     List<Car> sort (List<Car> cars, Comparator<Car> comparator);
-
 }

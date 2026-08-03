@@ -2,7 +2,7 @@ package org.example;
 
 public class Main {
     public static void main(String[] args) {
-        GUISingleton gui = GUISingleton.getInstance();
+        GuiSingleton gui = GuiSingleton.getInstance();
         gui.run();
     }
 }
