@@ -1,5 +1,5 @@
 Car{horsepower=247, model='Subaru F', year=1921}
-Car{horsepower=165, model='Bugatti VMY', year=1919}
+horsepower=165,model=Bugatti VMY,year=1919
 Car{horsepower=401, model='Cadillac OHH', year=1993}
 Car{horsepower=370, model='Bugatti SBLHYSN', year=1952}
 Car{horsepower=262, model='Honda VLEIDB', year=2004}

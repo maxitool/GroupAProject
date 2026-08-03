@@ -33,7 +33,6 @@ public class StringConsoleReader {
             response.stringData = scanner.nextLine();
             if (response.stringData.trim().equals(GuiSingleton.GO_BACK_COMMAND)) {
                 response.state = StringResponse.States.BACK_COMMAND;
-                scanner.reset();
                 return response;
             }
             response.state = StringResponse.States.OK;
@@ -42,7 +41,6 @@ public class StringConsoleReader {
             response.state = StringResponse.States.BAD_RESPONSE;
             response.errorMessage = e.getMessage();
         }
-        scanner.reset();
         return response;
     }
 }
