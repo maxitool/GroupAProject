@@ -2,11 +2,12 @@ package org.example;
 
 import org.example.collections.CustomArrayList;
 import org.example.models.car.Car;
-import org.example.models.car.CarValidator;
 
 import java.time.Year;
+import java.util.AbstractList;
 import java.util.List;
 import java.util.Random;
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 public class DataGenerator {
@@ -23,8 +24,8 @@ public class DataGenerator {
     private static final int MIN_HORSEPOWER_VALUE = 50;
     private static final int MIN_YEAR_VALUE = 1894;
 
-    public static CustomArrayList<Car> generateCars(int count) {
-        CustomArrayList<Car> cars = new CustomArrayList<>();
+    public static List<Car> generateCars(int count, Supplier<AbstractList<Car>> createCollectionSupplier) {
+        List<Car> cars = createCollectionSupplier.get();
         if (count <= 0) {
             System.out.println("The count for generate cars must be greater than 0");
             return cars;
@@ -45,5 +46,8 @@ public class DataGenerator {
                 .limit(count)
                 .forEach(cars::add);
         return cars;
+    }
+    public static List<Car> generateCars(int count) {
+        return generateCars(count, CustomArrayList::new);
     }
 }

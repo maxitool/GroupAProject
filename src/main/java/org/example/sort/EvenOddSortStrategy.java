@@ -10,30 +10,33 @@ import java.util.stream.IntStream;
 
 public class EvenOddSortStrategy implements SortStrategy {
 
-    public List<Car> sort (List<Car>cars , Comparator<Car> comparator) {
-
+    public List<Car> sort (List<Car> cars , Comparator<Car> comparator) {
         if (cars == null) {
             System.out.println("Error: passed list is null");
             return new CustomArrayList<>();
         }
-
         if (comparator == null) {
             System.out.println("Error: comparator is null");
             return cars;
         }
-
         if (cars.size() <= 1) {
             return cars;
         }
 
-        List<Car> sortedCars = new CustomArrayList<>();
+        List<Car> sortedCars = null;
+        try {
+            sortedCars =  cars.getClass().getDeclaredConstructor().newInstance();
+        } catch (Exception e) {
+            System.out.println("Can't create new instance copy of cars");
+            return cars;
+        }
         sortedCars.addAll(cars);
+        List<Car> streamSortedCars = sortedCars;
 
         List<Integer> evenIndices = IntStream.range(0, sortedCars.size())
-                .filter(i -> sortedCars.get(i) != null && sortedCars.get(i).getHorsepower() % 2 == 0)
+                .filter(i -> streamSortedCars.get(i) != null && streamSortedCars.get(i).getHorsepower() % 2 == 0)
                 .boxed()
                 .toList();
-
         List<Car> evenCars = new ArrayList<>(
                 evenIndices.stream()
                         .map(sortedCars::get)
@@ -41,10 +44,10 @@ public class EvenOddSortStrategy implements SortStrategy {
         );
 
         BubbleSortStrategy bubbleSort = new BubbleSortStrategy();
-        bubbleSort.sort(evenCars, comparator);
+        List<Car> streamEvenCars = bubbleSort.sort(evenCars, comparator);
 
         IntStream.range(0, evenIndices.size())
-                .forEach(i -> sortedCars.set(evenIndices.get(i), evenCars.get(i)));
-        return sortedCars;
+                .forEach(i -> streamSortedCars.set(evenIndices.get(i), streamEvenCars.get(i)));
+        return streamSortedCars;
     }
 }

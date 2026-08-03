@@ -9,11 +9,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.AbstractList;
 import java.util.List;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class TxtFileService implements FileServiceStrategy {
+public class TxtFileServiceStrategy implements FileServiceStrategy {
     private static final String FILE_FORMAT = ".txt";
 
     @Override
@@ -30,7 +32,7 @@ public class TxtFileService implements FileServiceStrategy {
     }
 
     @Override
-    public List<Car> readCars(String filename) {
+    public List<Car> readCars(String filename, Supplier<AbstractList<Car>> createCollectionSupplier) {
         if (filename == null) {
             System.out.println("filename = null");
             return new CustomArrayList<>();
@@ -47,11 +49,15 @@ public class TxtFileService implements FileServiceStrategy {
             return lines
                     .map(CarDeserializer::stringToCar)
                     .filter(CarValidator::validateCar)
-                    .collect(Collectors.toCollection(CustomArrayList::new));
+                    .collect(Collectors.toCollection(createCollectionSupplier));
         } catch (IOException e) {
             System.out.println("Error reading file: " + e.getMessage());
         }
         return new CustomArrayList<>();
+    }
+    @Override
+    public List<Car> readCars(String filename) {
+        return readCars(filename, CustomArrayList::new);
     }
 
     @Override
@@ -77,6 +83,6 @@ public class TxtFileService implements FileServiceStrategy {
         } catch (IOException e) {
             System.out.println("Error writing to file: " + e.getMessage());
         }
-        return  false;
+        return false;
     }
 }

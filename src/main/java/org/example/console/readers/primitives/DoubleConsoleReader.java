@@ -8,8 +8,9 @@ public class DoubleConsoleReader extends StringConsoleReader {
     public static synchronized DoubleResponse getDoubleData() {
         StringResponse stringResponse = getStringData();
         DoubleResponse doubleResponse = new DoubleResponse(stringResponse);
-        if (doubleResponse.state != StringResponse.States.OK)
+        if (doubleResponse.state != StringResponse.States.OK) {
             return doubleResponse;
+        }
         try {
             doubleResponse.doubleData = Double.parseDouble(doubleResponse.stringData.replace(" ","").replace(",","."));
         } catch (NumberFormatException e) {

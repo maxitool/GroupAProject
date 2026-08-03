@@ -1,38 +1,42 @@
 package org.example;
 
-import org.example.collections.CustomArrayList;
 import org.example.models.car.Car;
 import org.example.models.car.CarValidator;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class DataGeneratorTest {
 
     @Test
-    void generateCars_withPositiveCount_returnsCollectionOfSpecifiedSize() {
-        CustomArrayList<Car> cars = DataGenerator.generateCars(10);
+    void when_generateCarsWithPositiveCount_then_returnsCollectionOfSpecifiedSize() {
+        List<Car> cars = DataGenerator.generateCars(10);
         assertEquals(10, cars.size(), "Должно быть сгенерировано ровно 10 машин");
         assertFalse(cars.isEmpty(), "Коллекция не должна быть пустой");
     }
 
     @Test
-    void generateCars_withZeroCount_returnsEmptyCollection() {
-        CustomArrayList<Car> cars = DataGenerator.generateCars(0);
+    void when_generateCarsWithZeroCount_then_returnsEmptyCollection() {
+        List<Car> cars = DataGenerator.generateCars(0);
         assertEquals(0, cars.size(), "При нулевом количестве должна быть пустая коллекция");
         assertTrue(cars.isEmpty(), "Коллекция должна быть пустой");
     }
 
     @Test
-    void generateCars_withNegativeCount_returnsEmptyCollection() {
-        CustomArrayList<Car> cars = DataGenerator.generateCars(-5);
+    void when_generateCarsWithNegativeCount_then_returnsEmptyCollection() {
+        List<Car> cars = DataGenerator.generateCars(-5);
         assertEquals(0, cars.size(), "При отрицательном количестве должна быть пустая коллекция");
         assertTrue(cars.isEmpty(), "Коллекция должна быть пустой");
     }
 
     @Test
-    void generateCars_always_returnsOnlyValidCars() {
-        CustomArrayList<Car> cars = DataGenerator.generateCars(100);
+    void when_generateCars_then_returnsOnlyValidCars() {
+        List<Car> cars = DataGenerator.generateCars(100);
         for (Car car : cars) {
             assertTrue(CarValidator.validateCar(car),
                     "Все сгенерированные машины должны быть валидными: " + car);
@@ -40,8 +44,8 @@ class DataGeneratorTest {
     }
 
     @Test
-    void generateCars_always_horsepowerInRange50to500() {
-        CustomArrayList<Car> cars = DataGenerator.generateCars(50);
+    void when_generateCars_then_returnsCarsWithHorsepowerInRange50to500() {
+        List<Car> cars = DataGenerator.generateCars(50);
         for (Car car : cars) {
             int hp = car.getHorsepower();
             assertTrue(hp >= 50 && hp <= 500,
@@ -50,8 +54,8 @@ class DataGeneratorTest {
     }
 
     @Test
-    void generateCars_always_yearInRange2000to2025() {
-        CustomArrayList<Car> cars = DataGenerator.generateCars(50);
+    void when_generateCars_then_returnsCarsWithYearInRange2000to2025() {
+        List<Car> cars = DataGenerator.generateCars(50);
         boolean isTestPass = true;
         for (Car car : cars) {
             int year = car.getYear();
@@ -61,8 +65,8 @@ class DataGeneratorTest {
     }
 
     @Test
-    void generateCars_always_modelIsNotEmpty() {
-        CustomArrayList<Car> cars = DataGenerator.generateCars(20);
+    void when_generateCars_then_returnsCarsWithModelIsNotEmpty() {
+        List<Car> cars = DataGenerator.generateCars(20);
         for (Car car : cars) {
             assertNotNull(car.getModel(), "Модель не должна быть null");
             assertFalse(car.getModel().isEmpty(), "Модель не должна быть пустой");
