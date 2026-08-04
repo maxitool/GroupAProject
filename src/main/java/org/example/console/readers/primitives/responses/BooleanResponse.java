@@ -1,6 +1,6 @@
 package org.example.console.readers.primitives.responses;
 
-public class BooleanResponse extends StringResponse{
+public class BooleanResponse extends StringResponse {
     public boolean booleanData = false;
 
     public BooleanResponse(StringResponse stringResponse) {

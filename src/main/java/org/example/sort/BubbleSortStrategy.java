@@ -9,7 +9,7 @@ import java.util.List;
 public class BubbleSortStrategy implements SortStrategy {
 
     @Override
-    public List<Car> sort(List<Car> cars , Comparator<Car> comparator) {
+    public List<Car> sort(List<Car> cars, Comparator<Car> comparator) {
         if (cars == null) {
             System.out.println("Error: passed list is null");
             return new CustomArrayList<>();
@@ -24,7 +24,7 @@ public class BubbleSortStrategy implements SortStrategy {
 
         List<Car> sortedCars = null;
         try {
-            sortedCars =  cars.getClass().getDeclaredConstructor().newInstance();
+            sortedCars = cars.getClass().getDeclaredConstructor().newInstance();
         } catch (Exception e) {
             System.out.println("Can't create new instance copy of cars");
             return cars;

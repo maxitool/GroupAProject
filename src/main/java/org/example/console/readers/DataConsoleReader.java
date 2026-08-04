@@ -34,7 +34,7 @@ public class DataConsoleReader {
         System.out.println("Enter car data in format: " + Car.CAR_FORMAT);
         System.out.println("Or type 'back' to return to the previous menu.");
         java.util.concurrent.atomic.AtomicBoolean isBack = new java.util.concurrent.atomic.AtomicBoolean(false);
-        IntStream.range(0,count)
+        IntStream.range(0, count)
                 .takeWhile(i -> !isBack.get())
                 .forEach(i -> {
                     System.out.print("Car #" + (i + 1) + " > ");
@@ -63,6 +63,7 @@ public class DataConsoleReader {
         System.out.println("Successfully added " + cars.size() + " valid cars.");
         return cars;
     }
+
     public static List<Car> readCars() {
         return readCars(CustomArrayList::new);
     }

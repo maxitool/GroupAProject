@@ -34,9 +34,11 @@ public class BooleanConsoleReader extends StringConsoleReader {
         booleanResponse.state = StringResponse.States.CANT_CONVERT;
         return booleanResponse;
     }
+
     public static synchronized BooleanResponse getBooleanData() {
         return getBooleanData(true);
     }
+
     public static synchronized BooleanResponse getBooleanData(String trueValue, String falseValue) {
         if (trueValue == null || falseValue == null) {
             System.out.println("trueValue = null or falseValue = null in BooleanConsoleReader.getBooleanData.");

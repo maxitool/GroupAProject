@@ -12,7 +12,7 @@ public class DoubleConsoleReader extends StringConsoleReader {
             return doubleResponse;
         }
         try {
-            doubleResponse.doubleData = Double.parseDouble(doubleResponse.stringData.replace(" ","").replace(",","."));
+            doubleResponse.doubleData = Double.parseDouble(doubleResponse.stringData.replace(" ", "").replace(",", "."));
         } catch (NumberFormatException e) {
             System.out.println("Can't convert the wrote data to double. " + e.getMessage());
             doubleResponse.errorMessage = e.getMessage();

@@ -11,13 +11,14 @@ public class CarValidator {
 
     public static boolean validateCar(Car car, boolean doLogOfCarIsNull) {
         if (car == null) {
-             if (doLogOfCarIsNull) {
-                 System.out.println("Car class is null.");
-             }
+            if (doLogOfCarIsNull) {
+                System.out.println("Car class is null.");
+            }
             return false;
         }
         return validateAll(car.getHorsepower(), car.getModel(), car.getYear());
     }
+
     public static boolean validateCar(Car car) {
         return validateCar(car, true);
     }

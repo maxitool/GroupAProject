@@ -12,7 +12,7 @@ public class IntConsoleReader extends StringConsoleReader {
             return intResponse;
         }
         try {
-            intResponse.intData = Integer.parseInt(intResponse.stringData.replace(" ",""));
+            intResponse.intData = Integer.parseInt(intResponse.stringData.replace(" ", ""));
         } catch (NumberFormatException e) {
             System.out.println("Can't convert the wrote data to int. " + e.getMessage());
             intResponse.errorMessage = e.getMessage();

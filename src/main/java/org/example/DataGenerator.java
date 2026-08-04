@@ -47,6 +47,7 @@ public class DataGenerator {
                 .forEach(cars::add);
         return cars;
     }
+
     public static List<Car> generateCars(int count) {
         return generateCars(count, CustomArrayList::new);
     }

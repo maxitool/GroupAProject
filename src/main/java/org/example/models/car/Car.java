@@ -13,16 +13,27 @@ public class Car {
         model = "";
         year = -1;
     }
+
     public Car(int horsepower, String model, int year) {
         this();
         setHorsepower(horsepower).setModel(model).setYear(year);
     }
 
-    public synchronized static Builder builder() { return new Builder(); }
+    public synchronized static Builder builder() {
+        return new Builder();
+    }
 
-    public int getHorsepower() { return horsepower; }
-    public String getModel() { return model; }
-    public int getYear() { return year; }
+    public int getHorsepower() {
+        return horsepower;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public int getYear() {
+        return year;
+    }
 
     private Car setHorsepower(int horsepower) {
         this.horsepower = horsepower;

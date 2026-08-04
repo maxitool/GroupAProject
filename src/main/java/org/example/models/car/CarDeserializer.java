@@ -8,14 +8,14 @@ public class CarDeserializer {
             System.out.println("String data is null");
             return null;
         }
-        String dataWithoutCar = data.replace("Car", "").replace("{","").replace("}","").trim();
+        String dataWithoutCar = data.replace("Car", "").replace("{", "").replace("}", "").trim();
         String[] dataArray = dataWithoutCar.split(",");
         HashMap<String, String> dataHashMap = new HashMap<>();
         String[] keyValue;
         for (int i = 0; i < dataArray.length; i++) {
             keyValue = dataArray[i].split("=");
             if (keyValue.length != 2) {
-                System.out.println(++i + " argument of " + data +  " car class incorrectly set, correct format: key = value");
+                System.out.println(++i + " argument of " + data + " car class incorrectly set, correct format: key = value");
                 return null;
             }
             dataHashMap.put(keyValue[0].trim(), keyValue[1].trim());
@@ -27,8 +27,8 @@ public class CarDeserializer {
         }
         try {
             return new Car(
-                    Integer.parseInt(dataHashMap.get("horsepower").replace("hp","").trim()),
-                    dataHashMap.get("model").replace("'","").replace("\"","").trim(),
+                    Integer.parseInt(dataHashMap.get("horsepower").replace("hp", "").trim()),
+                    dataHashMap.get("model").replace("'", "").replace("\"", "").trim(),
                     Integer.parseInt(dataHashMap.get("year").trim()));
         } catch (NumberFormatException e) {
             System.out.println("Can't convert String data ( " + data + " ) to Car class, " + e.getMessage());
