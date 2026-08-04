@@ -50,12 +50,12 @@ public class GuiSingleton {
             """ +
             GO_BACK_COMMAND + ". Stop program.";
     private static final HashMap<Integer, Runnable> MAIN_GUI_ACTIONS = new HashMap<>(Map.of(
-            1, GuiSingleton::fillData,
-            2, GuiSingleton::printData,
-            3, GuiSingleton::sortData,
-            4, GuiSingleton::writeDataToFile,
-            5, GuiSingleton::countNumberOfElementsN,
-            6, GuiSingleton::clearData
+            1, getInstance()::fillData,
+            2, getInstance()::printData,
+            3, getInstance()::sortData,
+            4, getInstance()::writeDataToFile,
+            5, getInstance()::countNumberOfElementsN,
+            6, getInstance()::clearData
     ));
 
     private static final String FILL_DATA_GUI = '\n' + """
@@ -67,9 +67,9 @@ public class GuiSingleton {
             """ +
             GO_BACK_TO_MAIN_GUI;
     private static final HashMap<Integer, Supplier<Boolean>> FILL_GUI_ACTIONS = new HashMap<>(Map.of(
-            1, GuiSingleton::fillFromConsoleData,
-            2, GuiSingleton::fillFromFileData,
-            3, GuiSingleton::fillGeneratedData
+            1, getInstance()::fillFromConsoleData,
+            2, getInstance()::fillFromFileData,
+            3, getInstance()::fillGeneratedData
     ));
 
     private static final String FILL_DATA_FROM_CONSOLE_GUI = '\n' + """
@@ -156,7 +156,7 @@ public class GuiSingleton {
         } while (true);
     }
 
-    private static void fillData() {
+    private void fillData() {
         IntResponse answer;
         do {
             System.out.println(FILL_DATA_GUI);
@@ -176,7 +176,7 @@ public class GuiSingleton {
         } while (true);
     }
 
-    private static boolean fillFromConsoleData() {
+    private boolean fillFromConsoleData() {
         List<Car> newCars;
         System.out.println(FILL_DATA_FROM_CONSOLE_GUI);
         newCars = DataConsoleReader.readCars(CREATE_COLLECTION_SUPPLIER);
@@ -187,7 +187,7 @@ public class GuiSingleton {
         return true;
     }
 
-    private static boolean fillFromFileData() {
+    private boolean fillFromFileData() {
         List<Car> newCars;
         StringResponse answer;
         System.out.println(FILL_DATA_FROM_FILE_GUI);
@@ -221,7 +221,7 @@ public class GuiSingleton {
         } while(true);
     }
 
-    private static boolean fillGeneratedData() {
+    private boolean fillGeneratedData() {
         IntResponse answer;
         System.out.println(FILL_GENERATED_DATA_GUI);
         do {
@@ -238,7 +238,7 @@ public class GuiSingleton {
         return true;
     }
 
-    private static void printData() {
+    private void printData() {
         if (cars.isEmpty()) {
             System.out.println("The data is empty");
             return;
@@ -271,7 +271,7 @@ public class GuiSingleton {
         StringConsoleReader.getStringData();
     }
 
-    private static void sortData() {
+    private void sortData() {
         if (cars.isEmpty()) {
             System.out.println("The list of data is empty");
             return;
@@ -308,7 +308,7 @@ public class GuiSingleton {
         } while (true);
     }
 
-    private static void writeDataToFile() {
+    private void writeDataToFile() {
         StringResponse stringAnswer; BooleanResponse booleanResponse;
         if (cars == null || cars.isEmpty()) {
             System.out.println("The list of data is empty");
@@ -357,7 +357,7 @@ public class GuiSingleton {
         } while (true);
     }
 
-    private static void countNumberOfElementsN() {
+    private void countNumberOfElementsN() {
         if (cars.isEmpty()) {
             System.out.println("The list of data is empty");
             return;
@@ -393,7 +393,7 @@ public class GuiSingleton {
         } while (true);
     }
 
-    private static void clearData() {
+    private void clearData() {
         cars.clear();
         System.out.println("The data has been cleared");
     }
