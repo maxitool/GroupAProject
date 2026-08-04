@@ -35,15 +35,15 @@ public class TxtFileServiceStrategy implements FileServiceStrategy {
     public List<Car> readCars(String filename, Supplier<AbstractList<Car>> createCollectionSupplier) {
         if (filename == null) {
             System.out.println("filename = null");
-            return new CustomArrayList<>();
+            return createCollectionSupplier.get();
         }
         if (!isFileFormatGood(filename)) {
             System.out.println("The filename format is must be " + FILE_FORMAT);
-            return new CustomArrayList<>();
+            return createCollectionSupplier.get();
         }
         if (!FileService.isFileExist(filename)) {
             System.out.println("The file isn't exist");
-            return new CustomArrayList<>();
+            return createCollectionSupplier.get();
         }
         try (Stream<String> lines = Files.lines(Paths.get(filename))) {
             return lines
@@ -53,7 +53,7 @@ public class TxtFileServiceStrategy implements FileServiceStrategy {
         } catch (IOException e) {
             System.out.println("Error reading file: " + e.getMessage());
         }
-        return new CustomArrayList<>();
+        return createCollectionSupplier.get();
     }
     @Override
     public List<Car> readCars(String filename) {

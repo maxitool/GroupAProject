@@ -49,14 +49,14 @@ public class GuiSingleton {
             6. Clear data;
             """ +
             GO_BACK_COMMAND + ". Stop program.";
-    private static final HashMap<Integer, Runnable> MAIN_GUI_ACTIONS = new HashMap<>(Map.of(
+    private static final Map<Integer, Runnable> MAIN_GUI_ACTIONS = Map.of(
             1, getInstance()::fillData,
             2, getInstance()::printData,
             3, getInstance()::sortData,
             4, getInstance()::writeDataToFile,
             5, getInstance()::countNumberOfElementsN,
             6, getInstance()::clearData
-    ));
+    );
 
     private static final String FILL_DATA_GUI = '\n' + """
             Fill data GUI
@@ -66,11 +66,11 @@ public class GuiSingleton {
             3. Fill with generated data;
             """ +
             GO_BACK_TO_MAIN_GUI;
-    private static final HashMap<Integer, Supplier<Boolean>> FILL_GUI_ACTIONS = new HashMap<>(Map.of(
+    private static final Map<Integer, Supplier<Boolean>> FILL_GUI_ACTIONS = Map.of(
             1, getInstance()::fillFromConsoleData,
             2, getInstance()::fillFromFileData,
             3, getInstance()::fillGeneratedData
-    ));
+    );
 
     private static final String FILL_DATA_FROM_CONSOLE_GUI = '\n' + """
             Fill data from console GUI
@@ -103,12 +103,12 @@ public class GuiSingleton {
             """ +
             GO_BACK_TO_MAIN_GUI;
     private static final SortStrategy bubbleSortStrategy = new BubbleSortStrategy();
-    private static final HashMap<Integer, SortStrategyAndComparator> SORT_GUI_ACTIONS = new HashMap<>(Map.of(
+    private static final Map<Integer, SortStrategyAndComparator> SORT_GUI_ACTIONS = Map.of(
             1, new SortStrategyAndComparator(bubbleSortStrategy, new HorsepowerComparator()),
             2, new SortStrategyAndComparator(bubbleSortStrategy, new ModelComparator()),
             3, new SortStrategyAndComparator(bubbleSortStrategy, new YearComparator()),
             4, new SortStrategyAndComparator(new EvenOddSortStrategy(), new HorsepowerComparator())
-            ));
+            );
     private static final String DO_PRINT_AFTER_SORT_GUI =
             "Print the resulting data after sorting? (" + BOOLEAN_ANSWER_TRUE + '/' + BOOLEAN_ANSWER_FALSE + ')';
 

@@ -13,7 +13,7 @@ public class CarCounter {
     }
 
     public long countOccurrences(Car target, int threadCount) {
-        if (cars==null || cars.isEmpty()) {
+        if (cars == null || cars.isEmpty()) {
             System.out.println("The collection is empty.");
             return 0;
         }
@@ -37,14 +37,14 @@ public class CarCounter {
         int partSize = size / threadCount;
         int remainder = size % threadCount;
         int start = 0;
-        List <Thread> threads = new ArrayList<>();
-        List <Long> results = new ArrayList<>();
+        List<Thread> threads = new ArrayList<>();
+        List<Long> results = new ArrayList<>();
         for (int i = 0; i < threadCount; i++) {
-            int end = start + partSize + (i < remainder? 1 : 0);
-            List <Car> subList  =  cars.subList(start,end);
+            int end = start + partSize + (i < remainder ? 1 : 0);
+            List<Car> subList = cars.subList(start, end);
             start = end;
-            Runnable  task = () -> {
-                long count = 0 ;
+            Runnable task = () -> {
+                long count = 0;
                 for (Car car : subList) {
                     if (car.equals(target)) {
                         count++;
@@ -54,7 +54,7 @@ public class CarCounter {
                     results.add(count);
                 }
             };
-            Thread thread =  new Thread(task);
+            Thread thread = new Thread(task);
             threads.add(thread);
             thread.start();
         }
@@ -67,7 +67,7 @@ public class CarCounter {
         }
         long total = 0;
         for (long count : results) {
-            total+= count;
+            total += count;
         }
         return total;
     }

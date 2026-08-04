@@ -18,3 +18,23 @@ Car{horsepower=408, model='Volkswagen YKVOOWV', year=1965}
 Car{horsepower=420, model='Chevrolet NZJADTZH', year=1932}
 Car{horsepower=442, model='Maserati CAKZBVPA', year=2001}
 Car{horsepower=55, model='Lexus XIPBIIE', year=2025}
+Car{horsepower=198, model='Alfa Romeo EZIAEP', year=2014}
+Car{horsepower=222, model='Lotus ONITYOAL', year=1929}
+Car{horsepower=258, model='Mitsubishi RONOT', year=1931}
+Car{horsepower=489, model='Tesla EC', year=1907}
+Car{horsepower=467, model='Aston Martin TCYLAGI', year=1920}
+Car{horsepower=235, model='Daihatsu LRGJJQG', year=1923}
+Car{horsepower=262, model='Subaru FV', year=1895}
+Car{horsepower=282, model='Opel GIBFN', year=1978}
+Car{horsepower=425, model='Daihatsu ZBP', year=1934}
+Car{horsepower=417, model='Toyota GK', year=1935}
+Car{horsepower=269, model='Lotus QEXI', year=1948}
+Car{horsepower=300, model='Nissan EC', year=1904}
+Car{horsepower=397, model='Bentley YTLBK', year=1960}
+Car{horsepower=137, model='BMW GQWW', year=1963}
+Car{horsepower=321, model='Maserati MWBJ', year=1965}
+Car{horsepower=432, model='Cadillac NJLAYUVE', year=1951}
+Car{horsepower=371, model='Aston Martin X', year=1986}
+Car{horsepower=101, model='BMW U', year=1990}
+Car{horsepower=442, model='Aston Martin NYLSVFYF', year=1902}
+Car{horsepower=484, model='Lexus XZBVKGOA', year=2018}
