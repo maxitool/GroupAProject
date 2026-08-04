@@ -55,6 +55,7 @@ public class TxtFileServiceStrategy implements FileServiceStrategy {
         }
         return createCollectionSupplier.get();
     }
+
     @Override
     public List<Car> readCars(String filename) {
         return readCars(filename, CustomArrayList::new);

@@ -108,7 +108,7 @@ public class GuiSingleton {
             2, new SortStrategyAndComparator(bubbleSortStrategy, new ModelComparator()),
             3, new SortStrategyAndComparator(bubbleSortStrategy, new YearComparator()),
             4, new SortStrategyAndComparator(new EvenOddSortStrategy(), new HorsepowerComparator())
-            );
+    );
     private static final String DO_PRINT_AFTER_SORT_GUI =
             "Print the resulting data after sorting? (" + BOOLEAN_ANSWER_TRUE + '/' + BOOLEAN_ANSWER_FALSE + ')';
 
@@ -119,7 +119,7 @@ public class GuiSingleton {
             GO_BACK_TO_MAIN_GUI;
     private static final String WRITE_DATA_TO_FILE_IS_REWRITE_GUI =
             "Clear the file before inserting data? (" + BOOLEAN_ANSWER_TRUE + '/' + BOOLEAN_ANSWER_FALSE + ")\n" +
-            GO_BACK_TO_MAIN_GUI;
+                    GO_BACK_TO_MAIN_GUI;
 
     private static final String COUNT_NUMBER_OF_ELEMENTS_GUI = '\n' + """
             Count number of elements GUI
@@ -133,9 +133,12 @@ public class GuiSingleton {
     private static List<Car> cars = CREATE_COLLECTION_SUPPLIER.get();
 
 
-    private GuiSingleton() {}
+    private GuiSingleton() {
+    }
 
-    public static GuiSingleton getInstance() { return Holder.instance; }
+    public static GuiSingleton getInstance() {
+        return Holder.instance;
+    }
 
     public void run() {
         System.out.println("\nGroup A program is running");
@@ -170,7 +173,7 @@ public class GuiSingleton {
                 System.out.println("Can't recognize wrote option");
                 continue;
             }
-            if(FILL_GUI_ACTIONS.get(answer.intData).get()) {
+            if (FILL_GUI_ACTIONS.get(answer.intData).get()) {
                 return;
             }
         } while (true);
@@ -218,7 +221,7 @@ public class GuiSingleton {
             cars = newCars;
             System.out.println(cars.size() + " cars was received");
             return true;
-        } while(true);
+        } while (true);
     }
 
     private boolean fillGeneratedData() {
@@ -309,7 +312,8 @@ public class GuiSingleton {
     }
 
     private void writeDataToFile() {
-        StringResponse stringAnswer; BooleanResponse booleanResponse;
+        StringResponse stringAnswer;
+        BooleanResponse booleanResponse;
         if (cars == null || cars.isEmpty()) {
             System.out.println("The list of data is empty");
             return;
